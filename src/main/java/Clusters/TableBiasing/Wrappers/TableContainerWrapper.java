@@ -6,11 +6,11 @@
 package Clusters.TableBiasing.Wrappers;
 
 import Clusters.TableBiasing.Internal.ExtensionStrategyMapper;
+import Clusters.TableBiasing.Internal.TableHierarchy;
 import Global.Options;
 import TableReaders.TableContainer;
 import Utilities.Logging.CustomExceptions.TableNotSupportedException;
 import Utilities.Logging.GeneralLogging;
-import Utilities.Structures.Table;
 import java.io.FileNotFoundException;
 
 /**
@@ -25,12 +25,11 @@ public class TableContainerWrapper {
         Options.SupportedTableStrategy strategy = deductStrategy(filepath);
         createReader(strategy, filepath);
     }
-
     private void createReader(Options.SupportedTableStrategy strategy, String filepath) {
             tableContainer = new TableContainer(strategy,filepath);
     }
-    public Table getTableContent(){
-        return tableContainer.getTable();
+    public TableHierarchy getTableHierarchy(){
+        return new TableHierarchy(tableContainer.getTable());
     }
     /**
      * Deducts the correct strategy by using internal mapper

@@ -14,7 +14,7 @@ import java.util.List;
  * Interface for different toolsets to read tabular data to bias vectors
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
 q */
-public abstract class TableReader {
+public abstract class TableReader<E> {
     
     protected File file;
     
@@ -23,8 +23,8 @@ public abstract class TableReader {
 
     }
     
-    public abstract List<List<String>> retrieveRows();
-    public abstract List<String> retrieveHeaders();
+    public abstract List<List<E>> retrieveRows();
+    public abstract List<E> retrieveHeaders();
     public abstract void reset();
     public abstract SupportedTableStrategy getName();
     

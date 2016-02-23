@@ -24,7 +24,7 @@ public class TableBiasing extends GenericService {
     private List<TableContainerWrapper> tcws;
 
     public TableBiasing() {
-        super(Options.SupportedProcessingStrategy.Table);
+        super(Options.SupportedProcessingStrategy.TableBiasing);
         init();
     }
 

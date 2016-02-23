@@ -17,9 +17,9 @@ import java.util.logging.Logger;
  * Holds the main logic of table reading and wraps the table-specific readers into interface
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableContainer {
-    private List<String> header;
-    private List<List<String>> rows;
+public class TableContainer<E> {
+    private List<E> header;
+    private List<List<E>> rows;
     private Abstractions.TableReader tools;
     private boolean isReady;
     
@@ -48,10 +48,10 @@ public class TableContainer {
         this.rows = fetchRows();
         isReady = true;
     }
-    private List<String> fetchHeader(){
+    private List<E> fetchHeader(){
         return tools.retrieveHeaders();
     }
-    private List<List<String>> fetchRows(){
+    private List<List<E>> fetchRows(){
         return tools.retrieveRows();
     }
     private void init() {
@@ -62,14 +62,14 @@ public class TableContainer {
         tools = TableStrategyMapper.getTableReader(strategy, filepath);
     }
 
-    public List<String> getHeader() {
+    public List<E> getHeader() {
         return header;
     }
 
-    public List<List<String>> getRows() {
+    public List<List<E>> getRows() {
         return rows;
     }
-    public Table getTable(){
-        return new Table(header, rows);
+    public Table<E> getTable(){
+        return new Table<>(header, rows);
     }
 }
