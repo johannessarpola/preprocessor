@@ -48,7 +48,7 @@ public class AlchemyWrapper extends WatsonConnector {
     }
 
     @Override
-    public void connect(WatsonCredentialsStorage cs) {
+    public void connectWith(WatsonCredentialsStorage cs) {
         AlchemyLanguage api = new AlchemyLanguage();
         api.setApiKey(cs.access("Keys.Alchemy Language"));
         this.client = api;

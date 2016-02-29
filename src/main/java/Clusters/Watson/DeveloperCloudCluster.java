@@ -14,9 +14,12 @@ import Global.Options;
 import Global.Options.SupportedProcessingParadigms;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.StrategyNotSupported;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,7 +53,7 @@ public class DeveloperCloudCluster extends GenericCluster {
 
     private void setupConceptInsightsWrapper(SupportedProcessingStrategy k) {
         ConceptsInsightsWrapper ciw = new ConceptsInsightsWrapper();
-        ciw.connect(credentials);
+        ciw.connectWith(credentials);
         services.put(k, ciw);
         connectors.put(k, ciw); // copy ref to here also
     }
@@ -58,7 +61,7 @@ public class DeveloperCloudCluster extends GenericCluster {
     private void setupAlchemyWrapper(SupportedProcessingStrategy k) {
         //cloud.get(k).setApiKey(credentials.access("Keys.Alchemy Language"));
         AlchemyWrapper alc = new AlchemyWrapper();
-        alc.connect(credentials);
+        alc.connectWith(credentials);
         services.put(k, alc);
         connectors.put(k, alc);  // copy ref to here also
     }
@@ -86,14 +89,27 @@ public class DeveloperCloudCluster extends GenericCluster {
     @Override
     public void buildCluster() {
         if (!isClusterReady) {
+            WatsonStrategyMap mapLocal = new WatsonStrategyMap(id);
             init();
+            SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersStrategies.CLUSTERSTOSERVICES.get(id);
+            for (SupportedProcessingStrategy strategy : strategies) {
+                try {
+                    WatsonConnector strategyService = mapLocal.buildStrategy(strategy);
+                    strategyService.connectWith(credentials); // This is done only once
+                    services.put(strategy, strategyService);
+                } catch (StrategyNotSupported ex) {
+                    Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.map = mapLocal;
+
         }
     }
 
     @Override
     public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents) {
         services.get(strategy).build(documents); // This is really confusing as some require and some not
-        connectors.get(strategy).connect(credentials);
+        connectors.get(strategy).connectWith(credentials);
     }
 
 }

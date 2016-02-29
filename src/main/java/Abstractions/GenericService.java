@@ -23,6 +23,7 @@ public abstract class GenericService implements GenericServiceMethods {
     protected boolean requiresVocabulary;
     protected boolean isVocabularyAdded;
 
+    
     public GenericService(SupportedProcessingStrategy id) {
         this.serviceId = id;
         this.isServiceReady = false;

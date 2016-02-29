@@ -11,7 +11,6 @@ import Global.Options.SupportedClusters;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Is the main class to implement in preprocessing clusters Just has the general
@@ -20,12 +19,12 @@ import java.util.Set;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class GenericCluster implements GenericClusterMethods {
-
+    
+    protected StrategyMap<? extends GenericService> map;
     protected Options.SupportedClusters id;
     protected int biasingSize;
     protected boolean isClusterReady;
     protected SupportedProcessingStrategy selectedStrategy;
-    protected Set<SupportedProcessingStrategy> readyStrategies;
     protected HashMap<Options.SupportedProcessingStrategy, GenericService> services;
 
     public GenericCluster(Options.SupportedClusters id) {

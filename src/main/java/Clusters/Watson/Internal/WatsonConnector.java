@@ -19,6 +19,6 @@ public abstract class WatsonConnector extends GenericService{
         super(id);
     }
     // This is required in rebuilding them
-    public abstract void connect(WatsonCredentialsStorage cs);
+    public abstract void connectWith(WatsonCredentialsStorage cs);
     public abstract WatsonService getServiceDirectly();
 }

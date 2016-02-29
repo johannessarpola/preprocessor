@@ -48,7 +48,8 @@ public class TableBiasingCluster extends GenericCluster{
 
     @Override
     public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // There's basically only one strategy with mapping for different extensions
+        
     }
     
     

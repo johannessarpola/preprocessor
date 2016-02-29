@@ -133,7 +133,7 @@ public class ConceptsInsightsWrapper extends WatsonConnector {
      * @param ser WatsonService
      */
     @Override
-    public void connect(WatsonCredentialsStorage cs) {
+    public void connectWith(WatsonCredentialsStorage cs) {
         ConceptInsights ci = new ConceptInsights();
         ci.setUsernameAndPassword(cs.access("credentials.username"), cs.access("credentials.password")); // TODO Enums
         this.client = ci; // needs to have ref to be able to use methods

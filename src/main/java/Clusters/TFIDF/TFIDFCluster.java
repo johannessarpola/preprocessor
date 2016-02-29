@@ -7,7 +7,6 @@ package Clusters.TFIDF;
 
 import Abstractions.GenericCluster;
 import Abstractions.GenericService;
-import Clusters.Mappings.StrategiesServices;
 import Global.Options;
 import Global.Options.SupportedClusters;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
@@ -41,13 +40,10 @@ public class TFIDFCluster extends GenericCluster {
             throw new ClusterNoteadyException();
         }
     }
-
-    //private void addDocumentsToServices(Options.SupportedProcessingStrategy strategy, List<String> documents) {
-    //    services.get(strategy).build(documents);
-    //}
     @Override
     public void buildCluster() {
         try {
+            map = new TFIDFStrategyMap(id);
             addServices();
         } catch (StrategyNotSupported ex) {
             Logger.getLogger(TFIDFCluster.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,13 +53,14 @@ public class TFIDFCluster extends GenericCluster {
     private void addServices() throws StrategyNotSupported {
         Options.SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersStrategies.CLUSTERSTOSERVICES.get(id);
         for (Options.SupportedProcessingStrategy s : strategies) {
-            services.put(s, StrategiesServices.getService(s));
+            GenericService gs = map.buildStrategy(s);
+            services.put(s, gs);
         }
     }
 
     @Override
     public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        services.get(strategy).build(documents);
     }
 
 
