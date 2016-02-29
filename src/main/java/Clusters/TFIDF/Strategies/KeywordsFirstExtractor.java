@@ -44,7 +44,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     }
 
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         addVocabulary(documents, true);
     }
 

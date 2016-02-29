@@ -43,7 +43,7 @@ public class KeywordExtractorTest {
     }
 
     /**
-     * Test of preloadDocuments method, of class KeywordExtractor.
+     * Test of build method, of class KeywordExtractor.
      */
     @Test
     public void testAddVocabulary_Iterable() {
@@ -74,7 +74,7 @@ public class KeywordExtractorTest {
         ls.add("Dog Cat Horse");
         ls.add("Giraffe Cat Dog");
         String[] expect = {"Bird", "Horse", "Giraffe"};
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         Assert.assertTrue(instance.isServiceReady());
         List<String> results = new ArrayList<>();
         if (instance.isServiceReady()) {
@@ -115,7 +115,7 @@ public class KeywordExtractorTest {
             lspr.add(i, pr);
             i++;
         }
-        instance.preloadDocuments(lspr);
+        instance.build(lspr);
         Assert.assertTrue(instance.isServiceReady());
         int sizeofbiasing = 15;
         //pw.setBiasingSize(sizeofbiasing);
@@ -175,7 +175,7 @@ public class KeywordExtractorTest {
     }
 
     /**
-     * Test of preloadDocuments method, of class KeywordExtractor.
+     * Test of build method, of class KeywordExtractor.
      */
     @Test
     public void testAddVocabulary_0args() {

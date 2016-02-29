@@ -45,7 +45,7 @@ public class TableBiasing extends GenericService {
 
     // TableReaders: XLSX
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         // No need in this case
     }
     // It probably would be smarter to store K-V of the line where V would be weighed based on the processing 

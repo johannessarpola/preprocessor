@@ -66,5 +66,16 @@ public abstract class GenericCluster implements GenericClusterMethods {
         return false;
     }
 
-    public abstract void clearStrategy(Options.SupportedProcessingStrategy strategy);
+    public void clearStrategy(Options.SupportedProcessingStrategy strategy) {
+        services.get(strategy).clear();
+    }
+
+    @Override
+    public void clear() {
+        services.values().stream().forEach((s) -> {
+            s.clear();
+        });
+    }
+
+
 }

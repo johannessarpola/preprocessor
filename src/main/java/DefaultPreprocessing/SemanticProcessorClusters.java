@@ -6,10 +6,10 @@
 package DefaultPreprocessing;
 
 import Abstractions.GenericCluster;
-import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
-import Global.Options.SupportedProcessingParadigms;
-import java.util.List;
 import Abstractions.GenericClusterMethods;
+import Global.Options.SupportedProcessingParadigms;
+import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import java.util.List;
 
 /**
  *
@@ -37,7 +37,7 @@ public class SemanticProcessorClusters {
 
     public String processLineWithAllServices(String line) throws ServiceNotReadyException {
         for (GenericClusterMethods c : clusters) {
-            line = c.processLine(line, selectedMethod);
+            //line = c.processLine(line, selectedMethod);
         }
         return line;
     }

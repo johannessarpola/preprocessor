@@ -5,9 +5,9 @@
  */
 package Clusters.Watson.Strategies;
 
-import Abstractions.GenericService;
+import Clusters.Watson.Internal.WatsonConnector;
+import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Internal.WatsonOptions;
-import Clusters.Watson.Internal.Wrapper;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
@@ -22,14 +22,13 @@ import java.util.TreeMap;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class ConceptsInsightsWrapper extends GenericService implements Wrapper {
+public class ConceptsInsightsWrapper extends WatsonConnector {
 
     ConceptInsights client;
     Graph graph;
 
     public ConceptsInsightsWrapper() {
         super(Options.SupportedProcessingStrategy.ConceptInsights);
-
     }
 
     /**
@@ -49,6 +48,7 @@ public class ConceptsInsightsWrapper extends GenericService implements Wrapper {
      * @return Json representation of annotation
      */
     private List<ScoredConcept> annotateText(String line) {
+
         Annotations ann = client.annotateText(graph, line);
         return ann.getAnnotations();
     }
@@ -105,8 +105,9 @@ public class ConceptsInsightsWrapper extends GenericService implements Wrapper {
         ret = ret.substring(line.length() + 1, ret.length()); // "stiring " replaced
         return ret;
     }
+
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         // Nothing to do here 
     }
 
@@ -122,7 +123,7 @@ public class ConceptsInsightsWrapper extends GenericService implements Wrapper {
     }
 
     @Override
-    public void clear() {  
+    public void clear() {
         // There's nothing to do here
     }
 
@@ -132,16 +133,17 @@ public class ConceptsInsightsWrapper extends GenericService implements Wrapper {
      * @param ser WatsonService
      */
     @Override
-    public void connect(WatsonService ser) {
-        if (ser instanceof ConceptInsights) {
-            this.client = (ConceptInsights) ser;
-            this.graph = Graph.WIKIPEDIA;
-            isServiceReady = true;
-        }
-        else {
-            // TODO Throw exception
-        }
+    public void connect(WatsonCredentialsStorage cs) {
+        ConceptInsights ci = new ConceptInsights();
+        ci.setUsernameAndPassword(cs.access("credentials.username"), cs.access("credentials.password")); // TODO Enums
+        this.client = ci; // needs to have ref to be able to use methods
+        this.graph = Graph.WIKIPEDIA;
+        isServiceReady = true;
     }
 
+    @Override
+    public WatsonService getServiceDirectly() {
+        return client;
+    }
 
 }

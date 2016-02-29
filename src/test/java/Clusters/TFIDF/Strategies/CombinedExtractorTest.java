@@ -53,7 +53,7 @@ public class CombinedExtractorTest {
         ls.add("Dog Cat Cat Horse Giraffe Cat Penguin");
         ls.add("Dog Cat Cat Horse Giraffe Cat Elephant");
         String[] expect = {"Dog Cat Bird", "Dog Cat Horse", "Giraffe Cat Dog", "Cat", "Cat"};
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         Assert.assertTrue(instance.isServiceReady());
         List<String> results = new ArrayList<>();
         if (instance.isServiceReady()) {

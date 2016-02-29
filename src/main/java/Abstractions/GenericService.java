@@ -34,7 +34,7 @@ public abstract class GenericService implements GenericServiceMethods {
         return serviceId;
     }
 
-    public abstract void preloadDocuments(List<String> documents);
+    public abstract void build(List<String> documents);
 
     @Override
     public String processLine(String line, Options.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException {

@@ -6,21 +6,17 @@
 package Clusters.Watson;
 
 import Abstractions.GenericCluster;
+import Clusters.Watson.Internal.WatsonConnector;
+import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Strategies.AlchemyWrapper;
 import Clusters.Watson.Strategies.ConceptsInsightsWrapper;
 import Global.Options;
 import Global.Options.SupportedProcessingParadigms;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
-import Clusters.Watson.Internal.WatsonCredentialsStorage;
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class DeveloperCloudCluster extends GenericCluster {
 
-    private static HashMap<SupportedProcessingStrategy, WatsonService> servicesCloud;
+    private static HashMap<SupportedProcessingStrategy, WatsonConnector> connectors;
     //private static HashMap<SupportedProcessingStrategy, GenericService> services;
     private static WatsonCredentialsStorage credentials;
 
@@ -36,58 +32,35 @@ public class DeveloperCloudCluster extends GenericCluster {
 //    boolean readytoUse = false;
     public DeveloperCloudCluster() {
         super(Options.SupportedClusters.Watson);
-        servicesCloud = new HashMap<>();
         credentials = new WatsonCredentialsStorage();
-        addServices();
-
-        try {
-            init();
-        } catch (Exception ex) {
-            Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void init() {
         setupServiceWrappers();
-        this.isClusterReady = true;
-    }
-
-    /**
-     * Adds supported *Watson* Services from IBM developer cloud
-     */
-    private void addServices() {
-        servicesCloud.put(SupportedProcessingStrategy.ConceptInsights, new ConceptInsights());
-        servicesCloud.put(SupportedProcessingStrategy.Alchemy, new AlchemyLanguage());
     }
 
     /**
      * Sets the access rules for different services
      */
     private void setupServiceWrappers() {
-        Set<SupportedProcessingStrategy> keys = servicesCloud.keySet();
-        for (SupportedProcessingStrategy k : keys) {
-            WatsonService ser = servicesCloud.get(k);
-            // Set user:pass for each Watson service
-            ser.setUsernameAndPassword(credentials.access("credentials.username"), credentials.access("credentials.password"));
-            if (k == SupportedProcessingStrategy.ConceptInsights) {
-                setupConceptInsightsWrapper(k, ser);
-            } else if (k == SupportedProcessingStrategy.Alchemy) {
-                setupAlchemyWrapper(k, ser);
-            }
-        }
+        setupConceptInsightsWrapper(SupportedProcessingStrategy.ConceptInsights);
+        setupAlchemyWrapper(SupportedProcessingStrategy.Alchemy);
+        this.isClusterReady = true;
     }
 
-    private void setupConceptInsightsWrapper(SupportedProcessingStrategy k, WatsonService ser) {
+    private void setupConceptInsightsWrapper(SupportedProcessingStrategy k) {
         ConceptsInsightsWrapper ciw = new ConceptsInsightsWrapper();
-        ciw.connect(ser);
+        ciw.connect(credentials);
         services.put(k, ciw);
+        connectors.put(k, ciw); // copy ref to here also
     }
 
-    private void setupAlchemyWrapper(SupportedProcessingStrategy k, WatsonService ser) {
-        servicesCloud.get(k).setApiKey(credentials.access("Keys.Alchemy Language"));
+    private void setupAlchemyWrapper(SupportedProcessingStrategy k) {
+        //cloud.get(k).setApiKey(credentials.access("Keys.Alchemy Language"));
         AlchemyWrapper alc = new AlchemyWrapper();
-        alc.connect(ser);
+        alc.connect(credentials);
         services.put(k, alc);
+        connectors.put(k, alc);  // copy ref to here also
     }
 
     /**
@@ -96,17 +69,8 @@ public class DeveloperCloudCluster extends GenericCluster {
      * @param name
      * @return
      */
-    public WatsonService getWatsonService(SupportedProcessingStrategy name) {
-        return servicesCloud.get(name);
-    }
-
-    /**
-     * Returns the available services
-     *
-     * @return
-     */
-    public Set<SupportedProcessingStrategy> getServiceKeys() {
-        return servicesCloud.keySet();
+    protected WatsonService getWatsonService(SupportedProcessingStrategy name) {
+        return connectors.get(name).getServiceDirectly();
     }
 
     @Override
@@ -120,15 +84,6 @@ public class DeveloperCloudCluster extends GenericCluster {
     }
 
     @Override
-    public void clear() {
-        try {
-            init();
-        } catch (Exception ex) {
-            Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
     public void buildCluster() {
         if (!isClusterReady) {
             init();
@@ -136,12 +91,9 @@ public class DeveloperCloudCluster extends GenericCluster {
     }
 
     @Override
-    public void clearStrategy(SupportedProcessingStrategy strategy) {
-        services.get(strategy).clear();
+    public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents) {
+        services.get(strategy).build(documents); // This is really confusing as some require and some not
+        connectors.get(strategy).connect(credentials);
     }
 
-    @Override
-    public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents) {
-        services.get(strategy).preloadDocuments(documents);
-    }
 }

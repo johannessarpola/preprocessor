@@ -58,7 +58,7 @@ public abstract class FeatureExtractor extends GenericService {
     public abstract Map<String, Double> getScoresByLine(String line);
 
     @Override
-    public abstract void preloadDocuments(List<String> documents); // Needs to be class specific based on splitting
+    public abstract void build(List<String> documents); // Needs to be class specific based on splitting
 
     public abstract void addVocabulary(List<String> documents, boolean doCompression); // Needs to be class specific based on splitting
 

@@ -47,7 +47,7 @@ public class KeywordExtractor extends FeatureExtractor {
     }
 
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         if (!isVocabularyAdded) {
             setupService(documents);
             isVocabularyAdded = true;

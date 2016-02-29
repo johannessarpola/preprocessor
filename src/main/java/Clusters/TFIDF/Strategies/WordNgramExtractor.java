@@ -37,7 +37,7 @@ public class WordNgramExtractor extends FeatureExtractor {
     }
 
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         List<List<String>> docs = createNgramsForDocuments(documents);
         setupService(docs);
 

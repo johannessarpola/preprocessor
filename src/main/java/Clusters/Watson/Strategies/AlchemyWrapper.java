@@ -5,8 +5,8 @@
  */
 package Clusters.Watson.Strategies;
 
-import Abstractions.GenericService;
-import Clusters.Watson.Internal.Wrapper;
+import Clusters.Watson.Internal.WatsonConnector;
+import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -16,14 +16,15 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class AlchemyWrapper extends GenericService implements Wrapper{
+public class AlchemyWrapper extends WatsonConnector {
 
+    // TODO This class is not done yet
     public AlchemyWrapper() {
         super(Options.SupportedProcessingStrategy.Alchemy);
     }
 
     @Override
-    public void preloadDocuments(List<String> documents) {
+    public void build(List<String> documents) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,8 +44,13 @@ public class AlchemyWrapper extends GenericService implements Wrapper{
     }
 
     @Override
-    public void connect(WatsonService ws) {
-        System.out.println(this.getClass()+" connect() not done yet");
+    public void connect(WatsonCredentialsStorage cs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public WatsonService getServiceDirectly() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

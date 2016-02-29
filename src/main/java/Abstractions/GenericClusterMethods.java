@@ -8,6 +8,7 @@ package Abstractions;
 import Global.Options;
 import Global.Options.SupportedClusters;
 import Global.Options.SupportedProcessingStrategy;
+import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public interface GenericClusterMethods {
 
     public void selectStrategy(SupportedProcessingStrategy strategy) throws InvalidStrategyForClusterException;
-    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException;
+    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException;
     public SupportedClusters getId();
     public boolean isClusterReady();
     //public void addVocabulary(List<String> documents);

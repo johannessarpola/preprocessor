@@ -38,7 +38,7 @@ public class WordNgramExtractorTest {
     }
 
     /**
-     * Test of preloadDocuments method, of class WordNgramExtractor.
+     * Test of build method, of class WordNgramExtractor.
      */
     @Test
     public void testAddVocabulary() {
@@ -47,7 +47,7 @@ public class WordNgramExtractorTest {
         documents.add("Test");
         documents.add("Testss");
         WordNgramExtractor instance = new WordNgramExtractor();
-        instance.preloadDocuments(documents);
+        instance.build(documents);
         Assert.assertEquals(instance.isServiceReady(), true);
         Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size(), documents.size());
         instance.clear();
@@ -67,7 +67,7 @@ public class WordNgramExtractorTest {
 
         int biasingSize = 1;
         WordNgramExtractor instance = new WordNgramExtractor();
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         Assert.assertTrue(instance.isServiceReady());
 
         int i = 0;
@@ -94,7 +94,7 @@ public class WordNgramExtractorTest {
 
         int biasingSize = 1;
         WordNgramExtractor instance = new WordNgramExtractor();
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         Assert.assertTrue(instance.isServiceReady());
 
         int i = 0;
@@ -118,7 +118,7 @@ public class WordNgramExtractorTest {
         ls.add("bi bi bi bi bi kol kol kol");
         ls.add("bi bi quad quad quad quad");
 
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         instance.clear();
         Assert.assertEquals(instance.isServiceReady(), false);
         Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size() < 1, true);
@@ -165,7 +165,7 @@ public class WordNgramExtractorTest {
             prLs.add(s);
         }
         int higestNgrams = 20;
-        instance.preloadDocuments(prLs);
+        instance.build(prLs);
         for (String str : prLs) {
             String result = instance.processLineByReplace(str, higestNgrams);
             System.out.println(result);
@@ -203,8 +203,8 @@ public class WordNgramExtractorTest {
             prLs2.add(s2);
         }
         int bias = 40;
-        instance.preloadDocuments(prLs);
-        instance2.preloadDocuments(prLs2);
+        instance.build(prLs);
+        instance2.build(prLs2);
         for (String str : prLs) {
             String result = instance.processLineByReplace(str, bias);
             System.out.println(result);

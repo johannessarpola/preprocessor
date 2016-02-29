@@ -49,7 +49,7 @@ public class KeywordsToNgramsExtractorTest {
 
         int biasingSize = 1;
         KeywordsFirstExtractor instance = new KeywordsFirstExtractor();
-        instance.preloadDocuments(ls);
+        instance.build(ls);
         Assert.assertTrue(instance.isServiceReady());
 
         int i = 0;
@@ -62,7 +62,7 @@ public class KeywordsToNgramsExtractorTest {
 
     }
      /**
-     * Test of preloadDocuments method, of class WordNgramExtractor.
+     * Test of build method, of class WordNgramExtractor.
      */
     @Test
     public void testAddVocabulary() {
@@ -71,7 +71,7 @@ public class KeywordsToNgramsExtractorTest {
         documents.add("Test");
         documents.add("Testss");
         KeywordsFirstExtractor instance = new KeywordsFirstExtractor();
-        instance.preloadDocuments(documents);
+        instance.build(documents);
         Assert.assertEquals(instance.isServiceReady(), true);
         Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size(), documents.size());
     }
@@ -106,8 +106,8 @@ public class KeywordsToNgramsExtractorTest {
             prLs2.add(s2);
         }
         int bias = 20;
-        instance.preloadDocuments(prLs);
-        instance2.preloadDocuments(prLs2);
+        instance.build(prLs);
+        instance2.build(prLs2);
         for (String str : prLs) {
             String result = instance.processLineByReplace(str, bias);
             System.out.println(result);
