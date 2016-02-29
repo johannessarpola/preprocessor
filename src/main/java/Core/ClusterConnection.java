@@ -6,7 +6,7 @@
 package Core;
 
 import Abstractions.GenericCluster;
-import Clusters.Mappings.ClustersToStrategies;
+import Clusters.Mappings.EnumToCluster;
 import Global.Options;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ClusterConnection {
     }
 
     private void initCluster(Options.SupportedClusters c) {
-        gc = ClustersToStrategies.getCluster(c);
+        gc = EnumToCluster.getCluster(c);
         gc.buildCluster();
         isClusterReady = gc.isClusterReady();
         isConnectionEstablished = true;
