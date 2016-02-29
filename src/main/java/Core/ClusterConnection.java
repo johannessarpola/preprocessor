@@ -27,7 +27,7 @@ public class ClusterConnection {
     }
 
     private void initCluster(Options.SupportedClusters c) {
-        gc = ClustersToStrategies.CLUSTERS.get(c);
+        gc = ClustersToStrategies.getCluster(c);
         gc.buildCluster();
         isClusterReady = gc.isClusterReady();
         isConnectionEstablished = true;
