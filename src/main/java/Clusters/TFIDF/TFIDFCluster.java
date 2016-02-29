@@ -51,7 +51,7 @@ public class TFIDFCluster extends GenericCluster {
 
     }
     private void addServices() throws StrategyNotSupported {
-        Options.SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersStrategies.CLUSTERSTOSERVICES.get(id);
+        Options.SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersToStrategies.getStrategies(id);
         for (Options.SupportedProcessingStrategy s : strategies) {
             GenericService gs = map.buildStrategy(s);
             services.put(s, gs);

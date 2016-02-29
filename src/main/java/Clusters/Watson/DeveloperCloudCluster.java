@@ -6,6 +6,7 @@
 package Clusters.Watson;
 
 import Abstractions.GenericCluster;
+import Clusters.Mappings.ClustersToStrategies;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Strategies.AlchemyWrapper;
@@ -36,6 +37,7 @@ public class DeveloperCloudCluster extends GenericCluster {
     public DeveloperCloudCluster() {
         super(Options.SupportedClusters.Watson);
         credentials = new WatsonCredentialsStorage();
+        connectors = new HashMap();
     }
 
     private void init() {
@@ -88,15 +90,17 @@ public class DeveloperCloudCluster extends GenericCluster {
 
     @Override
     public void buildCluster() {
+        
         if (!isClusterReady) {
             WatsonStrategyMap mapLocal = new WatsonStrategyMap(id);
-            init();
-            SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersStrategies.CLUSTERSTOSERVICES.get(id);
+            //init();
+            SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
             for (SupportedProcessingStrategy strategy : strategies) {
                 try {
                     WatsonConnector strategyService = mapLocal.buildStrategy(strategy);
                     strategyService.connectWith(credentials); // This is done only once
                     services.put(strategy, strategyService);
+                    connectors.put(strategy, strategyService); // TODO See if it's needed. Not sure.
                 } catch (StrategyNotSupported ex) {
                     Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
                 }

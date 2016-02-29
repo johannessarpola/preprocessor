@@ -6,6 +6,8 @@
 package Clusters.Watson;
 
 import Global.Options;
+import static TestObjects.Paths.testfolder;
+import static TestObjects.Paths.testoutput;
 import Utilities.File.CFileOperations;
 import Utilities.Json.JsonReader;
 import Utilities.Structures.ReutersArticles;
@@ -31,11 +33,11 @@ import org.junit.Test;
  */
 public class DeveloperCloudClusterTest {
     // TODO Implement TemporaryFolder() for all folders, no need for "real" folders
-    static String ConceptInsightsTestResponseFilePath = "/testres/concept-insights-testresponse.json";
+    static String ConceptInsightsTestResponseFilePath = testoutput+"concept-insights-testresponse.json";
     static String exampleCall = "IBM Watson won the Jeopardy television show hosted by Alex Trebek";
-    static String output = "/testoutput/";
-    static String testArticlesPath = Options.WORKINGDIR + "/testres/articles11.csv";
-    static String testArticleName = "articles11.csv";
+    static String output = testoutput;
+    static String testArticlesPath = testfolder;
+    static String testArticleName = "D:\\Netbeans Projects\\Preprocessor\\raw data\\testing\\testres\\articles11.csv"; // fix the paths
     // TODO Clean up and paths to somewhere else
     public DeveloperCloudClusterTest() {
     }
@@ -59,6 +61,7 @@ public class DeveloperCloudClusterTest {
     @Test
     public void testInsights() throws IOException {
         DeveloperCloudCluster dc = new DeveloperCloudCluster();
+        dc.buildCluster();
         ConceptInsights ci = (ConceptInsights) dc.getWatsonService(Options.SupportedProcessingStrategy.ConceptInsights);
         Annotations annotations = ci.annotateText(Graph.WIKIPEDIA, exampleCall);
         // Reads file from already tested response

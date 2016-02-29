@@ -11,4 +11,6 @@ package TestObjects;
  */
 public class Paths {
     public static String testfolder = System.getProperty("user.dir") + "/src/test/resources/testfolder";
+    public static String testoutput =testfolder+"/concept-insight-output/";
+    
 }

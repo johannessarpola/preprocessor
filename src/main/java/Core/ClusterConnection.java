@@ -6,7 +6,7 @@
 package Core;
 
 import Abstractions.GenericCluster;
-import Clusters.Mappings.ClustersStrategies;
+import Clusters.Mappings.ClustersToStrategies;
 import Global.Options;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ClusterConnection {
     }
 
     private void initCluster(Options.SupportedClusters c) {
-        gc = ClustersStrategies.CLUSTERS.get(c);
+        gc = ClustersToStrategies.CLUSTERS.get(c);
         gc.buildCluster();
         isClusterReady = gc.isClusterReady();
         isConnectionEstablished = true;
