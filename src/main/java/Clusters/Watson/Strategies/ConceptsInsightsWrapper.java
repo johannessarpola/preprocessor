@@ -124,7 +124,7 @@ public class ConceptsInsightsWrapper extends WatsonConnector {
 
     @Override
     public void clear() {
-        // There's nothing to do here
+        // Nothing to reinit    
     }
 
     /**
