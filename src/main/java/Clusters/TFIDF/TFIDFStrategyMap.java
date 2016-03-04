@@ -12,7 +12,7 @@ import Clusters.TFIDF.Strategies.KeywordExtractor;
 import Clusters.TFIDF.Strategies.KeywordsFirstExtractor;
 import Clusters.TFIDF.Strategies.WordNgramExtractor;
 import Global.Options;
-import Utilities.Logging.CustomExceptions.StrategyNotSupported;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
  * Maps strategy to object (TFIDF)
@@ -25,13 +25,13 @@ public class TFIDFStrategyMap extends StrategyMap<GenericService> {
     }
     
     @Override
-    public GenericService buildStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupported{
+    public GenericService initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException{
         switch(strategy){
             case TFIDF_Combined: return new CombinedExtractor();
             case TFIDF_Keywords: return new KeywordExtractor();
             case TFIDF_KeywordsFirst: return new KeywordsFirstExtractor();
             case TFIDF_WordNgram: return new WordNgramExtractor();
-            default: throw new StrategyNotSupported();
+            default: throw new StrategyNotSupportedException();
         }
     }
 

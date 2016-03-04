@@ -9,13 +9,13 @@ import Abstractions.TableReader;
 import Global.Options;
 import Global.Options.SupportedTableStrategy;
 import TableReaders.Internal.Transformer;
+import Utilities.Logging.GeneralLogging;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,19 +29,19 @@ public class XLSXReader extends TableReader {
     Workbook workbook;
     int activeSheet = 0;
     SupportedTableStrategy strategy = Options.SupportedTableStrategy.xlsx;
+
     /**
-     * XLSX Reader 
+     * XLSX Reader
+     *
      * @param filep
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public XLSXReader(String filep) throws FileNotFoundException {
         super(filep);
         try {
             init();
-        } catch (IOException ex) {
-            Logger.getLogger(XLSXReader.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidFormatException ex) {
-            Logger.getLogger(XLSXReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -50,33 +50,37 @@ public class XLSXReader extends TableReader {
         Sheet s = workbook.getSheetAt(activeSheet);
         int maxrow = s.getLastRowNum();
         List<List<String>> wb = new ArrayList<>();
-        for(int i=1; i<=maxrow; i++){
+        for (int i = 1; i <= maxrow; i++) {
             Row r = s.getRow(i);
             wb.add(Transformer.rowToList(r));
         }
         return wb;
     }
-    
+
     @Override
     public List<String> retrieveHeaders() {
         Sheet s = workbook.getSheetAt(activeSheet);
         Row r = s.getRow(0);
         Iterator i = r.iterator();
         List<String> headers = new ArrayList<>();
-        while(i.hasNext()){
+        while (i.hasNext()) {
             String str = i.next().toString();
             headers.add(str);
         }
-       return headers;
+        return headers;
     }
 
     @Override
     public void reset() {
         try {
-            workbook.close();
+            try {
+                workbook.close();
+            } catch (IOException ex) {
+                GeneralLogging.logStackTrace_Error(getClass(), ex);
+            }
             init();
-        } catch (IOException | InvalidFormatException ex) {
-            Logger.getLogger(XLSXReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -85,7 +89,7 @@ public class XLSXReader extends TableReader {
         return strategy;
     }
 
-    private void init() throws IOException, InvalidFormatException {
+    private void init() throws IOException, EncryptedDocumentException, InvalidFormatException {
         workbook = WorkbookFactory.create(file);
         activeSheet = 0;
     }
@@ -99,4 +103,5 @@ public class XLSXReader extends TableReader {
         activeSheet++;
         return workbook.getSheetAt(activeSheet);
     }
+
 }

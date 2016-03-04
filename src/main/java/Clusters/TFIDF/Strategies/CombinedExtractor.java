@@ -9,12 +9,11 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.GeneralLogging;
 import Utilities.Structures.LinkedWord;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Uses both word ngrams and keywords to extract most defining features
@@ -29,8 +28,7 @@ public class CombinedExtractor extends FeatureExtractor {
     
     public CombinedExtractor() {
         super(SupportedProcessingStrategy.TFIDF_Combined);
-        super.init();
-        childInit();
+        subclassSpecificInit();
     }
 
     @Override
@@ -43,7 +41,7 @@ public class CombinedExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            Logger.getLogger(CombinedExtractor.class.getName()).log(Level.SEVERE, null, ex);
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -54,7 +52,7 @@ public class CombinedExtractor extends FeatureExtractor {
             List<String> res = this.getHighestScoringEntries(line);
             return this.doAppend(line, res);
         } catch (NoValueFoundException ex) {
-            Logger.getLogger(CombinedExtractor.class.getName()).log(Level.SEVERE, null, ex);
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
         return null;
     }
@@ -66,19 +64,18 @@ public class CombinedExtractor extends FeatureExtractor {
             List<String> res = this.getHighestScoringEntries(line);
             return this.doReplace(line, res);
         } catch (NoValueFoundException ex) {
-            Logger.getLogger(CombinedExtractor.class.getName()).log(Level.SEVERE, null, ex);
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
         return null;
     }
 
     @Override
     public void clear() {
-        super.init();
-        childInit();
+        super.reInit();
+        subclassSpecificInit();
     }
 
-    @Override
-    protected void childInit() {
+    private void subclassSpecificInit() {
         wne = new WordNgramExtractor();
         ke = new KeywordExtractor();
     }
@@ -95,16 +92,16 @@ public class CombinedExtractor extends FeatureExtractor {
         int docIndex = 0;
 
         for (String doc : documents) {
-            //super.termFrequenciesByDocument.addAll(termFrequenciesByDocument)
+            //super.tfScores.addAll(tfScores)
             Map<String, Double> temp = ke.getTfMapAsString(doc);
             Map<String, Double> temp2 = wne.getTfMapAsString(doc);
             Map<String, Double> temp3 = new HashMap<>(temp);
             temp3.putAll(temp2);
-            this.termFrequenciesByDocument.add(temp3);
+            this.tfScores.add(temp3);
             this.hashStore.storeKey(doc, docIndex);
             docIndex++;
         }
-        this.invertedTermFrequenciesByDocuments = TFIDF.idfFromTfs(this.termFrequenciesByDocument);
+        this.idfScores = TFIDF.idfFromTfs(this.tfScores);
         // TODO Create combined TFIDF_Keywords
         if (doCompression) {
             this.compress();

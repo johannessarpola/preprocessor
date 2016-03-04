@@ -6,12 +6,11 @@
 package TableReaders;
 
 import Global.Options.SupportedTableStrategy;
+import Utilities.Logging.GeneralLogging;
 import Utilities.Structures.Table;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Holds the main logic of table reading and wraps the table-specific readers into interface
@@ -32,7 +31,7 @@ public class TableContainer<E> {
                 getContent();
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TableContainer.class.getName()).log(Level.SEVERE, null, ex);
+             GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
     public void clear(){

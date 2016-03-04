@@ -5,12 +5,10 @@
  */
 package Clusters.Watson.Internal;
 
-import Clusters.Watson.Internal.WatsonOptions;
 import Utilities.Json.JsonReader;
+import Utilities.Logging.GeneralLogging;
 import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +22,7 @@ public class WatsonCredentialsStorage {
         try {
             buildJsonStore();
         } catch (Exception ex) {
-            Logger.getLogger(WatsonCredentialsStorage.class.getName()).log(Level.SEVERE, null, ex);
+             GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -33,7 +31,7 @@ public class WatsonCredentialsStorage {
             try {
                 this.store = JsonReader.readJson(WatsonOptions.pathToCrendetials);
             } catch (IOException ex) {
-                Logger.getLogger(WatsonCredentialsStorage.class.getName()).log(Level.SEVERE, null, ex);
+                  GeneralLogging.logStackTrace_Error(getClass(), ex);
             }
         }
     }

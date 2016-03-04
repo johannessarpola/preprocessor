@@ -73,7 +73,7 @@ public class KeywordsToNgramsExtractorTest {
         KeywordsFirstExtractor instance = new KeywordsFirstExtractor();
         instance.build(documents);
         Assert.assertEquals(instance.isServiceReady(), true);
-        Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size(), documents.size());
+        Assert.assertEquals(instance.tfScoresCompressed.size(), documents.size());
     }
     @Test
     public void testPerf2() throws ServiceNotReadyException {

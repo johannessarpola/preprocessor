@@ -5,13 +5,12 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.GeneralLogging;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +26,7 @@ public class WordNgramExtractor extends FeatureExtractor {
 
     public WordNgramExtractor() {
         super(Options.SupportedProcessingStrategy.TFIDF_WordNgram);
-        super.init();
+
     }
 
     @Override
@@ -67,11 +66,11 @@ public class WordNgramExtractor extends FeatureExtractor {
     private void setupService(List<List<String>> documents, boolean doCompression) {
         // TODO remove the other stuff than noun,verbs and adjectives here. Tests break?
         for (List<String> ngramsInDoc : documents) {
-            //List<String> d = guavaSplitter.splitToList(doc);
+            //List<String> d = splitter.splitToList(doc);
             Map<String,Double> map = TFIDF.tf(ngramsInDoc);
-            this.termFrequenciesByDocument.add(map);
+            this.tfScores.add(map);
         }
-        this.invertedTermFrequenciesByDocuments = TFIDF.idfFromTfs(this.termFrequenciesByDocument);
+        this.idfScores = TFIDF.idfFromTfs(this.tfScores);
         if (doCompression) {
             super.compress();
         }
@@ -88,7 +87,7 @@ public class WordNgramExtractor extends FeatureExtractor {
                 line = this.doAppend(line, ls);
                 return line;
             } catch (NoValueFoundException ex) {
-                Logger.getLogger(WordNgramExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                 GeneralLogging.logStackTrace_Error(getClass(), ex);
             }
         } else {
             throw new ServiceNotReadyException();
@@ -105,7 +104,7 @@ public class WordNgramExtractor extends FeatureExtractor {
                 line = this.doReplace(line, ls);
                 return line;
             } catch (NoValueFoundException ex) {
-                Logger.getLogger(WordNgramExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                 GeneralLogging.logStackTrace_Error(getClass(), ex);
             }
         } else {
             throw new ServiceNotReadyException();
@@ -115,17 +114,16 @@ public class WordNgramExtractor extends FeatureExtractor {
 
     @Override
     public void clear() {
-        childInit();
+        subclassSpecificInit();
     }
 
     @Override
     protected void defineSplitter() {
-        this.guavaSplitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
+        this.splitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
     }
 
-    @Override
-    protected void childInit() {
-        super.init();
+    private void subclassSpecificInit() {
+        // TODO Is this not needed?
     }
 
     @Override

@@ -8,7 +8,7 @@ package Corpuses;
 import Corpuses.Internal.Corpus;
 import Corpuses.WikipediaTitles.WikiCorpus;
 import Global.Options;
-import Utilities.Logging.CustomExceptions.CorpusNotAvailable;
+import Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +27,11 @@ public class CorpusMap {
         CORPUSES = Collections.unmodifiableMap(tMap);
     }
 
-    public static Corpus getService(Options.SupportedCorpuses s) throws CorpusNotAvailable {
+    public static Corpus getService(Options.SupportedCorpuses s) throws CorpusNotAvailableException {
         if (CORPUSES.containsKey(s)) {
             return CORPUSES.get(s);
         } else {
-            throw new CorpusNotAvailable();
+            throw new CorpusNotAvailableException();
         }
     }
 }

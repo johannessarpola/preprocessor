@@ -6,14 +6,13 @@
 package Utilities.Processing;
 
 import Global.Options;
+import Utilities.Logging.GeneralLogging;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +36,7 @@ public class Stopwords {
         try {
             stopWords.addAll(importStopwords());
         } catch (IOException ex) {
-            Logger.getLogger(Stopwords.class.getName()).log(Level.SEVERE, null, ex);
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 

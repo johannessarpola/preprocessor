@@ -26,9 +26,12 @@ public abstract class GenericCluster implements GenericClusterMethods {
     protected boolean isClusterReady;
     protected SupportedProcessingStrategy selectedStrategy;
     protected HashMap<Options.SupportedProcessingStrategy, GenericService> services;
+    // Enums for each clusters
+    protected SupportedProcessingStrategy[] strategies;
 
     public GenericCluster(Options.SupportedClusters id) {
         services = new HashMap();
+        strategies = Clusters.Mappings.ClustersToStrategies.getStrategies(id);
         this.id = id;
     }
 

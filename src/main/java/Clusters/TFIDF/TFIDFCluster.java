@@ -11,10 +11,9 @@ import Global.Options;
 import Global.Options.SupportedClusters;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
-import Utilities.Logging.CustomExceptions.StrategyNotSupported;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
+import Utilities.Logging.GeneralLogging;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -45,15 +44,14 @@ public class TFIDFCluster extends GenericCluster {
         try {
             map = new TFIDFStrategyMap(id);
             addServices();
-        } catch (StrategyNotSupported ex) {
-            Logger.getLogger(TFIDFCluster.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StrategyNotSupportedException ex) {
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
 
     }
-    private void addServices() throws StrategyNotSupported {
-        Options.SupportedProcessingStrategy[] strategies = Clusters.Mappings.ClustersToStrategies.getStrategies(id);
+    private void addServices() throws StrategyNotSupportedException {
         for (Options.SupportedProcessingStrategy s : strategies) {
-            GenericService gs = map.buildStrategy(s);
+            GenericService gs = map.initializeStrategy(s);
             services.put(s, gs);
         }
     }

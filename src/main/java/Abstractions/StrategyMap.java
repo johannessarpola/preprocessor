@@ -6,7 +6,7 @@
 package Abstractions;
 
 import Global.Options;
-import Utilities.Logging.CustomExceptions.StrategyNotSupported;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
  * Class which each cluster should have
@@ -17,5 +17,5 @@ public abstract class StrategyMap <T> {
     protected StrategyMap(Options.SupportedClusters id){
         this.id = id;
     }
-    public abstract T buildStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupported;
+    public abstract T initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException;
 }

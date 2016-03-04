@@ -49,7 +49,7 @@ public class WordNgramExtractorTest {
         WordNgramExtractor instance = new WordNgramExtractor();
         instance.build(documents);
         Assert.assertEquals(instance.isServiceReady(), true);
-        Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size(), documents.size());
+        Assert.assertEquals(instance.tfScoresCompressed.size(), documents.size());
         instance.clear();
     }
 
@@ -121,8 +121,8 @@ public class WordNgramExtractorTest {
         instance.build(ls);
         instance.clear();
         Assert.assertEquals(instance.isServiceReady(), false);
-        Assert.assertEquals(instance.compressedTermFrequenciesByDocument.size() < 1, true);
-        Assert.assertEquals(instance.invertedTermFrequenciesByDocuments.size() < 1, true);
+        Assert.assertEquals(instance.tfScoresCompressed.size() < 1, true);
+        Assert.assertEquals(instance.idfScores.size() < 1, true);
     }
 
     @Test

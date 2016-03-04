@@ -19,16 +19,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class CFolderOperations {
-
-    public static final Logger logger = Logger.getLogger(CFolderOperations.class);
-
     /**
      * files in folder
      *
@@ -84,7 +80,7 @@ public class CFolderOperations {
                     List<String> lines = CFileOperations.getFileContentAsStrings(filePath);
                     l.add(lines);
                 } catch (IOException ex) {
-                    logger.error(GeneralLogging.stringifyException(ex));
+                    GeneralLogging.logStackTrace_Error(CFolderOperations.class, ex);
                 }
             }
         });

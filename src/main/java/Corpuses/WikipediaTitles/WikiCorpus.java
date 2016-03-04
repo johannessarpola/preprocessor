@@ -7,8 +7,8 @@ package Corpuses.WikipediaTitles;
 
 import Corpuses.Internal.BloomfilterCorpus;
 import Global.Options;
-import Utilities.Logging.GeneralLogging;
 import Utilities.File.CFolderOperations;
+import Utilities.Logging.GeneralLogging;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,7 +25,6 @@ public class WikiCorpus extends BloomfilterCorpus{
     // TODO Cronjob: Update Corpus
     WikiFilter wikifilter;
     String pathToWikis;
-//    private static Logger logger = Logger.getLogger(WikiCorpus.class);
     double accuracy;
 
     public WikiCorpus(String pathToWikis, double accuracy) {

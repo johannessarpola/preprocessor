@@ -7,7 +7,7 @@ package Corpuses;
 
 import Corpuses.Internal.Corpus;
 import Global.Options;
-import Utilities.Logging.CustomExceptions.CorpusNotAvailable;
+import Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import Utilities.Logging.GeneralLogging;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Corpuses {
         for(Options.SupportedCorpuses c : corpuses) {
             try {
                 this.corpuses.add(CorpusMap.getService(c));
-            } catch (CorpusNotAvailable ex) {
+            } catch (CorpusNotAvailableException ex) {
                 GeneralLogging.logStackTrace_Error(this.getClass(), ex);
             }
         }

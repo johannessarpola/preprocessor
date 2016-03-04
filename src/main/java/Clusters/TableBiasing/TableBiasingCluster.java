@@ -10,6 +10,8 @@ import Abstractions.GenericService;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
+import Utilities.Logging.GeneralLogging;
 import java.util.List;
 
 /**
@@ -43,12 +45,24 @@ public class TableBiasingCluster extends GenericCluster{
 
     @Override
     public void buildCluster() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            map = new TableBiasingStrategyMap(id);
+            addServices();
+        } catch (StrategyNotSupportedException ex) {
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
+        }
     }
 
     @Override
     public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents) {
-        // There's basically only one strategy with mapping for different extensions
+        services.get(strategy).build(documents);
+    }
+    
+    private void addServices() throws StrategyNotSupportedException {
+        for(Options.SupportedProcessingStrategy strategy : strategies){
+            GenericService gs = map.initializeStrategy(strategy);
+            services.put(strategy, gs);
+        }
         
     }
     

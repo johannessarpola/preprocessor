@@ -26,6 +26,7 @@ public interface GenericClusterMethods {
     //public void addVocabulary(List<String> documents);
     public void clear();
     public void setBiasingSize(int size);
+    // Initializes the cluster and all services
     public void buildCluster(); // List<String> documents
     public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents);
 }

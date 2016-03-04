@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.apache.log4j.Logger;
 
 /**
  * This class is basically a word ngram extractor difference by getting ngrams
@@ -27,8 +26,6 @@ import org.apache.log4j.Logger;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class KeywordsFirstExtractor extends FeatureExtractor {
-
-    public static final Logger logger = Logger.getLogger(KeywordsFirstExtractor.class);
 
     WordNgramExtractor wne;
     KeywordExtractor ke;
@@ -39,8 +36,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
 
     public KeywordsFirstExtractor() {
         super(Options.SupportedProcessingStrategy.TFIDF_KeywordsFirst);
-        super.init();
-        childInit();
+        subclassSpecificInit();
     }
 
     @Override
@@ -53,7 +49,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            logger.error(GeneralLogging.stringifyException(ex));
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -66,7 +62,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             // TODO using mapping to get highest ngrams
             return this.doAppend(line, ngrams);
         } catch (NoValueFoundException ex) {
-            logger.error(GeneralLogging.stringifyException(ex));
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
         return null;
     }
@@ -94,7 +90,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             // TODO using mapping to get highest ngrams
             return this.doReplace(line, ngrams);
         } catch (NoValueFoundException ex) {
-            logger.error(GeneralLogging.stringifyException(ex));
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
         return null;
     }
@@ -183,7 +179,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
                     itemsInResult++;
                     it.remove();
                     if (put != null) {
-                        logger.error("There was duplicate value in result map (Equals or Hashmap for LW doesn't work)" + put);
+                        GeneralLogging.logMessage_Error(getClass(), "There was duplicate value in result map (Equals or Hashmap for LW doesn't work)" + put);
                     }
                 }
             }
@@ -193,12 +189,11 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
 
     @Override
     public void clear() {
-        super.init();
-        childInit();
+        super.reInit();
+        subclassSpecificInit();
     }
 
-    @Override
-    protected void childInit() {
+    private void subclassSpecificInit() {
         wne = new WordNgramExtractor();
         ke = new KeywordExtractor();
         wordToNgramMapping = new HashMap<>();
@@ -216,13 +211,13 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         int docIndex = 0;
 
         for (String doc : documents) {
-            //super.termFrequenciesByDocument.addAll(termFrequenciesByDocument)
+            //super.tfScores.addAll(tfScores)
             Map<String, Double> temp = wne.getTfMapAsString(doc);
-            this.termFrequenciesByDocument.add(temp);
+            this.tfScores.add(temp);
             this.hashStore.storeKey(doc, docIndex);
             docIndex++;
         }
-        this.invertedTermFrequenciesByDocuments = TFIDF.idfFromTfs(this.termFrequenciesByDocument);
+        this.idfScores = TFIDF.idfFromTfs(this.tfScores);
         // TODO Create combined TFIDF
         if (doCompression) {
             // We're going to use mapping in this class

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Static mapping of Clusters -> Strategies
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class ClustersToStrategies {
@@ -29,10 +29,13 @@ public class ClustersToStrategies {
         tMap.put(Options.SupportedClusters.TableBiasing, new Options.SupportedProcessingStrategy[]{Options.SupportedProcessingStrategy.TableBiasing});
         CLUSTERSTOSERVICES = Collections.unmodifiableMap(tMap);
     }
-
-
-    public static Options.SupportedProcessingStrategy[] getStrategies(SupportedClusters c) {
-        return CLUSTERSTOSERVICES.get(c);
+    /**
+     * Gets the correct strategy for a Cluster id
+     * @param id Cluster id 
+     * @return 
+     */
+    public static Options.SupportedProcessingStrategy[] getStrategies(SupportedClusters id) {
+        return CLUSTERSTOSERVICES.get(id);
     }
 
 

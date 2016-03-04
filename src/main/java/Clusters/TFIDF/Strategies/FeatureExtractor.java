@@ -11,9 +11,9 @@ import Global.Options.SupportedProcessingStrategy;
 import Utilities.Adapters.StringTransforms;
 import Utilities.Compression.CompressionPayload;
 import Utilities.Compression.StringCompressor;
+import Utilities.Hashing.HashStore;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
-import Utilities.Hashing.HashStore;
 import Utilities.Map.MapUtils;
 import Utilities.Structures.LinkedWord;
 import com.google.common.base.CharMatcher;
@@ -30,20 +30,20 @@ import java.util.Map;
 public abstract class FeatureExtractor extends GenericService {
     //TODO This class needs to be cleaned up
 
-    protected Splitter guavaSplitter; // Class spec (delimeted by words or something else)
+    protected Splitter splitter; // Class spec (delimeted by words or something else)
     protected final int sizetoDigest = 100; // Not class spec      
     protected boolean usePos, compressed; // Not class spec
 
     protected HashStore hashStore;
 
-    protected List<Map<String, Double>> termFrequenciesByDocument; // Term frequencies for documents
-    protected List<Map<LinkedWord, Double>> compressedTermFrequenciesByDocument;
-    protected Map<String, Double> invertedTermFrequenciesByDocuments; // IDF Scores for words
-    protected Map<LinkedWord, Double> compressedInvertedTermFrequenciesByDocuments;
+    protected List<Map<String, Double>> tfScores; // Term frequencies for documents
+    protected List<Map<LinkedWord, Double>> tfScoresCompressed;
+    protected Map<String, Double> idfScores; // IDF Scores for words
+    protected Map<LinkedWord, Double> compressedEntities;
     // TODO This could be optimized by storing idf store either by the linkedword alongside tf score
     // TODO Or just store TFIDF score in the first place and not tf and idf
 
-    protected List<String> itemsInDocuments;
+    protected List<String> universe;
 
     // protected Map<String, Double> reusableMap;
     // How many words are used to bias the product
@@ -77,21 +77,36 @@ public abstract class FeatureExtractor extends GenericService {
      */
     protected abstract void defineSplitter();
 
-    protected abstract void childInit();
-
-    protected void init() {
+    private void init() {
         hashStore = new HashStore(this.sizetoDigest);
-        this.termFrequenciesByDocument = new ArrayList<>();
-        this.compressedTermFrequenciesByDocument = new ArrayList<>();
-        this.invertedTermFrequenciesByDocuments = new HashMap<>();
-        this.guavaSplitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
+        this.tfScores = new ArrayList<>();
+        this.tfScoresCompressed = new ArrayList<>();
+        this.idfScores = new HashMap<>();
+        this.splitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
+        this.universe = new ArrayList<>();
+        this.compressedEntities = new HashMap<>();
+        initBooleans();
+    }
+
+    private void initBooleans() {
         this.isServiceReady = false;
         this.isVocabularyAdded = false;
         this.usePos = false;
         this.compressed = false;
         this.requiresVocabulary = true;
-        this.itemsInDocuments = new ArrayList<>();
-        this.compressedInvertedTermFrequenciesByDocuments = new HashMap<>();
+    }
+
+    private void clearData() {
+        universe.clear();
+        compressedEntities.clear();
+        tfScores.clear();
+        tfScoresCompressed.clear();
+        idfScores.clear();
+    }
+
+    public void reInit() {
+        initBooleans();
+        clearData();
     }
 
     /**
@@ -120,24 +135,24 @@ public abstract class FeatureExtractor extends GenericService {
     }
 
     protected Map<LinkedWord, Double> tfidfScoreAsLinkedWordMap(Integer index) {
-        Map<LinkedWord, Double> tf = this.compressedTermFrequenciesByDocument.get(index);
-        Map<LinkedWord, Double> tfidf = TFIDF.tfIdfFromCompressed(tf, this.compressedInvertedTermFrequenciesByDocuments);
+        Map<LinkedWord, Double> tf = this.tfScoresCompressed.get(index);
+        Map<LinkedWord, Double> tfidf = TFIDF.tfIdfFromCompressed(tf, this.compressedEntities);
         return tfidf;
     }
 
     protected Map<String, Double> tfidfScoreAsStringMap(Integer index) {
-        Map<String, Double> tf = this.termFrequenciesByDocument.get(index);
-        Map<String, Double> tfidf = TFIDF.tfIdf(tf, this.invertedTermFrequenciesByDocuments);
+        Map<String, Double> tf = this.tfScores.get(index);
+        Map<String, Double> tfidf = TFIDF.tfIdf(tf, this.idfScores);
         return tfidf;
     }
 
     public Map<String, Double> getTfMapAsString(String document) throws NoValueFoundException {
         Integer docIndex = getDocIndex(document);
         if (!this.compressed && docIndex != null) {
-            return this.termFrequenciesByDocument.get(docIndex);
+            return this.tfScores.get(docIndex);
         } else if (docIndex != null) {
             Map<String, Double> map = new HashMap<>();
-            Map<LinkedWord, Double> lwMap = compressedTermFrequenciesByDocument.get(docIndex);
+            Map<LinkedWord, Double> lwMap = tfScoresCompressed.get(docIndex);
             map = StringTransforms.linkedWordMapToStringMap(lwMap);
             return map;
         } else {
@@ -147,7 +162,7 @@ public abstract class FeatureExtractor extends GenericService {
 
     public Map<LinkedWord, Double> getTfMapAsLinkedWord(String document) throws NoValueFoundException {
         Integer docIndex = getDocIndex(document);
-        return compressedTermFrequenciesByDocument.get(docIndex);
+        return tfScoresCompressed.get(docIndex);
     }
 
     /**
@@ -184,7 +199,7 @@ public abstract class FeatureExtractor extends GenericService {
      */
     private List<String> getDefinedNumberOfFeatures(Map<String, Double> sortedMap, String line) {
         List<String> kws = new ArrayList<>();
-        int maxSize = guavaSplitter.splitToList(line).size();
+        int maxSize = splitter.splitToList(line).size();
         int i = 0;
         for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
             if (i == this.numberOfDefiningFeatures && i < maxSize) {
@@ -206,12 +221,12 @@ public abstract class FeatureExtractor extends GenericService {
      * Compresses the object into less memory-hungry version
      */
     protected CompressionPayload compress(boolean doMapping) {
-        CompressionPayload cr = StringCompressor.compressTermFrequencies(termFrequenciesByDocument, invertedTermFrequenciesByDocuments, doMapping);
-        this.itemsInDocuments = cr.getItems();
-        this.compressedTermFrequenciesByDocument = cr.getCompressedDocuments();
-        this.compressedInvertedTermFrequenciesByDocuments = cr.getCompressedIdfMap();
-        this.termFrequenciesByDocument.clear();
-        this.invertedTermFrequenciesByDocuments.clear();
+        CompressionPayload cr = StringCompressor.compressTermFrequencies(tfScores, idfScores, doMapping);
+        this.universe = cr.getItems();
+        this.tfScoresCompressed = cr.getCompressedDocuments();
+        this.compressedEntities = cr.getCompressedIdfMap();
+        this.tfScores.clear();
+        this.idfScores.clear();
         this.compressed = true;
         return cr;
     }
@@ -243,10 +258,8 @@ public abstract class FeatureExtractor extends GenericService {
      * @param ls
      * @return
      */
-    // TODO Fix the |
     protected String doReplace(String line, List<String> ls) {
         String ret = "";
-        // Lol, no idea
         ret = ls.stream().map((s) -> s + "|").reduce(ret, String::concat);
         return ret;
     }

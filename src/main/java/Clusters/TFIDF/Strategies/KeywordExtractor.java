@@ -9,6 +9,7 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.GeneralLogging;
 import Utilities.Map.MapUtils;
 import Utilities.Processing.Stopwords;
 import com.google.common.base.CharMatcher;
@@ -18,15 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class KeywordExtractor extends FeatureExtractor {
-    
+
     // TODO Figure out a better way to remove stopwords, this messes up the contract
     private Set<String> stopwords;
 
@@ -35,7 +34,7 @@ public class KeywordExtractor extends FeatureExtractor {
      */
     public KeywordExtractor() {
         super(Options.SupportedProcessingStrategy.TFIDF_Keywords);
-        childInit();
+        subclassSpecificInit();
     }
 
     @Override
@@ -63,13 +62,13 @@ public class KeywordExtractor extends FeatureExtractor {
         int docIndex = 0;
         // TODO remove the other stuff than noun,verbs and adjectives here. Tests break?
         for (String doc : documents) {
-            List<String> d = guavaSplitter.splitToList(doc);
+            List<String> d = splitter.splitToList(doc);
             Map<String, Double> map = TFIDF.tf(d);
-            this.termFrequenciesByDocument.add(map);
+            this.tfScores.add(map);
             this.hashStore.storeKey(d, docIndex);
             docIndex++;
         }
-        this.invertedTermFrequenciesByDocuments = TFIDF.idfFromTfs(this.termFrequenciesByDocument);
+        this.idfScores = TFIDF.idfFromTfs(this.tfScores);
         if (doCompression) {
             super.compress();
         }
@@ -105,7 +104,7 @@ public class KeywordExtractor extends FeatureExtractor {
                 String aLine = replaceWords(line);
                 return aLine;
             } catch (NoValueFoundException ex) {
-                Logger.getLogger(KeywordExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                GeneralLogging.logStackTrace_Error(getClass(), ex);
             }
         } else {
             throw new ServiceNotReadyException();
@@ -121,7 +120,7 @@ public class KeywordExtractor extends FeatureExtractor {
                 String aLine = appendWords(line);
                 return aLine;
             } catch (NoValueFoundException ex) {
-                Logger.getLogger(KeywordExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                GeneralLogging.logStackTrace_Error(getClass(), ex);
             }
         } else {
             throw new ServiceNotReadyException();
@@ -131,18 +130,17 @@ public class KeywordExtractor extends FeatureExtractor {
 
     @Override
     public void clear() {
-        super.init();
-        childInit();
+        super.reInit();
+        subclassSpecificInit();
     }
 
-    @Override
-    protected void childInit() {
+    private void subclassSpecificInit() {
         stopwords = new Stopwords().getStopwords();
     }
 
     @Override
     protected void defineSplitter() {
-        this.guavaSplitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
+        this.splitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
     }
 
     @Override
@@ -151,21 +149,19 @@ public class KeywordExtractor extends FeatureExtractor {
     }
 
     /**
-     * Custom getter to get the highest ranking parts based on TFIDF_Keywords without
- stopwords
+     * Custom getter to get the highest ranking parts based on TFIDF_Keywords
+     * without stopwords
      *
      * @param line
      * @return
      */
-    
     protected List<String> getHighestScoringEntriesWithoutStopWords(String line) throws NoValueFoundException {
         Map<String, Double> lineTfidf = retrieveScores(line);
-        // Sorts the values descending (true param)
         Map<String, Double> sortedTfidf = MapUtils.sortByValue(lineTfidf, true);
         List<String> keywords = getEntriesWithoutStopwords(sortedTfidf, line);
         return keywords;
     }
-    
+
     /**
      * Translates entries of map to Strings based on ranking in a line
      *
@@ -173,11 +169,10 @@ public class KeywordExtractor extends FeatureExtractor {
      * @param line
      * @return
      */
-    
     private List<String> getEntriesWithoutStopwords(Map<String, Double> sortedMap, String line) {
         List<String> kws = new ArrayList<>();
-        int lineLen = guavaSplitter.splitToList(line).size();
-        int i = 0; 
+        int lineLen = splitter.splitToList(line).size();
+        int i = 0;
         Map<String, String> pos = new HashMap<>();
         for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
             if (i == this.numberOfDefiningFeatures && i < lineLen) {
@@ -191,5 +186,5 @@ public class KeywordExtractor extends FeatureExtractor {
         // TODO Handle if input is ONLY stopwords
         return kws;
     }
-    
+
 }

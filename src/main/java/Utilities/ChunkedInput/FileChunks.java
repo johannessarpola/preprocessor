@@ -6,12 +6,11 @@
 package Utilities.ChunkedInput;
 
 import Utilities.File.CFileOperations;
+import Utilities.Logging.GeneralLogging;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +26,7 @@ public class FileChunks {
         try {
             init(path);
         } catch (Exception ex) {
-            Logger.getLogger(FileChunks.class.getName()).log(Level.SEVERE, null, ex);
+            GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
     private void init(String path) throws Exception{

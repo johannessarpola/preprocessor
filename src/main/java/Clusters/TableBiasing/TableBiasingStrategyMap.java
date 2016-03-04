@@ -9,7 +9,7 @@ import Abstractions.GenericService;
 import Abstractions.StrategyMap;
 import Clusters.TableBiasing.Strategies.TableBiasing;
 import Global.Options;
-import Utilities.Logging.CustomExceptions.StrategyNotSupported;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
  *
@@ -21,10 +21,10 @@ public class TableBiasingStrategyMap extends StrategyMap<GenericService>   {
         super(id);
     }
     @Override
-    public GenericService buildStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupported {
+    public GenericService initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
         switch(strategy){
             case TableBiasing: return new TableBiasing();
-            default: throw new StrategyNotSupported();
+            default: throw new StrategyNotSupportedException();
         }
     }
     

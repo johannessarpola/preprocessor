@@ -6,7 +6,6 @@
 package Clusters.Watson;
 
 import Abstractions.GenericCluster;
-import Clusters.Mappings.ClustersToStrategies;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Strategies.AlchemyWrapper;
@@ -15,7 +14,8 @@ import Global.Options;
 import Global.Options.SupportedProcessingParadigms;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
-import Utilities.Logging.CustomExceptions.StrategyNotSupported;
+import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
+import Utilities.Logging.GeneralLogging;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import java.util.HashMap;
 import java.util.List;
@@ -94,15 +94,16 @@ public class DeveloperCloudCluster extends GenericCluster {
         if (!isClusterReady) {
             WatsonStrategyMap mapLocal = new WatsonStrategyMap(id);
             //init();
-            SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
             for (SupportedProcessingStrategy strategy : strategies) {
                 try {
-                    WatsonConnector strategyService = mapLocal.buildStrategy(strategy);
+                    WatsonConnector strategyService = mapLocal.initializeStrategy(strategy);
                     strategyService.connectWith(credentials); // This is done only once
                     services.put(strategy, strategyService);
                     connectors.put(strategy, strategyService); // TODO See if it's needed. Not sure.
-                } catch (StrategyNotSupported ex) {
+                } catch (StrategyNotSupportedException ex) {
                     Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
+                    GeneralLogging.logStackTrace_Error(getClass(), ex);
+
                 }
             }
             this.map = mapLocal;
