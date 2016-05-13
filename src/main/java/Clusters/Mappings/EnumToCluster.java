@@ -7,7 +7,7 @@ package Clusters.Mappings;
 
 import Abstractions.GenericCluster;
 import Clusters.TFIDF.TFIDFCluster;
-import Clusters.TableBiasing.TableBiasingCluster;
+import Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import Clusters.Watson.DeveloperCloudCluster;
 import Global.Options;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class EnumToCluster {
         Map<Options.SupportedClusters, GenericCluster> tMap = new HashMap<>();
         tMap.put(Options.SupportedClusters.TFIDF, new TFIDFCluster());
         tMap.put(Options.SupportedClusters.Watson, new DeveloperCloudCluster());
-        tMap.put(Options.SupportedClusters.TableBiasing, new TableBiasingCluster());
+        tMap.put(Options.SupportedClusters.TableBiasing, new SupervisedBiasingCluster());
         CLUSTERS = Collections.unmodifiableMap(tMap);
     }
 

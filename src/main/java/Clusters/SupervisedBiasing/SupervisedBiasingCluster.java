@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.TableBiasing;
+package Clusters.SupervisedBiasing;
 
 import Abstractions.GenericCluster;
 import Abstractions.GenericService;
@@ -18,9 +18,9 @@ import java.util.List;
  * It's the cluster to bias based on data owner tabular datas
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableBiasingCluster extends GenericCluster{
+public class SupervisedBiasingCluster extends GenericCluster{
     
-    public TableBiasingCluster(){
+    public SupervisedBiasingCluster(){
         super(Options.SupportedClusters.TableBiasing);
     }
 
@@ -46,7 +46,7 @@ public class TableBiasingCluster extends GenericCluster{
     @Override
     public void buildCluster() {
         try {
-            map = new TableBiasingStrategyMap(id);
+            map = new SupervisedBiasingStrategyMap(id);
             addServices();
         } catch (StrategyNotSupportedException ex) {
             GeneralLogging.logStackTrace_Error(getClass(), ex);

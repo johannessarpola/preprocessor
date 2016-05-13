@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.TableBiasing.Wrappers;
+package Clusters.SupervisedBiasing.TableWrappers;
 
-import Clusters.TableBiasing.Internal.ExtensionStrategyMapper;
-import Clusters.TableBiasing.Internal.TableHierarchy;
+import Clusters.SupervisedBiasing.Internal.ExtensionStrategyMapper;
+import Clusters.SupervisedBiasing.Internal.TableHierarchy;
 import Global.Options;
 import TableReaders.TableContainer;
 import Utilities.Logging.CustomExceptions.TableNotSupportedException;

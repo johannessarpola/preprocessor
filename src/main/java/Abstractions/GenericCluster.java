@@ -5,7 +5,6 @@
  */
 package Abstractions;
 
-import Clusters.Mappings.ClustersToStrategies;
 import Global.Options;
 import Global.Options.SupportedClusters;
 import Global.Options.SupportedProcessingStrategy;
@@ -60,7 +59,7 @@ public abstract class GenericCluster implements GenericClusterMethods {
     }
 
     public boolean checkStrategy(SupportedProcessingStrategy strategy) {
-        SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
+        //SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
         for (int i = 0; i < strategies.length; i++) {
             if (strategies[i] == strategy) {
                 return true;
@@ -79,6 +78,4 @@ public abstract class GenericCluster implements GenericClusterMethods {
             s.clear();
         });
     }
-
-
 }

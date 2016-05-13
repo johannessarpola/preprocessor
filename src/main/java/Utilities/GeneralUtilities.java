@@ -18,4 +18,5 @@ import com.google.common.hash.Hashing;
 public class GeneralUtilities {
             public static Splitter guavaSplitterWhiteSpace = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();;
             public static HashFunction murmur128 = Hashing.murmur3_128(Options.MURMURSEED);
+            
 }

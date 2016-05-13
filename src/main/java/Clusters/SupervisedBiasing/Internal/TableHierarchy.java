@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.TableBiasing.Internal;
+package Clusters.SupervisedBiasing.Internal;
 
 import Utilities.Logging.GeneralLogging;
-import Utilities.Structures.FinalizedPair;
+import Utilities.Structures.Finalized_Pair;
 import Utilities.Structures.Table;
 import java.util.List;
 import java.util.Map;
@@ -17,28 +17,28 @@ import java.util.Map;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableHierarchy<E> {
+public class TableHierarchy<T> {
 
-    private Map<E, Double> weightMap;
+    private Map<T, Double> weightMap;
 
-    public TableHierarchy(Table<E> t) {
+    public TableHierarchy(Table<T> t) {
         createHierarchy(t);
     }
-    private void createHierarchy(Table<E> t) {
+    private void createHierarchy(Table<T> t) {
         // Both start from 1
         int weightFactor = t.getHeader().size();
         int position = 1;
-        for (List<E> row : t.getRows()) {
-            for (E element : row) {
+        for (List<T> row : t.getRows()) {
+            for (T element : row) {
                 Double weight = WeighingLogic.calculateWeight(position, weightFactor);
                 weightMap.put(element, weight);
                 position++;
             }
         }
     }
-    public FinalizedPair getWeight(E element) {
+    public Finalized_Pair getWeight(T element) {
         if (weightMap.containsKey(element)) {
-            FinalizedPair<E, Double> fp = new FinalizedPair(element, weightMap.get(element));
+            Finalized_Pair<T, Double> fp = new Finalized_Pair(element, weightMap.get(element));
             return fp;
         } else {
             GeneralLogging.logMessage_Error(getClass(), "No element found in weight map for "+element.toString());

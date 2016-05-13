@@ -35,7 +35,7 @@ public class Options {
         Wikipedia
     }
     public static enum SupportedProcessingStrategy {
-        ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, TableBiasing
+        ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, SupervisedBiasingWithTable
     }
     public static enum SupportedProcessingParadigms {
         Append, Replace

@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.TableBiasing.Strategies;
+package Clusters.SupervisedBiasing.Strategies;
 
 import Abstractions.GenericService;
-import Clusters.TableBiasing.Internal.TableBiasingConfiguration;
-import Clusters.TableBiasing.Wrappers.TableContainerWrapper;
+import Clusters.SupervisedBiasing.Internal.TableBiasingConfiguration;
+import Clusters.SupervisedBiasing.TableWrappers.TableContainerWrapper;
 import Global.Options;
+import Utilities.GeneralUtilityMethods;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.GeneralLogging;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Basically checks each token and it's position in tabular data Hierarchy
- *
+ * Basically checks each token and it's position in tabular data Hierarchy uses XLSX
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableBiasing extends GenericService {
-
+public class TableBiasingService extends GenericService {
+    // TODO Why would we need multiple wrappers?
     private List<TableContainerWrapper> tcws;
 
-    public TableBiasing() {
-        super(Options.SupportedProcessingStrategy.TableBiasing);
+    public TableBiasingService() {
+        super(Options.SupportedProcessingStrategy.SupervisedBiasingWithTable);
         init();
     }
 
@@ -43,7 +43,6 @@ public class TableBiasing extends GenericService {
         }
     }
 
-    // TableReaders: XLSX
     @Override
     public void build(List<String> documents) {
         // No need in this case
@@ -51,6 +50,14 @@ public class TableBiasing extends GenericService {
     // It probably would be smarter to store K-V of the line where V would be weighed based on the processing 
     @Override
     public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
+/*        List<TableHierarchy> ths = new ArrayList<>();
+        for(TableContainerWrapper tcw : tcws){
+            ths.add(tcw.getTableHierarchy());
+        }
+*/
+        List<String> splitLine = GeneralUtilityMethods.splitWithWhitespace(line);
+        // TODO Get weight for each word
+        // TODO Return result
         // Add words n-times to the end of line depending on the place in hierarchy
         return "";
     }

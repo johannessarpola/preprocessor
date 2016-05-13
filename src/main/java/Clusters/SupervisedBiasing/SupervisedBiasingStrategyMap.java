@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.TableBiasing;
+package Clusters.SupervisedBiasing;
 
 import Abstractions.GenericService;
 import Abstractions.StrategyMap;
-import Clusters.TableBiasing.Strategies.TableBiasing;
+import Clusters.SupervisedBiasing.Strategies.TableBiasingService;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
@@ -15,15 +15,15 @@ import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableBiasingStrategyMap extends StrategyMap<GenericService>   {
+public class SupervisedBiasingStrategyMap extends StrategyMap<GenericService>   {
     
-    public TableBiasingStrategyMap(Options.SupportedClusters id){
+    public SupervisedBiasingStrategyMap(Options.SupportedClusters id){
         super(id);
     }
     @Override
     public GenericService initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
         switch(strategy){
-            case TableBiasing: return new TableBiasing();
+            case SupervisedBiasingWithTable: return new TableBiasingService();
             default: throw new StrategyNotSupportedException();
         }
     }

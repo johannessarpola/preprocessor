@@ -14,5 +14,4 @@ import Global.Options;
 public class Master {
     ClusterConnection watson = new ClusterConnection(Options.SupportedClusters.Watson);
     ClusterConnection tfidf = new ClusterConnection(Options.SupportedClusters.TFIDF);
-    
 }

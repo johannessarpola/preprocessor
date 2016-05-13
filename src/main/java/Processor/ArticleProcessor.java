@@ -5,10 +5,10 @@
  */
 package Processor;
 
-import Utilities.Processing.Stopwords;
-import Processor.Internal.Stemmer;
 import Processor.Internal.Lemmatizer;
+import Processor.Internal.Stemmer;
 import static Processor.Internal.URLRemover.removeUrl;
+import Utilities.Processing.Stopwords;
 import static Utilities.String.CStringOperations.removeTags;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
@@ -54,7 +54,6 @@ public class ArticleProcessor {
         this.lemmatizer = new Lemmatizer();
         //this.spClusters = new SemanticProcessorClusters();
     }
-    // TODO Use either Lemnas or Stems
     public String processLineToString(String line) {
         List<String> ms = processLine(line);
         String str = "";
