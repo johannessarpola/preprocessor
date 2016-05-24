@@ -5,8 +5,8 @@
  */
 package Clusters.TFIDF;
 
-import Abstractions.GenericCluster;
-import Abstractions.GenericService;
+import Abstractions.Core.GenericCluster;
+import Abstractions.Core.GenericService;
 import Global.Options;
 import Global.Options.SupportedClusters;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;

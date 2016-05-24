@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Abstractions;
+package Abstractions.Core;
 
 import Global.Options;
 import Global.Options.SupportedClusters;
@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public abstract class GenericCluster implements GenericClusterMethods {
     
-    protected StrategyMap<? extends GenericService> map;
+    protected ClustersStrategyMap<? extends GenericService> map;
     protected Options.SupportedClusters id;
     protected int biasingSize;
     protected boolean isClusterReady;

@@ -5,8 +5,8 @@
  */
 package Clusters.TFIDF;
 
-import Abstractions.GenericService;
-import Abstractions.StrategyMap;
+import Abstractions.Core.GenericService;
+import Abstractions.Core.ClustersStrategyMap;
 import Clusters.TFIDF.Strategies.CombinedExtractor;
 import Clusters.TFIDF.Strategies.KeywordExtractor;
 import Clusters.TFIDF.Strategies.KeywordsFirstExtractor;
@@ -18,7 +18,7 @@ import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
  * Maps strategy to object (TFIDF)
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TFIDFStrategyMap extends StrategyMap<GenericService> {
+public class TFIDFStrategyMap extends ClustersStrategyMap<GenericService> {
     
     public TFIDFStrategyMap(Options.SupportedClusters id){
         super(id);

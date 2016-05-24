@@ -5,7 +5,7 @@
  */
 package Clusters.Mappings;
 
-import Abstractions.GenericCluster;
+import Abstractions.Core.GenericCluster;
 import Clusters.TFIDF.TFIDFCluster;
 import Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import Clusters.Watson.DeveloperCloudCluster;

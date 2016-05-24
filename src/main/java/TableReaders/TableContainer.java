@@ -19,7 +19,7 @@ import java.util.List;
 public class TableContainer<E> {
     private List<E> header;
     private List<List<E>> rows;
-    private Abstractions.TableReader tools;
+    private Abstractions.Structures.TableReader tools;
     private boolean isReady;
     
     public TableContainer(SupportedTableStrategy strategy, String filepath){

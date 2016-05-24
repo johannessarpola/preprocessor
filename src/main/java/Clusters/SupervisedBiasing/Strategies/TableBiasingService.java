@@ -5,7 +5,7 @@
  */
 package Clusters.SupervisedBiasing.Strategies;
 
-import Abstractions.GenericService;
+import Abstractions.Core.GenericService;
 import Clusters.SupervisedBiasing.Internal.TableBiasingConfiguration;
 import Clusters.SupervisedBiasing.TableWrappers.TableContainerWrapper;
 import Global.Options;

@@ -5,7 +5,7 @@
  */
 package Core;
 
-import Abstractions.GenericCluster;
+import Abstractions.Core.GenericCluster;
 import Clusters.Mappings.EnumToCluster;
 import Global.Options;
 import java.util.List;

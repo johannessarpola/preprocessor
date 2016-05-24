@@ -5,7 +5,7 @@
  */
 package Clusters.Watson;
 
-import Abstractions.StrategyMap;
+import Abstractions.Core.ClustersStrategyMap;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Strategies.AlchemyWrapper;
 import Clusters.Watson.Strategies.ConceptsInsightsWrapper;
@@ -16,7 +16,7 @@ import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class WatsonStrategyMap extends StrategyMap<WatsonConnector> {
+public class WatsonStrategyMap extends ClustersStrategyMap<WatsonConnector> {
 
     public WatsonStrategyMap(Options.SupportedClusters id) {
         super(id);

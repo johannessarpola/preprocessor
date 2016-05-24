@@ -5,7 +5,7 @@
  */
 package Clusters.TFIDF.Strategies;
 
-import Abstractions.GenericService;
+import Abstractions.Core.GenericService;
 import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Adapters.StringTransforms;

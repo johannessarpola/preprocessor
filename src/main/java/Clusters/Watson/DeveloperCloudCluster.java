@@ -5,7 +5,7 @@
  */
 package Clusters.Watson;
 
-import Abstractions.GenericCluster;
+import Abstractions.Core.GenericCluster;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Strategies.AlchemyWrapper;

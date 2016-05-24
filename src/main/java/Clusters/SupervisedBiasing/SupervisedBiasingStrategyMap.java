@@ -5,8 +5,8 @@
  */
 package Clusters.SupervisedBiasing;
 
-import Abstractions.GenericService;
-import Abstractions.StrategyMap;
+import Abstractions.Core.GenericService;
+import Abstractions.Core.ClustersStrategyMap;
 import Clusters.SupervisedBiasing.Strategies.TableBiasingService;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -15,7 +15,7 @@ import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class SupervisedBiasingStrategyMap extends StrategyMap<GenericService>   {
+public class SupervisedBiasingStrategyMap extends ClustersStrategyMap<GenericService>   {
     
     public SupervisedBiasingStrategyMap(Options.SupportedClusters id){
         super(id);

@@ -5,7 +5,7 @@
  */
 package Clusters.Watson.Internal;
 
-import Abstractions.GenericService;
+import Abstractions.Core.GenericService;
 import Global.Options;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 

@@ -5,8 +5,8 @@
  */
 package Clusters.SupervisedBiasing;
 
-import Abstractions.GenericCluster;
-import Abstractions.GenericService;
+import Abstractions.Core.GenericCluster;
+import Abstractions.Core.GenericService;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
