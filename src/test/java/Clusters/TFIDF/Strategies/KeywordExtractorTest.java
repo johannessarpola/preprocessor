@@ -6,8 +6,8 @@
 package Clusters.TFIDF.Strategies;
 
 import Clusters.TFIDF.Strategies.KeywordExtractor;
-import Abstractions.GenericCluster;
-import Abstractions.GenericService;
+import Abstractions.Core.GenericCluster;
+import Abstractions.Core.GenericService;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Global.Options;
 import Processor.ArticleProcessor;

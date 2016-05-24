@@ -6,8 +6,8 @@
 package Clusters.TFIDF.Strategies;
 
 import Clusters.TFIDF.Strategies.CombinedExtractor;
-import Abstractions.GenericCluster;
-import Abstractions.GenericService;
+import Abstractions.Core.GenericCluster;
+import Abstractions.Core.GenericService;
 import Global.Options;
 import Processor.ArticleProcessor;
 import java.util.ArrayList;
