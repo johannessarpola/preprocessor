@@ -31,3 +31,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 /nbproject/
+
+
+# Created by https://www.gitignore.io/api/netbeans

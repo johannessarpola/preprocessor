@@ -15,7 +15,7 @@ import java.util.List;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class TableBiasingConfiguration {
-
+    
     public static List<String> getResourcePaths() {
         // TODO Get table paths
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
