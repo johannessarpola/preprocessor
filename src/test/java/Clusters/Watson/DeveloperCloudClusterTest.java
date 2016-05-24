@@ -25,13 +25,14 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Johannes töissä
  */
-public class DeveloperCloudClusterTest {
+@Ignore public class DeveloperCloudClusterTest {
     // TODO Implement TemporaryFolder() for all folders, no need for "real" folders
     static String ConceptInsightsTestResponseFilePath = testoutput+"concept-insights-testresponse.json";
     static String exampleCall = "IBM Watson won the Jeopardy television show hosted by Alex Trebek";
