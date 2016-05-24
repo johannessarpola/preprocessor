@@ -14,13 +14,13 @@ import java.util.Map;
 /**
  * Is basically a map of weights for different words in regards to it 'position'
  * in table e.g. with columns 1st would have 1, 2nd 0.5, 3rd 0.25, 4th, 0.125
- *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class TableHierarchy<T> {
 
     private Map<T, Double> weightMap;
-
+    private TableBasedWeighingLogic tbwl;
+    
     public TableHierarchy(Table<T> t) {
         createHierarchy(t);
     }
@@ -28,9 +28,12 @@ public class TableHierarchy<T> {
         // Both start from 1
         int weightFactor = t.getHeader().size();
         int position = 1;
+        tbwl = TableBasedWeighingLogic.Builder.build();
         for (List<T> row : t.getRows()) {
             for (T element : row) {
-                Double weight = WeighingLogic.calculateWeight(position, weightFactor);
+                // Made Logic loosely coupled with Pair
+                TableBasedWeighingPair twp = new TableBasedWeighingPair(position, weightFactor);
+                Double weight = tbwl.calculateWeight(twp);
                 weightMap.put(element, weight);
                 position++;
             }

@@ -56,6 +56,7 @@ public class TableBiasingService extends GenericService {
         }
 */
         List<String> splitLine = GeneralUtilityMethods.splitWithWhitespace(line);
+        
         // TODO Get weight for each word
         // TODO Return result
         // Add words n-times to the end of line depending on the place in hierarchy
