@@ -11,7 +11,7 @@ import java.util.Objects;
  * Is a structure to hold finalized item and it's frequency
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class Finalized_Pair<K,V> {
+public class FinalizedPair<K,V> {
 
     private final K item;
     private final V value;
@@ -24,7 +24,7 @@ public class Finalized_Pair<K,V> {
         return value;
     }
 
-    public Finalized_Pair(K item, V value) {
+    public FinalizedPair(K item, V value) {
         this.item = item;
         this.value = value;
     }
@@ -51,7 +51,7 @@ public class Finalized_Pair<K,V> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Finalized_Pair<K,V> other = (Finalized_Pair<K,V>) obj;
+        final FinalizedPair<K,V> other = (FinalizedPair<K,V>) obj;
         if (this.value != other.value) {
             return false;
         }
