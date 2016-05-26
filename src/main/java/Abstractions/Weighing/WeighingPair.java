@@ -36,7 +36,7 @@ public abstract class WeighingPair<D extends Number,T extends Number> {
      * @param number
      * @return 
      */
-    public Number swap(D number){
+    public Number newPosition(D number){
         Number old = Utilities.Numbers.deepCopyNumber(depth);
         this.depth = number;
         return old;
