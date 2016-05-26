@@ -5,7 +5,7 @@
  */
 package VectorOutput.Vector;
 
-import Utilities.Structures.Finalized_Pair;
+import Utilities.Structures.FinalizedPair;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.Iterator;
@@ -26,10 +26,10 @@ public class RecreatedTokenVector<E>{
         create(vector, universe);
     }
     private void create(TokenVector vector, List<E> universe){
-        Iterator<Finalized_Pair<Integer, Integer>> iter = vector.iterator();
+        Iterator<FinalizedPair<Integer, Integer>> iter = vector.iterator();
         recreatedVector = HashMultiset.create();
         while(iter.hasNext()){
-            Finalized_Pair<Integer, Integer> fp = iter.next();
+            FinalizedPair<Integer, Integer> fp = iter.next();
             int index = fp.getItem();
             int count = fp.getValue();
             E word = universe.get(index);

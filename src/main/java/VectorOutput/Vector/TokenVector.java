@@ -1,7 +1,7 @@
 package VectorOutput.Vector;
 
 import Utilities.String.CStringOperations;
-import Utilities.Structures.Finalized_Pair;
+import Utilities.Structures.FinalizedPair;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multiset.Entry;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TokenVector implements Iterable<Finalized_Pair<Integer, Integer>> {
+public class TokenVector implements Iterable<FinalizedPair<Integer, Integer>> {
 
     private final int[] indexes;
     private final int[] counts;
@@ -92,14 +92,14 @@ public class TokenVector implements Iterable<Finalized_Pair<Integer, Integer>> {
      * @return
      */
     @Override
-    public Iterator<Finalized_Pair<Integer, Integer>> iterator() {
+    public Iterator<FinalizedPair<Integer, Integer>> iterator() {
         return new TokenVectorIterator(0, this);
     }
 
     /**
      * Iterator for Token vector, goes through indexes and counts
      */
-    private static final class TokenVectorIterator implements Iterator<Finalized_Pair<Integer, Integer>> {
+    private static final class TokenVectorIterator implements Iterator<FinalizedPair<Integer, Integer>> {
 
         int cursor;
         final int end;
@@ -117,12 +117,12 @@ public class TokenVector implements Iterable<Finalized_Pair<Integer, Integer>> {
         }
 
         @Override
-        public Finalized_Pair<Integer, Integer> next() {
+        public FinalizedPair<Integer, Integer> next() {
             if (hasNext()) {
                 Integer index = vector.indexes[cursor];
                 Integer count = vector.counts[cursor];
                 cursor++;
-                return new Finalized_Pair<>(index, count);
+                return new FinalizedPair<>(index, count);
             } else {
                 throw new NoSuchElementException();
             }
