@@ -6,7 +6,7 @@
 package VectorOutput.Vector;
 
 import VectorOutput.Vector.TokenVector;
-import Utilities.Structures.Finalized_Pair;
+import Utilities.Structures.FinalizedPair;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.Iterator;
@@ -89,7 +89,7 @@ public class TokenVectorTest {
             number++;
             Object next = iter.next();
             assertThat(next, is(not(nullValue())));
-            Assert.assertTrue(next instanceof Finalized_Pair );
+            Assert.assertTrue(next instanceof FinalizedPair );
         }
         assertThat(number, is(msi.entrySet().size()));
     }

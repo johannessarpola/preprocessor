@@ -26,8 +26,8 @@ public class FinalizedPairTest {
     @Test
     public void testGetDatapoint() {
         String item = "item";
-        Finalized_Pair<String, Integer> fp = new Finalized_Pair(item, 1);
-        Finalized_Pair<String, Integer> fp2 = new Finalized_Pair(item, 2);
+        FinalizedPair<String, Integer> fp = new FinalizedPair(item, 1);
+        FinalizedPair<String, Integer> fp2 = new FinalizedPair(item, 2);
         assertThat(fp, is(not(nullValue())));
         assertThat(fp2, is(not(nullValue())));
         assertThat(fp.getItem(), is(item));
@@ -39,8 +39,8 @@ public class FinalizedPairTest {
     @Test
     public void testGetFrequency() {
         String item = "item";
-        Finalized_Pair<String, Integer> fp = new Finalized_Pair(item, 1);
-        Finalized_Pair<String, Integer> fp2 = new Finalized_Pair(item, 2);
+        FinalizedPair<String, Integer> fp = new FinalizedPair(item, 1);
+        FinalizedPair<String, Integer> fp2 = new FinalizedPair(item, 2);
         assertThat(fp.getValue(), is(1));
         assertThat(fp2.getValue(), is(2));
         
