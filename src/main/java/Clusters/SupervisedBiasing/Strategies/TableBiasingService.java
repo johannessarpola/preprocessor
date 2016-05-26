@@ -29,7 +29,7 @@ public class TableBiasingService extends GenericService {
     }
 
     private void init() {
-        List<String> paths = TableBiasingConfiguration.getResourcePaths(); // TODO Implement resource paths from JSON conf
+        List<String> paths = TableBiasingConfiguration.getResourcePaths(); 
         tcws = new ArrayList();
         for (String p : paths) {
             // Create Wrapper for each resource file

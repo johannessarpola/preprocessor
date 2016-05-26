@@ -5,22 +5,26 @@
  */
 package Utilities.Structures;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  *
  * @author Johannes tÃ¶issÃ¤
  */
 public class HierarchialWordList {
+    // TODO Shouldn't this be hashmap for quick access with queue?
     ArrayList<HierarchialWord> words;
-    int lastIDIndex;
-    // pID is in the word then the get() should return the parent node
+    Queue<Integer> idQueue;
     
     public HierarchialWordList(){
-        words = new ArrayList<>();
+        words = new ArrayList();
+        idQueue = new ArrayDeque();
     }
-    public void addWord(){
-        
+    public void addWord(HierarchialWord hw){
+        this.words.add(hw);
+        idQueue.add(hw.getID());
     }
     
 }

@@ -107,7 +107,11 @@ public class CFolderOperations {
         File f = new File(folder);
         return f.isDirectory();
     }
-
+    /**
+     * Removes folder and everything inside it
+     * @param folder 
+     */
+    // TODO This doesn't work always, need to be tested
     public static void recursiveDelete(String folder) {
         File f = new File(folder);
         if (f.exists() && f.isDirectory()) {

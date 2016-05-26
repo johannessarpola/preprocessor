@@ -8,6 +8,7 @@ package Clusters.SupervisedBiasing.Internal;
 import Utilities.Json.JsonReader;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class TableBiasingConfiguration {
+    List<Path> paths;
     
     public static List<String> getResourcePaths() {
         // TODO Get table paths
@@ -35,5 +37,8 @@ public class TableBiasingConfiguration {
             isReady = false;
         }
     }
-    
+    public TableBiasingConfiguration(List<String> path){
+        
+        
+    }
 }
