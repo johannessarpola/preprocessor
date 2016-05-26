@@ -19,8 +19,8 @@ public class TableBasedWeighingLogic implements WeighingLogic{
     @Override
     public Double calculateWeight(WeighingPair pair){
         // 1 / 4 = 0.25 --> pos 4 should be 0.25 and pos 1 should be 1
-        Double block = 1/pair.getDepth().doubleValue();
-        Double blocksToCover = pair.getPosition().doubleValue()-(pair.getDepth().doubleValue()+1);
+        Double block = 1/pair.getTotalDepth().doubleValue();
+        Double blocksToCover = pair.getDepth().doubleValue()-(pair.getTotalDepth().doubleValue()+1);
         return Math.abs(block*blocksToCover);
     }
     

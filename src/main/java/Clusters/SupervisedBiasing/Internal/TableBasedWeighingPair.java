@@ -15,4 +15,5 @@ public class TableBasedWeighingPair extends WeighingPair {
         public TableBasedWeighingPair(Integer position, Integer width) {
             super(position, width);
         }
+        
 }
