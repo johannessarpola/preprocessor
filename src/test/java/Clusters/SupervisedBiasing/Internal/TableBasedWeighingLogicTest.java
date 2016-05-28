@@ -23,7 +23,7 @@ public class TableBasedWeighingLogicTest {
     }
 
     /**
-     * Test of calculateWeight method, of class TableBasedWeighingLogic.
+     * Test of calculateWeight method, of class DoubleBasedWeighingLogic.
      */
     @Test
     public void testCalculateWeight() {
@@ -34,7 +34,7 @@ public class TableBasedWeighingLogicTest {
         TableBasedWeighingPair tbwp2 = new TableBasedWeighingPair(2, 4);
         TableBasedWeighingPair tbwp3 = new TableBasedWeighingPair(3, 4);
         TableBasedWeighingPair tbwp4 = new TableBasedWeighingPair(4, 4);
-        TableBasedWeighingLogic instance = TableBasedWeighingLogic.Builder.build();
+        DoubleBasedWeighingLogic instance = DoubleBasedWeighingLogic.Builder.build();
         
         Double expResult = 1.;
         Double expResult2 = 0.75;
