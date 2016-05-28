@@ -17,8 +17,8 @@ import java.io.FileNotFoundException;
  * Wraps the TableReader here
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TableContainerWrapper {
-    TableContainer tableContainer;
+public class TableContainerWrapper<T> {
+    TableContainer<T> tableContainer;
     private boolean isReady = false;
 
     public TableContainerWrapper(String filepath) {
@@ -28,7 +28,7 @@ public class TableContainerWrapper {
     private void createReader(Options.SupportedTableStrategy strategy, String filepath) {
             tableContainer = new TableContainer(strategy,filepath);
     }
-    public TableHierarchy getTableHierarchy(){
+    public TableHierarchy<T> createTableHierarchy(){
         return new TableHierarchy(tableContainer.getTable());
     }
     /**

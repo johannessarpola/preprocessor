@@ -6,8 +6,11 @@
 package Clusters.SupervisedBiasing.Strategies;
 
 import Abstractions.Core.GenericService;
+import static Abstractions.Weighing.WeighingLogic.CombineStrategies.*;
+import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
+import Clusters.SupervisedBiasing.Internal.DoubleBasedWeighingLogic;
 import Clusters.SupervisedBiasing.Internal.TableBiasingConfiguration;
-import Clusters.SupervisedBiasing.TableWrappers.TableContainerWrapper;
+import Clusters.SupervisedBiasing.TableWrappers.StringTableContainerWrapper;
 import Global.Options;
 import Utilities.GeneralUtilityMethods;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 public class TableBiasingService extends GenericService {
     // TODO Why would we need multiple wrappers?
-    private List<TableContainerWrapper> tcws;
+    private List<StringTableContainerWrapper> tcws;
 
     public TableBiasingService() {
         super(Options.SupportedProcessingStrategy.SupervisedBiasingWithTable);
@@ -33,7 +36,7 @@ public class TableBiasingService extends GenericService {
         tcws = new ArrayList();
         for (String p : paths) {
             // Create Wrapper for each resource file
-            TableContainerWrapper tcw = new TableContainerWrapper(p);
+            StringTableContainerWrapper tcw = new StringTableContainerWrapper(p);
             if (tcw.isReady()) {
                 tcws.add(tcw);
             }
@@ -47,16 +50,18 @@ public class TableBiasingService extends GenericService {
     public void build(List<String> documents) {
         // No need in this case
     }
+    
     // It probably would be smarter to store K-V of the line where V would be weighed based on the processing 
     @Override
     public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
 /*        List<TableHierarchy> ths = new ArrayList<>();
         for(TableContainerWrapper tcw : tcws){
-            ths.add(tcw.getTableHierarchy());
+            ths.add(tcw.createTableHierarchy());
         }
 */
         List<String> splitLine = GeneralUtilityMethods.splitWithWhitespace(line);
-        
+        List<StringTableHierarchy> ths = getHierarchies();
+        parseWithWeights(splitLine, ths);
         // TODO Get weight for each word
         // TODO Return result
         // Add words n-times to the end of line depending on the place in hierarchy
@@ -76,4 +81,25 @@ public class TableBiasingService extends GenericService {
         });
     }
 
+    private List<StringTableHierarchy> getHierarchies() {
+        List<StringTableHierarchy> ths = new ArrayList<>();
+        for(StringTableContainerWrapper tcw : tcws){
+            ths.add(tcw.createTableHierarchy());    
+        }
+        return ths;
+    }
+
+    private void parseWithWeights(List<String> splitLine, List<StringTableHierarchy> ths) {
+        List<Double> weights = new ArrayList<>(splitLine.size());
+        DoubleBasedWeighingLogic logic = DoubleBasedWeighingLogic.Builder.build();
+        int i =0;
+        for(String word : splitLine){
+            List<Double> weightsForWord = new ArrayList<>();
+            for(StringTableHierarchy h: ths){
+                weightsForWord.add(h.getWeight(word));
+            }
+            Double combined = logic.combineWeights(mean, weightsForWord);
+            weights.add(combined);
+        }
+    }
 }

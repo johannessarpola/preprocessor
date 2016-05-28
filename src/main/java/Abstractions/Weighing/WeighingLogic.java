@@ -5,6 +5,8 @@
  */
 package Abstractions.Weighing;
 
+import java.util.List;
+
 /**
  *
  * @author Johannes
@@ -12,4 +14,21 @@ package Abstractions.Weighing;
 public interface WeighingLogic {
     
      public Double calculateWeight(WeighingPair pair);
+     /**
+      * Combines multiple weights for a single element
+      * @param strategy how weights are combined
+      * @param weights
+      * @return 
+      */
+     public Double combineWeights(CombineStrategies strategy, List<Double> weights);
+     /**
+      * Just defined the possibilites of combining weights as a element might be
+      * present in multiple places and have multiple weights
+      */
+     public static enum CombineStrategies{
+        sum,
+        median,
+        mean,
+        mode
+    }
 }

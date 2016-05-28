@@ -16,11 +16,12 @@ import java.util.Map;
  * in table e.g. with columns 1st would have 1, 2nd 0.5, 3rd 0.25, 4th, 0.125
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
+ * @param <T> Type
  */
 public class TableHierarchy<T> {
 
     private Map<T, Double> weightMap;
-    private TableBasedWeighingLogic tbwl;
+    private DoubleBasedWeighingLogic tbwl;
 
     public TableHierarchy(Table<T> t) {
         createHierarchy(t);
@@ -31,7 +32,7 @@ public class TableHierarchy<T> {
         int weightFactor = t.getHeader().size();
         int position = 1;
         TableBasedWeighingPair twp = new TableBasedWeighingPair(0, weightFactor);
-        tbwl = TableBasedWeighingLogic.Builder.build();
+        tbwl = DoubleBasedWeighingLogic.Builder.build();
         for (List<T> row : t.getRows()) {
             for (T element : row) {
                 twp.newPosition(position);
@@ -44,11 +45,22 @@ public class TableHierarchy<T> {
         Double weight = tbwl.calculateWeight(twp);
         weightMap.put(element, weight);
     }
-    public FinalizedPair getWeight(T element) {
+    public Double getWeight(T element){
+        Double doubl = getWeightPair(element).getValue();
+        return doubl;
+    }
+    /**
+     * Gets the weight element, weight pair 
+     * Will return 1. if there's no element in the table so the weight is 1
+     * @param element
+     * @return 
+     */
+    public FinalizedPair<T, Double> getWeightPair(T element) {
         if (weightMap.containsKey(element)) {
             FinalizedPair<T, Double> fp = new FinalizedPair(element, weightMap.get(element));
             return fp;
         } else {
+            FinalizedPair<T,Double> fp = new FinalizedPair(element, 1.);
             GeneralLogging.logMessage_Error(getClass(), "No element found in weight map for " + element.toString());
             return null;
         }
