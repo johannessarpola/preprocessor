@@ -15,12 +15,16 @@ import java.util.List;
 public class ListMath {
 
     public static class OnDoubles {
+        public static Double sum(List<Double> doubles){
+            Double total = 0.;
+            for(Double d : doubles){
+                total += d;
+            }
+            return total;
+        }
 
         public static Double mean(List<Double> doubles) {
-            Double total = 0.;
-            for (Double db : doubles) {
-                total += db;
-            }
+            Double total = sum(doubles);
             return total / doubles.size();
         }
 
