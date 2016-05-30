@@ -6,6 +6,7 @@
 package Utilities.Structures;
 
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,16 +15,19 @@ import java.util.List;
  *
  * @author Johannes
  */
-@Deprecated
-public class FinalizedListPair<K, V> implements Iterable<FinalizedPair> {
-    
-    // TODO there needs to a class which either has final or not final attributes
-    final List<K> keys;
-    final List<V> values;
+public class ListPair<K, V> implements Iterable<FinalizedPair> {
+    // TODO Implement Iterator();
+
+    List<K> keys;
+    List<V> values;
     private FinalizedPair<K, V> pair;
     private boolean operational;
     
-    public FinalizedListPair(List<K> keys, List<V> values) throws UnevenSizedListsException {
+    public ListPair(){
+        keys = new ArrayList<>();
+        values = new ArrayList<>();
+    };
+    public ListPair(List<K> keys, List<V> values) throws UnevenSizedListsException {
         operational = false;
         validate(keys, values);
         this.keys = keys;
@@ -54,7 +58,7 @@ public class FinalizedListPair<K, V> implements Iterable<FinalizedPair> {
     }
     @Override
     public Iterator<FinalizedPair> iterator() {
-        FinalizedListPair instance = this;
+        ListPair instance = this;
         Iterator<FinalizedPair> it = new Iterator<FinalizedPair>() {
             private int currentIndex = 0;
 
