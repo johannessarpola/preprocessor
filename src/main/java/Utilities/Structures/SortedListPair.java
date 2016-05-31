@@ -13,14 +13,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * List wrapper which uses the finalized pair
  *
  * @author Johannes
+ * @param <L> 
+ * @param <R>
  */
-public class SortedListPair<K, N extends Number & Comparable<? super N>> extends ListPair {
+public class SortedListPair<L, R extends Number & Comparable<? super R>> extends ListPair {
 
     /**
      *
@@ -28,7 +29,7 @@ public class SortedListPair<K, N extends Number & Comparable<? super N>> extends
      * @param values
      * @throws UnevenSizedListsException
      */
-    public SortedListPair(List<K> keys, List<N> values) throws UnevenSizedListsException {
+    public SortedListPair(List<L> keys, List<R> values) throws UnevenSizedListsException {
         super(keys, values);
         selfsort(keys, values);
     }
@@ -36,19 +37,18 @@ public class SortedListPair<K, N extends Number & Comparable<? super N>> extends
     /**
      * This wont be very effective, O^2 jezus...
      */
-    // TODO Divide this up
-    private void selfsort(List<K> keys, List<N> values) {
-        Iterator<FinalizedPair<K, N>> iter = this.iterator();
-        Map<Integer, FinalizedPair<K, N>> indexmap = new HashMap<>();
-        Map<N, PriorityQueue<Integer>> indexQueue = new HashMap<>();
-        List<N> vals = new ArrayList<>();
+    private void selfsort(List<L> keys, List<R> values) {
+        Iterator<FinalizedPair<L, R>> iter = this.iterator();
+        Map<Integer, FinalizedPair<L, R>> indexmap = new HashMap<>();
+        Map<R, PriorityQueue<Integer>> indexQueue = new HashMap<>();
+        List<R> vals = new ArrayList<>();
         Integer i = 0;
         // go through each element in the listpair
         while (iter.hasNext()) {
-            FinalizedPair<K,N> fp = iter.next();
+            FinalizedPair<L,R> fp = iter.next();
             // map indexes to finalized pairs
             indexmap.put(i, fp);
-            N numb = fp.getValue();
+            R numb = fp.getValue();
             // Add to queue or create new if it doesnt exist
             if (!indexQueue.containsKey(numb)) {
                 PriorityQueue q = new PriorityQueue();
@@ -60,20 +60,22 @@ public class SortedListPair<K, N extends Number & Comparable<? super N>> extends
             vals.add(numb);
             i++;
         }
-        List<K> endKeys = new ArrayList<>();
-        List<N> endVals = new ArrayList<>();
+        List<L> endKeys = new ArrayList<>();
+        List<R> endVals = new ArrayList<>();
         // sort the values
         Collections.sort(vals);
         Collections.reverse(vals);
-        for (N val : vals) {
+        // go through the queues for epach double 
+        for (R val : vals) {
             PriorityQueue<Integer> q = indexQueue.get(val);
             while (q.peek() != null) {
                 Integer indx = q.poll();
-                FinalizedPair<K, N> fp = indexmap.get(indx);
+                FinalizedPair<L, R> fp = indexmap.get(indx);
                 endKeys.add(fp.getItem());
                 endVals.add(fp.getValue());
             }
         }
+        // set the parent classes fields
         this.keys = endKeys;
         this.values = endVals;
 
