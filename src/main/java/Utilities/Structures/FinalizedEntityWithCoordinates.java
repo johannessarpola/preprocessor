@@ -11,11 +11,11 @@ import java.util.Objects;
  * A basic entity with x and y values (e.g row, column and value)
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class FinalizedEntityWithCoordinates<T>{
+public class FinalizedEntityWithCoordinates<E>{
     final int x, y;
-    final T entity;
+    final E entity;
 
-    public FinalizedEntityWithCoordinates(int x, int y, T entity) {
+    public FinalizedEntityWithCoordinates(int x, int y, E entity) {
         this.x = x;
         this.y = y;
         this.entity = entity;
@@ -29,7 +29,7 @@ public class FinalizedEntityWithCoordinates<T>{
         return y;
     }
 
-    public T getEntity() {
+    public E getEntity() {
         return entity;
     }
     /**

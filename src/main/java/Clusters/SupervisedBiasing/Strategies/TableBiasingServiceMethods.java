@@ -11,6 +11,7 @@ import Clusters.SupervisedBiasing.Internal.DoubleBasedWeighingLogic;
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import Utilities.Structures.FinalizedListPair;
 import Utilities.Structures.FinalizedPair;
+import Utilities.Structures.SortedListPair;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Basically checks each token and it's position in tabular data Hierarchy uses XLSX
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
+ * @version %I%
  */
 public class TableBiasingServiceMethods  {
 
@@ -27,6 +29,7 @@ public class TableBiasingServiceMethods  {
      * @param ths
      * @return the weights in the same order as the split line
      */
+    // TODO Test tablehierarchies
     protected static List<Double> getWeightsForLine(List<String> splitLine, List<StringTableHierarchy> ths) {
         List<Double> weights = new ArrayList<>(splitLine.size());
         DoubleBasedWeighingLogic logic = DoubleBasedWeighingLogic.Builder.build();
@@ -41,17 +44,25 @@ public class TableBiasingServiceMethods  {
         }
         return weights;
     }
-    
-    protected static FinalizedListPair<String,Double> makeListPair(List<String> ws, List<Double> dbles) throws UnevenSizedListsException{
-        return new FinalizedListPair<>(ws,dbles);
+    /**
+     * Creates list pair which is sorted with the Double value
+     * @param ws words 
+     * @param dbles doubles, in this case the weights
+     * @return SortedListPair, which can be acceses through FinalizedPair
+     * @see SortedListPair
+     * @see FinalizedPair
+     * @throws UnevenSizedListsException 
+     */
+    protected static SortedListPair<String,Double> makeListPair(List<String> ws, List<Double> dbles) throws UnevenSizedListsException{
+        return new SortedListPair<>(ws,dbles);
     } 
-    protected static List<String> getHighestWords(FinalizedListPair<String,Double> lp, int biasingsize) {
-        Iterator<FinalizedPair> iterator = lp.iterator();
-        while(iterator.hasNext()){
-            
-        }
-        
-        return null;
-       // Now we need the iterator interface
+    /**
+     * Gets the highestWords from list of words according to set size
+     * @param sortedListPair SortedListPair to al
+     * @param sampleSize
+     * @return 
+     */
+    protected static List<FinalizedPair<String,Double>> getHighestWords(SortedListPair<String,Double> sortedListPair, int sampleSize) {
+        return sortedListPair.createlist(0, sampleSize);
     }
 }
