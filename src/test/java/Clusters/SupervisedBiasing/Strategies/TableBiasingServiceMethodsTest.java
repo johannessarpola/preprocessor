@@ -31,8 +31,8 @@ public class TableBiasingServiceMethodsTest {
     @Before
     public void setUp() {
         ra = Arrays.asList("First", "Third", "Second", "Fourth");
-        rb = Arrays.asList(10., 3., 7., 1.);
-        b = Arrays.asList(10., 3., 7., 1.);
+        rb = Arrays.asList( 1., 3., 7.,10.);
+        b = Arrays.asList(10.,7.,3.,1.);
     }
 
     @After
@@ -48,11 +48,11 @@ public class TableBiasingServiceMethodsTest {
     public void testMakeListPair() throws Exception {
         System.out.println("makeListPair");
         SortedListPair<String, Double> slist = TableBiasingServiceMethods.makeListPair(ra, rb);
-        assertEquals(slist.size(), b.size());
-        FinalizedPair<String, Double> firstpair = slist.getPair(3);
+        assertEquals(slist.size(), rb.size());
+        FinalizedPair<String, Double> firstpair = slist.getPair(2);
         FinalizedPair<String, Double> ndpair = slist.getPair(0);
-        assertEquals(b.get(3), firstpair.getValue(), 0.);
-        assertEquals(b.get(0), firstpair.getValue(), 0.);
+        assertEquals(b.get(2), firstpair.getValue(), 0.);
+        assertEquals(b.get(0), ndpair.getValue(), 0.);
 
     }
 
