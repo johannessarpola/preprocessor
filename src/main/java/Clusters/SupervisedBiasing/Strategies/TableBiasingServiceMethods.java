@@ -9,11 +9,9 @@ import static Abstractions.Weighing.WeighingLogic.CombineStrategies.*;
 import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import Clusters.SupervisedBiasing.Internal.DoubleBasedWeighingLogic;
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
-import Utilities.Structures.FinalizedListPair;
 import Utilities.Structures.FinalizedPair;
 import Utilities.Structures.SortedListPair;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -62,7 +60,12 @@ public class TableBiasingServiceMethods  {
      * @param sampleSize
      * @return 
      */
-    protected static List<FinalizedPair<String,Double>> getHighestWords(SortedListPair<String,Double> sortedListPair, int sampleSize) {
+    private static List<FinalizedPair<String,Double>> getSublist(SortedListPair<String,Double> sortedListPair, int sampleSize) {
         return sortedListPair.createlist(0, sampleSize);
+    }
+    protected static List<FinalizedPair<String,Double>> getHighestWords(List<String> words, List<Double> weights, int sampleSize) throws UnevenSizedListsException{
+        SortedListPair<String,Double> slp = makeListPair(words, weights);
+        List<FinalizedPair<String,Double>> l = getSublist(slp, sampleSize);
+        return l;
     }
 }
