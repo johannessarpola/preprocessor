@@ -8,6 +8,7 @@ package Clusters.SupervisedBiasing.Strategies;
 import static Abstractions.Weighing.WeighingLogic.CombineStrategies.*;
 import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import Clusters.SupervisedBiasing.Internal.DoubleBasedWeighingLogic;
+import static Clusters.SupervisedBiasing.Strategies.TableBiasingServiceOptions.DELIM;
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import Utilities.Structures.FinalizedPair;
 import Utilities.Structures.SortedListPair;
@@ -68,4 +69,24 @@ public class TableBiasingServiceMethods  {
         List<FinalizedPair<String,Double>> l = getSublist(slp, sampleSize);
         return l;
     }
+    /**
+     * Flattens the pair list to a string
+     * @param highest
+     * @return 
+     */
+    protected static String flatten(List<FinalizedPair<String, Double>> highest) {
+        StringBuilder ret = new StringBuilder("");
+        highest.stream().forEach(element -> ret.append(multiplyToString(element)));
+        return ret.toString();
+    }
+    private static String multiplyToString(FinalizedPair<String, Double> fp) {
+        Double val = fp.getValue();
+        StringBuilder ret = new StringBuilder("");
+        while(val-- > 0.){
+            String elem = fp.getItem()+DELIM;
+            ret.append(elem);
+        }
+        return ret.toString().trim();
+    }
+    
 }

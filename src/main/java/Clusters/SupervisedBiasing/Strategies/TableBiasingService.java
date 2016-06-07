@@ -15,9 +15,13 @@ import Clusters.SupervisedBiasing.TableWrappers.StringTableContainerWrapper;
 import Global.Options;
 import Utilities.GeneralUtilityMethods;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import Utilities.Logging.GeneralLogging;
+import Utilities.Structures.FinalizedPair;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Basically checks each token and it's position in tabular data Hierarchy uses XLSX
@@ -55,19 +59,21 @@ public class TableBiasingService extends GenericService {
     // It probably would be smarter to store K-V of the line where V would be weighed based on the processing 
     @Override
     public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
-/*        List<TableHierarchy> ths = new ArrayList<>();
-        for(TableContainerWrapper tcw : tcws){
-            ths.add(tcw.createTableHierarchy());
+        try {
+            List<String> splitLine = GeneralUtilityMethods.splitWithWhitespace(line);
+            List<StringTableHierarchy> ths = getHierarchies();
+            // This should be in the same order as the words
+            List<Double> weights = getWeightsForLine(splitLine, ths);
+            List<FinalizedPair<String, Double>> highest = TableBiasingServiceMethods.getHighestWords(splitLine, weights, biasingSize);
+            String str = TableBiasingServiceMethods.flatten(highest);
+            // TODO Get weight for each word
+            // TODO Return result
+            // Add words n-times to the end of line depending on the place in hierarchy
+            return "";
+        } catch (UnevenSizedListsException ex) {
+            // TODO Fix
+            Logger.getLogger(TableBiasingService.class.getName()).log(Level.SEVERE, null, ex);
         }
-*/
-        List<String> splitLine = GeneralUtilityMethods.splitWithWhitespace(line);
-        List<StringTableHierarchy> ths = getHierarchies();
-        // This should be in the same order as the words
-        List<Double> weights = getWeightsForLine(splitLine, ths);
-        
-        // TODO Get weight for each word
-        // TODO Return result
-        // Add words n-times to the end of line depending on the place in hierarchy
         return "";
     }
 
