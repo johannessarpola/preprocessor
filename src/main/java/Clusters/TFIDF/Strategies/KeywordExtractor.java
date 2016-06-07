@@ -9,6 +9,7 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import Utilities.Map.MapUtils;
 import Utilities.Processing.Stopwords;
@@ -97,35 +98,33 @@ public class KeywordExtractor extends FeatureExtractor {
     }
 
     @Override
-    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             try {
                 this.setNumberOfDefiningFeatures(biasingSize);
                 String aLine = replaceWords(line);
                 return aLine;
             } catch (NoValueFoundException ex) {
-                GeneralLogging.logStackTrace_Error(getClass(), ex);
+                throw new UnhandledServiceException();
             }
         } else {
             throw new ServiceNotReadyException();
         }
-        return line; // TODO Processing failed exception
     }
 
     @Override
-    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             try {
                 this.setNumberOfDefiningFeatures(biasingSize);
                 String aLine = appendWords(line);
                 return aLine;
             } catch (NoValueFoundException ex) {
-                GeneralLogging.logStackTrace_Error(getClass(), ex);
+                throw new UnhandledServiceException();
             }
         } else {
             throw new ServiceNotReadyException();
         }
-        return line; // TODO Processing failed exception
     }
 
     @Override

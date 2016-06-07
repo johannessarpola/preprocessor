@@ -7,6 +7,7 @@ package Abstractions.Core;
 
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Global.Options.SupportedProcessingParadigms;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 
 /**
  *
@@ -15,5 +16,5 @@ import Global.Options.SupportedProcessingParadigms;
 public interface GenericServiceMethods {
     // Need just to define that there is a method to process line which is implemented
     // as defined in the abstract class of Cluster or implementation specific case
-    public String processLine(String line, SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException;
+    public String processLine(String line, SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException;
 }

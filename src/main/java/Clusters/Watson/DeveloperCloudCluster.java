@@ -13,8 +13,10 @@ import Clusters.Watson.Strategies.ConceptsInsightsWrapper;
 import Global.Options;
 import Global.Options.SupportedProcessingParadigms;
 import Global.Options.SupportedProcessingStrategy;
+import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import java.util.HashMap;
@@ -79,12 +81,13 @@ public class DeveloperCloudCluster extends GenericCluster {
     }
 
     @Override
-    public String processLine(String line, SupportedProcessingParadigms method) throws ServiceNotReadyException {
+    public String processLine(String line, SupportedProcessingParadigms method) throws ServiceNotReadyException, UnhandledServiceException, ClusterNoteadyException {
         if (this.isClusterReady) {
-            line = services.get(selectedStrategy).processLine(line, method, biasingSize);
+            if(!services.get(selectedStrategy).isServiceReady()) throw new ServiceNotReadyException();
+            else line = services.get(selectedStrategy).processLine(line, method, biasingSize);
             return line;
         } else {
-            throw new ServiceNotReadyException();
+            throw new ClusterNoteadyException();
         }
     }
 

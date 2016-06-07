@@ -11,6 +11,7 @@ import Abstractions.Core.GenericService;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Global.Options;
 import Processor.ArticleProcessor;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,7 +68,7 @@ public class KeywordExtractorTest {
      * Test of processLine method, of class KeywordExtractor.
      */
     @Test
-    public void testAppend() throws ServiceNotReadyException {
+    public void testAppend() throws ServiceNotReadyException, UnhandledServiceException {
         //pw.selectProcessing(Options.SemanticProcessingStrategy.TFIDF);
         List<String> ls = new ArrayList<>();
         ls.add("Dog Cat Bird");
@@ -97,7 +98,7 @@ public class KeywordExtractorTest {
     }
 
     @Test
-    public void testReplace() throws ServiceNotReadyException {
+    public void testReplace() throws ServiceNotReadyException, UnhandledServiceException {
         List<String> ls = new ArrayList<>();
         ls.add("Spanish mackerel spawn in oceanic conditions on reef edges. Eggs have a large oil droplet that aids in buoyancy and keeps them at the top of the water column which is warmer, well oxygenated, and has an abundant planktonic food supply for the larvae once they are hatched. When in the larval stage, Spanish mackerel are believed to stay in their own species-specific groups and are not normally found with other species of the same genus, such as S. semifasciatus and S. queenslandicus. This is not always the case with adult mackerel, where occasional mixing of different species within the same genus can occur. Spawning is seasonal, but it is protracted in the warmer waters of the tropics. Many of the fisheries that target this species are based on prespawning feeding aggregations. A significant proportion of the female fish caught in NT waters between July and December have either recently spawned or are close to spawning.[4] In general, spawning times for Spanish mackerel tend to be associated with higher water temperatures that promote optimal food availability for the rapid growth and development of the larvae. As the young larvae grow, they move from the offshore spawning grounds to inshore and estuarine habitats, where they are frequently found in the juvenile phase of their growth cycle. In the inshore environments, they feed mostly on the larvae and juveniles of small fish and crustaceans until they become large enough to eat small fish and squid.[6] Australian studies of this species suggest females are larger than males.[7][8] [9] Female Spanish mackerel mature at about two years of age or around 80 cm in length");
         ls.add("Spanish mackerel spawn in oceanic conditions on reef edges. Eggs have a large oil droplet that aids in buoyancy and keeps them at the top of the water column which is warmer, well oxygenated, and has an abundant planktonic food supply for the larvae once they are hatched.");

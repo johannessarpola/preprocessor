@@ -5,6 +5,7 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
@@ -79,7 +80,7 @@ public class WordNgramExtractor extends FeatureExtractor {
     }
 
     @Override
-    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             try {
                 this.numberOfDefiningFeatures = biasingSize;
@@ -87,16 +88,15 @@ public class WordNgramExtractor extends FeatureExtractor {
                 line = this.doAppend(line, ls);
                 return line;
             } catch (NoValueFoundException ex) {
-                 GeneralLogging.logStackTrace_Error(getClass(), ex);
+                throw new UnhandledServiceException();
             }
         } else {
             throw new ServiceNotReadyException();
         }
-        return line; // TODO Report unprocessed
     }
 
     @Override
-    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             try {
                 this.numberOfDefiningFeatures = biasingSize;
@@ -104,12 +104,11 @@ public class WordNgramExtractor extends FeatureExtractor {
                 line = this.doReplace(line, ls);
                 return line;
             } catch (NoValueFoundException ex) {
-                 GeneralLogging.logStackTrace_Error(getClass(), ex);
+                throw new UnhandledServiceException();
             }
         } else {
             throw new ServiceNotReadyException();
         }
-        return line; // TODO Report unprocessd
     }
 
     @Override

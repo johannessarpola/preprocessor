@@ -11,6 +11,7 @@ import Global.Options;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class SupervisedBiasingCluster extends GenericCluster{
     }
 
     @Override
-    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException {
+    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         if(this.isClusterReady){
             GenericService serv = services.get(selectedStrategy);
             if(serv.isServiceReady()){

@@ -9,6 +9,7 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import Utilities.Map.MapUtils;
 import Utilities.Structures.LinkedWord;
@@ -54,7 +55,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     }
 
     @Override
-    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         try {
             this.setNumberOfDefiningFeatures(biasingSize);
             List<String> keywords = getKeywords(line, biasingSize);
@@ -62,9 +63,8 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             // TODO using mapping to get highest ngrams
             return this.doAppend(line, ngrams);
         } catch (NoValueFoundException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            throw new UnhandledServiceException();
         }
-        return null;
     }
 
     /**
@@ -82,7 +82,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     }
 
     @Override
-    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         try {
             this.setNumberOfDefiningFeatures(biasingSize);
             List<String> keywords = getKeywords(line, biasingSize);
@@ -90,9 +90,8 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             // TODO using mapping to get highest ngrams
             return this.doReplace(line, ngrams);
         } catch (NoValueFoundException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            throw new UnhandledServiceException();
         }
-        return null;
     }
 
     protected List<String> getHighestNgramsForKeywords(String line, List<String> keywords) {

@@ -9,6 +9,7 @@ import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import java.util.List;
@@ -33,12 +34,12 @@ public class AlchemyWrapper extends WatsonConnector {
     }
     // TODO Test Alchemy api
     @Override
-    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // TODO Test Alchemy api
     @Override
-    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

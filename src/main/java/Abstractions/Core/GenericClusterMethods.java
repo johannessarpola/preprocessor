@@ -11,6 +11,7 @@ import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public interface GenericClusterMethods {
 
     public void selectStrategy(SupportedProcessingStrategy strategy) throws InvalidStrategyForClusterException;
-    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException;
+    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException;
     public SupportedClusters getId();
     public boolean isClusterReady();
     //public void addVocabulary(List<String> documents);

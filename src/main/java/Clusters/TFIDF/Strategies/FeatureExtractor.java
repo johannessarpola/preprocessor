@@ -14,6 +14,7 @@ import Utilities.Compression.StringCompressor;
 import Utilities.Hashing.HashStore;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Map.MapUtils;
 import Utilities.Structures.LinkedWord;
 import com.google.common.base.CharMatcher;
@@ -63,10 +64,10 @@ public abstract class FeatureExtractor extends GenericService {
     public abstract void addVocabulary(List<String> documents, boolean doCompression); // Needs to be class specific based on splitting
 
     @Override
-    public abstract String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException;
+    public abstract String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException;
 
     @Override
-    public abstract String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException;
+    public abstract String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException;
 
     @Override
     public abstract void clear();

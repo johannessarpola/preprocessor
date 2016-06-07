@@ -8,6 +8,7 @@ package Abstractions.Core;
 import Global.Options;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public abstract class GenericService implements GenericServiceMethods {
     public abstract void build(List<String> documents);
 
     @Override
-    public String processLine(String line, Options.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException {
+    public String processLine(String line, Options.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             if (null != method) {
                 switch (method) {
@@ -55,9 +56,9 @@ public abstract class GenericService implements GenericServiceMethods {
     }
     // Needs to implement both methods of processing
 
-    public abstract String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException;
+    public abstract String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException;
 
-    public abstract String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException;
+    public abstract String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException;
 
     public boolean isServiceReady() {
         return isServiceReady;

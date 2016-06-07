@@ -9,6 +9,7 @@ import Clusters.TFIDF.Internal.TFIDF;
 import Global.Options.SupportedProcessingStrategy;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
+import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import Utilities.Structures.LinkedWord;
 import java.util.HashMap;
@@ -58,15 +59,14 @@ public class CombinedExtractor extends FeatureExtractor {
     }
 
     @Override
-    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException {
+    public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
         try {
             this.setNumberOfDefiningFeatures(biasingSize);
             List<String> res = this.getHighestScoringEntries(line);
             return this.doReplace(line, res);
         } catch (NoValueFoundException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            throw new UnhandledServiceException();
         }
-        return null;
     }
 
     @Override
