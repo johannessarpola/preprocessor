@@ -6,10 +6,11 @@
 package Clusters.Mappings;
 
 import Abstractions.Core.GenericCluster;
-import Clusters.TFIDF.TFIDFCluster;
 import Clusters.SupervisedBiasing.SupervisedBiasingCluster;
+import Clusters.TFIDF.TFIDFCluster;
 import Clusters.Watson.DeveloperCloudCluster;
 import Global.Options;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

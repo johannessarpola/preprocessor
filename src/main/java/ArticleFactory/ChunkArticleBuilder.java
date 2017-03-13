@@ -8,6 +8,7 @@ package ArticleFactory;
 import Global.Options;
 import Utilities.ChunkedInput.FileChunks;
 import Utilities.Structures.ReutersArticles;
+
 import java.io.IOException;
 
 /**
@@ -31,7 +32,6 @@ public class ChunkArticleBuilder {
     }
     /**
      * Reads ALL the articles
-     * @TODO Not yet implemented, is on consideration
      * @return 
      */
     public ReutersArticles buildArticles() {
