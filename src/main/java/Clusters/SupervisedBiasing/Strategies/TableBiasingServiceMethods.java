@@ -5,15 +5,17 @@
  */
 package Clusters.SupervisedBiasing.Strategies;
 
-import static Abstractions.Weighing.WeighingLogic.CombineStrategies.*;
-import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import Clusters.SupervisedBiasing.Internal.DoubleBasedWeighingLogic;
-import static Clusters.SupervisedBiasing.Strategies.TableBiasingServiceOptions.DELIM;
+import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import Utilities.Structures.FinalizedPair;
 import Utilities.Structures.SortedListPair;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static Abstractions.Weighing.WeighingLogic.CombineStrategies.mean;
+import static Clusters.SupervisedBiasing.Strategies.TableBiasingServiceOptions.DELIM;
 
 /**
  * Basically checks each token and it's position in tabular data Hierarchy uses XLSX

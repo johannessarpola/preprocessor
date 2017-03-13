@@ -13,16 +13,12 @@ import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import Utilities.Map.MapUtils;
 import Utilities.Structures.LinkedWord;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * This class is basically a word ngram extractor difference by getting ngrams
- * by keywords
+ * Gets ngrams for set number of keywords.
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */

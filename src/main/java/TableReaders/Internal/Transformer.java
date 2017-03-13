@@ -5,10 +5,11 @@
  */
 package TableReaders.Internal;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

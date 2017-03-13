@@ -6,8 +6,10 @@
 package Utilities.Hashing;
 
 import Utilities.GeneralUtilities;
-import static Utilities.GeneralUtilities.guavaSplitterWhiteSpace;
+
 import java.util.List;
+
+import static Utilities.GeneralUtilities.guavaSplitterWhiteSpace;
 
 /**
  *
@@ -20,10 +22,10 @@ public class HashMethods {
      * @param sizeToDigest
      * @return 
      */
-    static String deductKey(String line, int sizeToDigest) {
+    static String deduct128MurMurKey(String line, int sizeToDigest) {
         List<String> lineSplit = guavaSplitterWhiteSpace.splitToList(line);
         int i = 0;
-        String key = deductKey(lineSplit, sizeToDigest);
+        String key = deduct128MurMurKey(lineSplit, sizeToDigest);
         return key;
     }
     /**
@@ -33,7 +35,7 @@ public class HashMethods {
      * @param sizeToDigest
      * @return 
      */
-    static String deductKey(List<String> line, int sizeToDigest) {
+    static String deduct128MurMurKey(List<String> line, int sizeToDigest) {
         String digestation = "";
         if (line.size() < sizeToDigest) {
             sizeToDigest = line.size() - 1;

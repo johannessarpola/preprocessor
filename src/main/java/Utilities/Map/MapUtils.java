@@ -9,11 +9,8 @@ package Utilities.Map;
  * Holds utilities for map operations
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class MapUtils {
 

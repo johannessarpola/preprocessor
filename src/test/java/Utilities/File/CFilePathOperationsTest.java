@@ -6,12 +6,14 @@
 package Utilities.File;
 
 import TestUtils.TestFileUtils;
-import java.io.IOException;
-import java.nio.file.Path;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *

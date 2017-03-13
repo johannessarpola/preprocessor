@@ -7,13 +7,15 @@ package Guava;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  *

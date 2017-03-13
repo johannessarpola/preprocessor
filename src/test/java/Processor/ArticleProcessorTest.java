@@ -5,13 +5,13 @@
  */
 package Processor;
 
-import Processor.ArticleProcessor;
 import com.google.common.collect.Multiset;
-import java.util.TreeMap;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.TreeMap;
 
 /**
  *

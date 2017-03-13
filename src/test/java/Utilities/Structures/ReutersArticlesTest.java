@@ -5,17 +5,13 @@
  */
 package Utilities.Structures;
 
-import Utilities.Structures.ReutersArticles;
 import Global.Options;
 import Utilities.File.CFileOperations;
+import org.junit.*;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  *

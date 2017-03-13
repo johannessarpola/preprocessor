@@ -11,7 +11,7 @@ import com.google.common.base.CharMatcher;
  * Holds operations for Strings
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class CStringOperations {
+public class StringOperations {
 
     public static boolean regionMatch(String string, String partOfString) {
         int originalStringLength = string.length();

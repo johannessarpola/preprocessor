@@ -5,19 +5,18 @@
  */
 package VectorOutput.Vector;
 
-import VectorOutput.Vector.TokenVector;
 import Utilities.Structures.FinalizedPair;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicLong;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  *

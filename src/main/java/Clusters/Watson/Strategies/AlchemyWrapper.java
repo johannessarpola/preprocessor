@@ -12,6 +12,7 @@ import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+
 import java.util.List;
 
 /**

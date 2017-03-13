@@ -5,13 +5,13 @@
  */
 package Processor.Internal;
 
-import Processor.Internal.Lemmatizer;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Johannes töissä

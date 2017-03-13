@@ -1,8 +1,9 @@
 package Utilities.Logging;
 
+import org.apache.log4j.Logger;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import org.apache.log4j.Logger;
 
 public class GeneralLogging {
         static Logger logger;

@@ -6,6 +6,7 @@
 package Utilities.Adapters;
 
 import Utilities.Structures.LinkedWord;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

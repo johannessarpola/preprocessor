@@ -5,15 +5,16 @@
  */
 package VectorOutput;
 
-import VectorOutput.OutputFactory;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.ArrayList;
-import java.util.List;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  *

@@ -6,9 +6,9 @@ import Global.Options;
 import Utilities.Logging.CustomExceptions.NoValueFoundException;
 import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import Utilities.Logging.GeneralLogging;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -113,6 +113,7 @@ public class WordNgramExtractor extends FeatureExtractor {
 
     @Override
     public void clear() {
+        super.clearData();
         subclassSpecificInit();
     }
 
@@ -122,7 +123,7 @@ public class WordNgramExtractor extends FeatureExtractor {
     }
 
     private void subclassSpecificInit() {
-        // TODO Is this not needed?
+        // TODO ??
     }
 
     @Override

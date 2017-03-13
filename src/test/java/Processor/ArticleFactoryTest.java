@@ -10,13 +10,10 @@ import Global.Options;
 import Utilities.File.CFileOperations;
 import Utilities.File.CFolderOperations;
 import Utilities.Structures.ReutersArticles;
+import org.junit.*;
+
 import java.io.IOException;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  *

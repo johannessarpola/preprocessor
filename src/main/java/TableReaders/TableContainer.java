@@ -8,6 +8,7 @@ package TableReaders;
 import Global.Options.SupportedTableStrategy;
 import Utilities.Logging.GeneralLogging;
 import Utilities.Structures.Table;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;

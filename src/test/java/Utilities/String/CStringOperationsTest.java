@@ -6,7 +6,6 @@
 package Utilities.String;
 
 import Processor.ArticleProcessor;
-import Utilities.String.CStringOperations;
 import com.google.common.base.CharMatcher;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -34,7 +33,7 @@ public class CStringOperationsTest {
     }
 
     /**
-     * Test of regionMatch method, of class CStringOperations.
+     * Test of regionMatch method, of class StringOperations.
      */
     @Test
     public void testRegionMatch() {
@@ -45,14 +44,14 @@ public class CStringOperationsTest {
         String strP = "resul";
         String strP2 = "fnancial";
 
-        Assert.assertTrue(CStringOperations.regionMatch(url, urlId));
-        Assert.assertTrue(CStringOperations.regionMatch(str, strP));
-        Assert.assertFalse(CStringOperations.regionMatch(str, strP2));
+        Assert.assertTrue(StringOperations.regionMatch(url, urlId));
+        Assert.assertTrue(StringOperations.regionMatch(str, strP));
+        Assert.assertFalse(StringOperations.regionMatch(str, strP2));
 
     }
 
     /**
-     * Test of removeTags method, of class CStringOperations.
+     * Test of removeTags method, of class StringOperations.
      */
     @Test
     public void testRemoveTags() {
@@ -62,7 +61,7 @@ public class CStringOperationsTest {
         CharMatcher cm = p.getCharMatcher();
         String expResult = "";
         for (String s : tokens) {
-            String result = CStringOperations.removeTags(s, cm);
+            String result = StringOperations.removeTags(s, cm);
             Assert.assertEquals(expResult, result);
         }
 

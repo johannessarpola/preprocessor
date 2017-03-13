@@ -6,6 +6,7 @@
 package Utilities.Hashing;
 
 import Utilities.GeneralUtilities;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +42,11 @@ public class HashStore {
         if (this.digestLength > stringList.size()) {
             dgstsize = stringList.size() - 1;
         }
-        key = HashMethods.deductKey(stringList, dgstsize);
+        key = HashMethods.deduct128MurMurKey(stringList, dgstsize);
         keystore.put(key, index);
     }
     public Integer getIndex(String line){
-        String accessKey = HashMethods.deductKey(line, digestLength);
+        String accessKey = HashMethods.deduct128MurMurKey(line, digestLength);
         Integer ret = this.keystore.get(accessKey);
         return ret;
     }

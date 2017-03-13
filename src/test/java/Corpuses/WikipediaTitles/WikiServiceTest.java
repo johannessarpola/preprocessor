@@ -5,13 +5,13 @@
  */
 package Corpuses.WikipediaTitles;
 
-import Corpuses.WikipediaTitles.WikiCorpus;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>

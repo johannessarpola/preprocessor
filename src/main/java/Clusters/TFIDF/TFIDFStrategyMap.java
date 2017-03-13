@@ -5,8 +5,8 @@
  */
 package Clusters.TFIDF;
 
-import Abstractions.Core.GenericService;
 import Abstractions.Core.ClustersStrategyMap;
+import Abstractions.Core.GenericService;
 import Clusters.TFIDF.Strategies.CombinedExtractor;
 import Clusters.TFIDF.Strategies.KeywordExtractor;
 import Clusters.TFIDF.Strategies.KeywordsFirstExtractor;

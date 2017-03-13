@@ -5,18 +5,16 @@
  */
 package Clusters.SupervisedBiasing.Strategies;
 
-import Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import Utilities.Structures.FinalizedPair;
 import Utilities.Structures.SortedListPair;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *

@@ -8,6 +8,7 @@ package Core;
 import Abstractions.Core.GenericCluster;
 import Clusters.Mappings.EnumToCluster;
 import Global.Options;
+
 import java.util.List;
 
 /**
@@ -17,11 +18,11 @@ import java.util.List;
 public class ClusterConnection {
 
     // Hold clusters
-    protected GenericCluster gc;
-    boolean isConnectionEstablished;
-    boolean isClusterReady;
+    private GenericCluster gc;
+    private boolean isConnectionEstablished;
+    private boolean isClusterReady;
 
-    public ClusterConnection(Options.SupportedClusters c) {
+    ClusterConnection(Options.SupportedClusters c) {
         isConnectionEstablished = false;
         initCluster(c);
     }

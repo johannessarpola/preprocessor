@@ -5,14 +5,14 @@
  */
 package Utilities.Map;
 
-import Utilities.Map.MapUtils;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  *

@@ -5,12 +5,13 @@
  */
 package Utilities.Structures;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

@@ -5,12 +5,12 @@
  */
 package Clusters.TFIDF.Internal;
 
-import Clusters.TFIDF.Internal.Ngram;
-import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  *

@@ -19,10 +19,12 @@ import Utilities.Map.MapUtils;
 import Utilities.Structures.LinkedWord;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -97,7 +99,7 @@ public abstract class FeatureExtractor extends GenericService {
         this.requiresVocabulary = true;
     }
 
-    private void clearData() {
+    protected void clearData() {
         universe.clear();
         compressedEntities.clear();
         tfScores.clear();
@@ -248,7 +250,7 @@ public abstract class FeatureExtractor extends GenericService {
      * @return
      */
     protected String doAppend(String line, List<String> ls) {
-        line = ls.stream().map((s) -> " " + s).reduce(line, String::concat);
+        line += ls != null && !ls.isEmpty() ? " "+ ls.stream().collect(Collectors.joining(" ")) : "" ;
         return line;
     }
 
@@ -260,8 +262,6 @@ public abstract class FeatureExtractor extends GenericService {
      * @return
      */
     protected String doReplace(String line, List<String> ls) {
-        String ret = "";
-        ret = ls.stream().map((s) -> s + "|").reduce(ret, String::concat);
-        return ret;
+        return ls.stream().collect(Collectors.joining(" "));
     }
 }

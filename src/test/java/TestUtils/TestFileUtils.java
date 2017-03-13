@@ -7,8 +7,8 @@ package TestUtils;
 
 import Utilities.File.CFolderOperations;
 import com.google.common.io.Files;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;

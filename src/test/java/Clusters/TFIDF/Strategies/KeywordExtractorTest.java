@@ -5,20 +5,20 @@
  */
 package Clusters.TFIDF.Strategies;
 
-import Clusters.TFIDF.Strategies.KeywordExtractor;
 import Abstractions.Core.GenericCluster;
 import Abstractions.Core.GenericService;
-import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Global.Options;
 import Processor.ArticleProcessor;
+import Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *

@@ -6,8 +6,9 @@
 package Clusters.SupervisedBiasing.Internal;
 
 import Global.Options;
-import Utilities.Logging.CustomExceptions.TableNotSupportedException;
 import Utilities.File.CFileOperations;
+import Utilities.Logging.CustomExceptions.TableNotSupportedException;
+
 import java.io.FileNotFoundException;
 
 /**

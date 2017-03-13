@@ -5,17 +5,14 @@
  */
 package VectorOutput;
 
-import VectorOutput.Vector.TokenVector;
 import Utilities.File.CFolderOperations;
+import VectorOutput.Vector.TokenVector;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+
 import java.io.File;
 import java.nio.file.NotDirectoryException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *

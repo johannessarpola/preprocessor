@@ -5,16 +5,16 @@
  */
 package Clusters.Watson.Internal;
 
-import Clusters.Watson.Internal.CredentialsStore;
 import Utilities.Json.JsonReader;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**

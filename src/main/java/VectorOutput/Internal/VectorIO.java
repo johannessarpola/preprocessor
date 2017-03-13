@@ -6,6 +6,7 @@
 package VectorOutput.Internal;
 
 import VectorOutput.Vector.TokenVector;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

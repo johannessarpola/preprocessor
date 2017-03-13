@@ -5,17 +5,17 @@
  */
 package Clusters.TFIDF.Strategies;
 
-import Clusters.TFIDF.Strategies.CombinedExtractor;
 import Abstractions.Core.GenericCluster;
 import Abstractions.Core.GenericService;
 import Global.Options;
 import Processor.ArticleProcessor;
-import java.util.ArrayList;
-import java.util.List;
 import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

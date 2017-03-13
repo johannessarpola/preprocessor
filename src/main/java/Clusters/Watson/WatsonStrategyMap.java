@@ -8,7 +8,6 @@ package Clusters.Watson;
 import Abstractions.Core.ClustersStrategyMap;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Strategies.AlchemyWrapper;
-import Clusters.Watson.Strategies.ConceptsInsightsWrapper;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
@@ -25,7 +24,7 @@ public class WatsonStrategyMap extends ClustersStrategyMap<WatsonConnector> {
     @Override
     public WatsonConnector initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
         switch (strategy) {
-            case ConceptInsights: return new ConceptsInsightsWrapper();
+            // case ConceptInsights: return new ConceptsInsightsWrapper(); DISCONTINUED
             case Alchemy: return new AlchemyWrapper ();
             default: throw new StrategyNotSupportedException();
         }

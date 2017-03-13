@@ -8,8 +8,9 @@ package TableReaders;
 import Abstractions.Structures.TableReader;
 import Global.Options;
 import Global.Options.SupportedTableStrategy;
-import java.io.FileNotFoundException;
 import org.apache.commons.lang.NotImplementedException;
+
+import java.io.FileNotFoundException;
 
 /**
  *

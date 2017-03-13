@@ -5,8 +5,8 @@
  */
 package Clusters.SupervisedBiasing;
 
-import Abstractions.Core.GenericService;
 import Abstractions.Core.ClustersStrategyMap;
+import Abstractions.Core.GenericService;
 import Clusters.SupervisedBiasing.Strategies.TableBiasingService;
 import Global.Options;
 import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;

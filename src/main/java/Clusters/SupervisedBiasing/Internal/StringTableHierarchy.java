@@ -5,11 +5,7 @@
  */
 package Clusters.SupervisedBiasing.Internal;
 
-import Utilities.Logging.GeneralLogging;
-import Utilities.Structures.FinalizedPair;
 import Utilities.Structures.Table;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Is basically a map of weights for different words in regards to it 'position'

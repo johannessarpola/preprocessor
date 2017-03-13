@@ -7,17 +7,19 @@ package Processor;
 
 import Processor.Internal.Lemmatizer;
 import Processor.Internal.Stemmer;
-import static Processor.Internal.URLRemover.removeUrl;
 import Utilities.Processing.Stopwords;
-import static Utilities.String.CStringOperations.removeTags;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.primitives.Doubles;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static Processor.Internal.URLRemover.removeUrl;
+import static Utilities.String.StringOperations.removeTags;
 
 /**
  *

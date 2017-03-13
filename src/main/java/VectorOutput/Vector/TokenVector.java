@@ -1,9 +1,10 @@
 package VectorOutput.Vector;
 
-import Utilities.String.CStringOperations;
+import Utilities.String.StringOperations;
 import Utilities.Structures.FinalizedPair;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multiset.Entry;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
@@ -62,7 +63,7 @@ public class TokenVector implements Iterable<FinalizedPair<Integer, Integer>> {
             iter++;
         }
         // Removes the last ','
-        vectorString = CStringOperations.rmCharAt(vectorString.length() - 1, vectorString);
+        vectorString = StringOperations.rmCharAt(vectorString.length() - 1, vectorString);
     }
 
     public int[] getIndexes() {

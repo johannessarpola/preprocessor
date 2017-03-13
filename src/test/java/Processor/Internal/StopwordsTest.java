@@ -6,13 +6,10 @@
 package Processor.Internal;
 
 import Utilities.Processing.Stopwords;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -9,7 +9,6 @@ import Abstractions.Core.GenericCluster;
 import Clusters.Watson.Internal.WatsonConnector;
 import Clusters.Watson.Internal.WatsonCredentialsStorage;
 import Clusters.Watson.Strategies.AlchemyWrapper;
-import Clusters.Watson.Strategies.ConceptsInsightsWrapper;
 import Global.Options;
 import Global.Options.SupportedProcessingParadigms;
 import Global.Options.SupportedProcessingStrategy;
@@ -19,6 +18,7 @@ import Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 import Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import Utilities.Logging.GeneralLogging;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,16 +50,8 @@ public class DeveloperCloudCluster extends GenericCluster {
      * Sets the access rules for different services
      */
     private void setupServiceWrappers() {
-        setupConceptInsightsWrapper(SupportedProcessingStrategy.ConceptInsights);
         setupAlchemyWrapper(SupportedProcessingStrategy.Alchemy);
         this.isClusterReady = true;
-    }
-
-    private void setupConceptInsightsWrapper(SupportedProcessingStrategy k) {
-        ConceptsInsightsWrapper ciw = new ConceptsInsightsWrapper();
-        ciw.connectWith(credentials);
-        services.put(k, ciw);
-        connectors.put(k, ciw); // copy ref to here also
     }
 
     private void setupAlchemyWrapper(SupportedProcessingStrategy k) {

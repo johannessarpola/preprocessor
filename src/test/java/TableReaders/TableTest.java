@@ -6,16 +6,16 @@
 package TableReaders;
 
 import Global.Options;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import org.junit.AfterClass;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  *

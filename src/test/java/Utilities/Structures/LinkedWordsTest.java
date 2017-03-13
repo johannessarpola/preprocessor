@@ -5,8 +5,6 @@
  */
 package Utilities.Structures;
 
-import Utilities.Structures.LinkedWord;
-import Utilities.Structures.LinkedWords;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

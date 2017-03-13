@@ -11,7 +11,7 @@ import Global.Options;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class Master {
+public class ConnectionMaster {
     ClusterConnection watson = new ClusterConnection(Options.SupportedClusters.Watson);
     ClusterConnection tfidf = new ClusterConnection(Options.SupportedClusters.TFIDF);
 }

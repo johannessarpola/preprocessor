@@ -5,13 +5,13 @@
  */
 package StanfordNLP;
 
-import StanfordNLP.PartOfSpeechTagging;
-import java.util.Map;
-import java.util.Map.Entry;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
