@@ -14,9 +14,9 @@ import org.junit.Test;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class LinkedWordsTest {
+public class LinkedWordsGeneratorTest {
     
-    public LinkedWordsTest() {
+    public LinkedWordsGeneratorTest() {
     }
     
     @BeforeClass
@@ -28,14 +28,14 @@ public class LinkedWordsTest {
     }
 
     /**
-     * Test of createLinkedWords method, of class LinkedWords.
+     * Test of createLinkedWords method, of class LinkedWordsGenerator.
      */
     @Test
     public void testCreateLinkedWords() {
         System.out.println("createLinkedWords");
         String[] line = {"Word1", "Word2", "Word3"};
-        LinkedWord lw = LinkedWords.createLinkedWords(line);
-        LinkedWord current = LinkedWords.createLinkedWords(line); 
+        LinkedWord lw = LinkedWordsGenerator.createLinkedWords(line);
+        LinkedWord current = LinkedWordsGenerator.createLinkedWords(line);
         for(String st : line) {
             Assert.assertEquals(st, lw.getWord());
             if(lw.hasNext()) {

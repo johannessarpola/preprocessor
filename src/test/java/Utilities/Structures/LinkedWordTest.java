@@ -31,7 +31,7 @@ public class LinkedWordTest {
     }
 
     /**
-     * Test of createLinkedWords method, of class LinkedWords.
+     * Test of createLinkedWords method, of class LinkedWordsGenerator.
      */
     @Test
     public void testLinkedWord() {
@@ -51,9 +51,9 @@ public class LinkedWordTest {
             s2 = s2.trim();
             line3.add(s2);
         }
-        LinkedWord lw1 = LinkedWords.createLinkedWords(line);
-        LinkedWord lw2 = LinkedWords.createLinkedWords(line2);
-        LinkedWord lw3 = LinkedWords.createLinkedWords(line3);
+        LinkedWord lw1 = LinkedWordsGenerator.createLinkedWords(line);
+        LinkedWord lw2 = LinkedWordsGenerator.createLinkedWords(line2);
+        LinkedWord lw3 = LinkedWordsGenerator.createLinkedWords(line3);
         Assert.assertEquals(lw1, lw1);
         Assert.assertFalse(lw1.equals(lw2));
         Assert.assertEquals(line2.size(), lw2.toString().split(" ").length);

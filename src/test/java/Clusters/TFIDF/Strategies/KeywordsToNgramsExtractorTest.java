@@ -22,15 +22,13 @@ import java.util.List;
  */
 public class KeywordsToNgramsExtractorTest {
 
-    public static FeatureExtractor featEx;
-
     public KeywordsToNgramsExtractorTest() {
 
     }
 
     @BeforeClass
     public static void setUpClass() {
-        featEx = new KeywordsFirstExtractor();
+        FeatureExtractor featEx = new KeywordsFirstExtractor();
     }
 
     @AfterClass
