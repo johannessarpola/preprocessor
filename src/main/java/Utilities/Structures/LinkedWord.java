@@ -47,7 +47,7 @@ public class LinkedWord {
     }
 
     /**
-     * Returns the whole linked list as a string. These LinkedWords are
+     * Returns the whole linked list as a string. These LinkedWordsGenerator are
      * basically Strings (e.g. Ngrams) so we can use toString()
      *
      * @return

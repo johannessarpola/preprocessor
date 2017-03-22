@@ -24,8 +24,8 @@ import java.util.Map;
  */
 public class CombinedExtractor extends FeatureExtractor {
 
-    WordNgramExtractor wne;
-    KeywordExtractor ke;
+    private WordNgramExtractor wordNgramExtractor;
+    private KeywordExtractor keywordExtractor;
     Map<String, List<LinkedWord>> wordToNgramMapping; // Used to access ngrams for a word quicker
     
     public CombinedExtractor() {
@@ -77,25 +77,25 @@ public class CombinedExtractor extends FeatureExtractor {
     }
 
     private void subclassSpecificInit() {
-        wne = new WordNgramExtractor();
-        ke = new KeywordExtractor();
+        wordNgramExtractor = new WordNgramExtractor();
+        keywordExtractor = new KeywordExtractor();
     }
 
     @Override
     protected void defineSplitter() {
-        wne.defineSplitter();
-        ke.defineSplitter();
+        wordNgramExtractor.defineSplitter();
+        keywordExtractor.defineSplitter();
     }
 
-    public void setupBoth(List<String> documents, boolean doCompression) throws NoValueFoundException {
-        wne.addVocabulary(documents, false);
-        ke.addVocabulary(documents, false); // We do not want to compress yet
+    private void setupBoth(List<String> documents, boolean doCompression) throws NoValueFoundException {
+        wordNgramExtractor.addVocabulary(documents, false);
+        keywordExtractor.addVocabulary(documents, false); // We do not want to compress yet
         int docIndex = 0;
 
         for (String doc : documents) {
             //super.tfScores.addAll(tfScores)
-            Map<String, Double> temp = ke.getTfMapAsString(doc);
-            Map<String, Double> temp2 = wne.getTfMapAsString(doc);
+            Map<String, Double> temp = keywordExtractor.getTfMapAsString(doc);
+            Map<String, Double> temp2 = wordNgramExtractor.getTfMapAsString(doc);
             Map<String, Double> temp3 = new HashMap<>(temp);
             temp3.putAll(temp2);
             this.tfScores.add(temp3);
@@ -103,15 +103,13 @@ public class CombinedExtractor extends FeatureExtractor {
             docIndex++;
         }
         this.idfScores = TFIDF.idfFromTfs(this.tfScores);
-        // TODO Create combined TFIDF_Keywords
         if (doCompression) {
             this.compress();
         }
-        //TODO Null keywordex and ngramex
         this.isServiceReady = true;
         this.isVocabularyAdded = true;
-        ke = null;
-        wne = null;
+        keywordExtractor = null;
+        wordNgramExtractor = null;
     }
 
     @Override

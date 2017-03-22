@@ -7,7 +7,7 @@ package Utilities.Compression;
 
 import Utilities.GeneralUtilities;
 import Utilities.Structures.LinkedWord;
-import Utilities.Structures.LinkedWords;
+import Utilities.Structures.LinkedWordsGenerator;
 
 import java.util.*;
 
@@ -54,7 +54,7 @@ public class StringCompressor {
                 // Is either a word or words in ngram
                 LinkedWord lw;
                 if (!usedLinkedWords.containsKey(st)) {
-                    lw = LinkedWords.createLinkedWords(words);
+                    lw = LinkedWordsGenerator.createLinkedWords(words);
                     usedLinkedWords.put(st, lw);
                 } else {
                     lw = usedLinkedWords.get(st);

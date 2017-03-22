@@ -20,7 +20,7 @@ import java.util.TreeMap;
  * @author Johannes töissä
  */
 public class ReutersArticles {
-    // IDEA Could just be dynamic wihtout defined structure if you use Lists
+
     String[] columnNames;
     private ArrayList<Article> Articles;
     private int numberOfArticles = 0;

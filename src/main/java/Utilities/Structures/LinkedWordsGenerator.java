@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class LinkedWords {
+public class LinkedWordsGenerator {
 
     /**
      * Splits the line with whitespace and returns linked list of Strings

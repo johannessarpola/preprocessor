@@ -35,7 +35,7 @@ public class StringTransforms {
     }
 
     /**
-     * List of LinkedWords to String with spaces
+     * List of LinkedWordsGenerator to String with spaces
      *
      * @param ls
      * @return
