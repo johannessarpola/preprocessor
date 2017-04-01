@@ -216,7 +216,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         // TODO Create combined TFIDF
         if (doCompression) {
             // We're going to use mapping in this class
-            wordToNgramMapping = this.compress(true).getMapping();
+            wordToNgramMapping = this.compress(true).getWordToNgramsMapping();
         }
         //TODO Null keywordex and ngramex
         this.isServiceReady = true;

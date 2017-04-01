@@ -225,8 +225,8 @@ public abstract class FeatureExtractor extends GenericService {
      */
     protected CompressionPayload compress(boolean doMapping) {
         CompressionPayload cr = StringCompressor.compressTermFrequencies(tfScores, idfScores, doMapping);
-        this.universe = cr.getItems();
-        this.tfScoresCompressed = cr.getCompressedDocuments();
+        this.universe = cr.getAllWords();
+        this.tfScoresCompressed = cr.getCompressedTermFrequencies();
         this.compressedEntities = cr.getCompressedIdfMap();
         this.tfScores.clear();
         this.idfScores.clear();

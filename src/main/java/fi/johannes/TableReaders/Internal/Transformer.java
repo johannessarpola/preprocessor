@@ -29,7 +29,7 @@ public class Transformer {
     }
 
     public static String getCellAsString(Cell c) {
-        int ct = c.getCellType();
+        int ct = c.getCellTypeEnum().getCode();
         if (ct == 2) {
             ct = c.getCachedFormulaResultType();
         }
