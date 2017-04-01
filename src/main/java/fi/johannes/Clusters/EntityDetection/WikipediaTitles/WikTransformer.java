@@ -1,5 +1,5 @@
 
-package fi.johannes.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import org.apache.commons.lang.StringUtils;
 

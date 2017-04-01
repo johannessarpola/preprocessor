@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection;
+package fi.johannes.Clusters.EntityDetection;
 
-import fi.johannes.EntityDetection.Internal.EntityCorpus;
-import fi.johannes.EntityDetection.WikipediaTitles.WikiCorpus;
+import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
+import fi.johannes.Clusters.EntityDetection.WikipediaTitles.WikiCorpus;
 import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import fi.johannes.Utilities.Logging.GeneralLogging;

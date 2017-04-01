@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection.Internal;
+package fi.johannes.Clusters.EntityDetection.Internal;
 
 import fi.johannes.Core.Options;
 

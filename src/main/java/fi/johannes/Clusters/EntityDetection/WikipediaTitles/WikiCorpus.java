@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
-import fi.johannes.EntityDetection.Internal.BloomfilterCorpus;
+import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
 import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Logging.GeneralLogging;

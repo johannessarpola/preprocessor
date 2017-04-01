@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
