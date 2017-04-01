@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Global;
+package fi.johannes.Core;
 
 /**
  * Holds the main connstants like paths and enums

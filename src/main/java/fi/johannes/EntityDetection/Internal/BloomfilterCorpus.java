@@ -5,7 +5,7 @@
  */
 package fi.johannes.EntityDetection.Internal;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 
 /**
  * Is a corpus using Bloomfilter

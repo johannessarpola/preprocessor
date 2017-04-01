@@ -5,7 +5,7 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**

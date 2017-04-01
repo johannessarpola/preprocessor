@@ -7,7 +7,7 @@ package fi.johannes.Clusters.SupervisedBiasing.TableWrappers;
 
 import fi.johannes.Clusters.SupervisedBiasing.Internal.ExtensionStrategyMapper;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.TableHierarchy;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.TableReaders.TableContainer;
 import fi.johannes.Utilities.Logging.CustomExceptions.TableNotSupportedException;
 import fi.johannes.Utilities.Logging.GeneralLogging;

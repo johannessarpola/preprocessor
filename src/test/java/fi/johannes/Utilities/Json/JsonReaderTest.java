@@ -6,7 +6,7 @@
 package fi.johannes.Utilities.Json;
 
 import fi.johannes.Clusters.Watson.Internal.WatsonOptions;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFileOperations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

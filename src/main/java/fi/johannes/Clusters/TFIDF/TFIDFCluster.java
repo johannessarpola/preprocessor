@@ -7,8 +7,8 @@ package fi.johannes.Clusters.TFIDF;
 
 import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedClusters;
+import fi.johannes.Core.Options;
+import fi.johannes.Core.Options.SupportedClusters;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;

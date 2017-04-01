@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.Watson.Internal;
 
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 
 /**

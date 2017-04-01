@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
-import fi.johannes.Global.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.Options.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;

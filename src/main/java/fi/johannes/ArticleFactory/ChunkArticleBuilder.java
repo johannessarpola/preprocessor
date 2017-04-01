@@ -5,7 +5,7 @@
  */
 package fi.johannes.ArticleFactory;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.ChunkedInput.FileChunks;
 import fi.johannes.Utilities.Structures.ReutersArticles;
 

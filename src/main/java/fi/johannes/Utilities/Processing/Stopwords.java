@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.Processing;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 
 import java.io.IOException;

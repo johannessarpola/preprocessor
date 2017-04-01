@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing.Internal;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFileOperations;
 import fi.johannes.Utilities.Logging.CustomExceptions.TableNotSupportedException;
 

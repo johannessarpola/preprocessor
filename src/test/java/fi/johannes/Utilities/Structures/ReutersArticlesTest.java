@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.Structures;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFileOperations;
 import org.junit.*;
 

@@ -5,8 +5,6 @@
  */
 package fi.johannes.Core;
 
-import fi.johannes.Global.Options;
-
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>

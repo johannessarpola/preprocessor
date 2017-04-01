@@ -5,7 +5,7 @@
  */
 package fi.johannes.EntityDetection.Internal;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 
 /**
  * EntityCorpus is a set where you check if something exists

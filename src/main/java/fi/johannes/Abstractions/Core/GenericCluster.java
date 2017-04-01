@@ -5,9 +5,9 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedClusters;
-import fi.johannes.Global.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.Options;
+import fi.johannes.Core.Options.SupportedClusters;
+import fi.johannes.Core.Options.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
 import java.util.HashMap;

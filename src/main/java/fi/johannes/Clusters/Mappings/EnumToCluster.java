@@ -9,7 +9,7 @@ import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import fi.johannes.Clusters.TFIDF.TFIDFCluster;
 import fi.johannes.Clusters.Watson.DeveloperCloudCluster;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 
 import java.util.Collections;
 import java.util.HashMap;

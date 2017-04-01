@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.File;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import org.junit.*;
 
 import java.io.File;

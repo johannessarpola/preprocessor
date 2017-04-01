@@ -7,7 +7,7 @@ package fi.johannes.Clusters.SupervisedBiasing;
 
 import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;

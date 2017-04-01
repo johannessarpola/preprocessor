@@ -5,7 +5,7 @@
  */
 package fi.johannes.TableReaders;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

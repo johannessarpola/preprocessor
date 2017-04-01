@@ -8,7 +8,7 @@ package fi.johannes.Clusters.Watson;
 import fi.johannes.Abstractions.Core.ClustersStrategyMap;
 import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Strategies.AlchemyWrapper;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**

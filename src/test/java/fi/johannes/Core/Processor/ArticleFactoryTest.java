@@ -6,7 +6,7 @@
 package fi.johannes.Core.Processor;
 
 import fi.johannes.ArticleFactory.ChunkArticleBuilder;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFileOperations;
 import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Structures.ReutersArticles;

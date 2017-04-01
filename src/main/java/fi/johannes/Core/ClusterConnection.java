@@ -7,7 +7,6 @@ package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Clusters.Mappings.EnumToCluster;
-import fi.johannes.Global.Options;
 
 import java.util.List;
 

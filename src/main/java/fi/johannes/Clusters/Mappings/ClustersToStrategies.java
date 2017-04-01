@@ -5,8 +5,8 @@
  */
 package fi.johannes.Clusters.Mappings;
 
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedClusters;
+import fi.johannes.Core.Options;
+import fi.johannes.Core.Options.SupportedClusters;
 
 import java.util.Collections;
 import java.util.HashMap;

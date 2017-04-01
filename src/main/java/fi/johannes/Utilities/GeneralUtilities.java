@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.hash.HashFunction;

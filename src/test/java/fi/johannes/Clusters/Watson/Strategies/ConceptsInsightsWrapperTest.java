@@ -6,8 +6,8 @@
 package fi.johannes.Clusters.Watson.Strategies;
 
 import fi.johannes.Clusters.Watson.DeveloperCloudCluster;
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedProcessingParadigms;
+import fi.johannes.Core.Options;
+import fi.johannes.Core.Options.SupportedProcessingParadigms;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;

@@ -6,7 +6,7 @@
 package fi.johannes.EntityDetection.WikipediaTitles;
 
 import fi.johannes.EntityDetection.Internal.BloomfilterCorpus;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 

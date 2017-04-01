@@ -7,7 +7,7 @@ package fi.johannes.EntityDetection;
 
 import fi.johannes.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.EntityDetection.WikipediaTitles.WikiCorpus;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 

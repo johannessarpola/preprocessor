@@ -6,8 +6,8 @@
 package fi.johannes.TableReaders;
 
 import fi.johannes.Abstractions.Structures.TableReader;
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedTableStrategy;
+import fi.johannes.Core.Options;
+import fi.johannes.Core.Options.SupportedTableStrategy;
 import org.apache.commons.lang.NotImplementedException;
 
 import java.io.FileNotFoundException;

@@ -11,7 +11,7 @@ import fi.johannes.Clusters.TFIDF.Strategies.CombinedExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.KeywordExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.KeywordsFirstExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.WordNgramExtractor;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.Options;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
