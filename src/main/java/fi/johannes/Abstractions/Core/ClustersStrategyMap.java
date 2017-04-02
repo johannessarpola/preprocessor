@@ -14,8 +14,8 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class ClustersStrategyMap <T> {
-    ClusterMapping.SupportedClusters id;
-    protected ClustersStrategyMap(ClusterMapping.SupportedClusters id){
+    ClusterMapping.ClusterEnums id;
+    protected ClustersStrategyMap(ClusterMapping.ClusterEnums id){
         this.id = id;
     }
     public abstract T initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException;

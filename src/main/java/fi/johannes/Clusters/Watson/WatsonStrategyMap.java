@@ -18,7 +18,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  */
 public class WatsonStrategyMap extends ClustersStrategyMap<WatsonConnector> {
 
-    public WatsonStrategyMap(ClusterMapping.SupportedClusters id) {
+    public WatsonStrategyMap(ClusterMapping.ClusterEnums id) {
         super(id);
     }
 

@@ -21,7 +21,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  */
 public class TFIDFStrategyMap extends ClustersStrategyMap<GenericService> {
     
-    public TFIDFStrategyMap(ClusterMapping.SupportedClusters id){
+    public TFIDFStrategyMap(ClusterMapping.ClusterEnums id){
         super(id);
     }
     

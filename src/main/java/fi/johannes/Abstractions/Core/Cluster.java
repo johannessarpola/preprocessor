@@ -6,7 +6,7 @@
 package fi.johannes.Abstractions.Core;
 
 import fi.johannes.Core.ClusterMapping;
-import fi.johannes.Core.ClusterMapping.SupportedClusters;
+import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
@@ -18,10 +18,10 @@ import java.util.HashMap;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public abstract class GenericCluster implements GenericClusterMethods {
+public abstract class Cluster implements GenericClusterMethods {
     
     protected ClustersStrategyMap<? extends GenericService> map;
-    protected SupportedClusters id;
+    protected ClusterEnums id;
     protected int biasingSize;
     protected boolean isClusterReady;
     protected SupportedProcessingStrategy selectedStrategy;
@@ -29,14 +29,14 @@ public abstract class GenericCluster implements GenericClusterMethods {
     // Enums for each clusters
     protected SupportedProcessingStrategy[] strategies;
 
-    public GenericCluster(SupportedClusters id) {
+    public Cluster(ClusterEnums id) {
         services = new HashMap();
         strategies = ClusterMapping.getStrategies(id);
         this.id = id;
     }
 
     @Override
-    public SupportedClusters getId() {
+    public ClusterEnums getId() {
         return id;
     }
 

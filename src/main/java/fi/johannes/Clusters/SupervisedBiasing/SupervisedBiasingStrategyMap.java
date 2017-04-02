@@ -18,7 +18,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  */
 public class SupervisedBiasingStrategyMap extends ClustersStrategyMap<GenericService>   {
     
-    public SupervisedBiasingStrategyMap(ClusterMapping.SupportedClusters id){
+    public SupervisedBiasingStrategyMap(ClusterMapping.ClusterEnums id){
         super(id);
     }
     @Override

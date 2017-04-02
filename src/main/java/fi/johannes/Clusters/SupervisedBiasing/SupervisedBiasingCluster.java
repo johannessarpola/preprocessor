@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
 import fi.johannes.Core.ClusterMapping;
@@ -21,10 +21,10 @@ import java.util.List;
  * It's the cluster to bias based on data owner tabular datas
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class SupervisedBiasingCluster extends GenericCluster{
+public class SupervisedBiasingCluster extends Cluster {
     
     public SupervisedBiasingCluster(){
-        super(ClusterMapping.SupportedClusters.TableBiasing);
+        super(ClusterMapping.ClusterEnums.TableBiasing);
     }
 
     @Override

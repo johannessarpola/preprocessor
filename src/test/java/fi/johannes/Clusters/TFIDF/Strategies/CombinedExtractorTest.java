@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.TFIDF.Strategies;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
 import fi.johannes.Core.ArticleProcessor;
@@ -24,7 +24,7 @@ import java.util.List;
 public class CombinedExtractorTest {
     static GenericService instance;
     static ArticleProcessor apr;
-    static GenericCluster TFIDFCluster;
+    static Cluster TFIDFCluster;
     
     public CombinedExtractorTest() {
         instance = new CombinedExtractor();

@@ -5,7 +5,7 @@
  */
 package fi.johannes.Core;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ import java.util.List;
 public class ClusterConnection {
 
     // Hold clusters
-    private GenericCluster gc;
+    private Cluster gc;
     private boolean isConnectionEstablished;
     private boolean isClusterReady;
 
-    ClusterConnection(ClusterMapping.SupportedClusters c) {
+    ClusterConnection(ClusterMapping.ClusterEnums c) {
         isConnectionEstablished = false;
         initCluster(c);
     }
 
-    private void initCluster(ClusterMapping.SupportedClusters c) {
+    private void initCluster(ClusterMapping.ClusterEnums c) {
         gc = ClusterMapping.getCluster(c);
         gc.buildCluster();
         isClusterReady = gc.isClusterReady();

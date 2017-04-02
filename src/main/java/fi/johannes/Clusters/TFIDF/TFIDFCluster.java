@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.TFIDF;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
 import fi.johannes.Core.ClusterMapping;
@@ -21,10 +21,10 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TFIDFCluster extends GenericCluster {
+public class TFIDFCluster extends Cluster {
 
     public TFIDFCluster() {
-        super(ClusterMapping.SupportedClusters.TFIDF);
+        super(ClusterMapping.ClusterEnums.TFIDF);
     }
 
     @Override

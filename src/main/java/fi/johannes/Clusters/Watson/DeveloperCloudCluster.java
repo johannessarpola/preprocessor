@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.Watson;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Internal.WatsonCredentialsStorage;
 import fi.johannes.Clusters.Watson.Strategies.AlchemyWrapper;
@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  *
  * @author Johannes töissä
  */
-public class DeveloperCloudCluster extends GenericCluster {
+public class DeveloperCloudCluster extends Cluster {
 
     private static HashMap<SupportedProcessingStrategy, WatsonConnector> connectors;
     //private static HashMap<SupportedProcessingStrategy, GenericService> services;
@@ -38,7 +38,7 @@ public class DeveloperCloudCluster extends GenericCluster {
 //    private SupportedProcessingStrategy selectedStrategy;
 //    boolean readytoUse = false;
     public DeveloperCloudCluster() {
-        super(ClusterMapping.SupportedClusters.Watson);
+        super(ClusterMapping.ClusterEnums.Watson);
         credentials = new WatsonCredentialsStorage();
         connectors = new HashMap();
     }

@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.TFIDF.Strategies;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
 import fi.johannes.Core.ArticleProcessor;
@@ -28,7 +28,7 @@ public class KeywordExtractorTest {
      // TODO Needs to serialize the TF.IDF set to allow for more dynamic addition without going through all the documents all over again
     static GenericService instance;
     static ArticleProcessor apr;
-    static GenericCluster TFIDFCluster;
+    static Cluster TFIDFCluster;
 
     public KeywordExtractorTest() {
     }

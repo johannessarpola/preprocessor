@@ -9,8 +9,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @EnableAutoConfiguration
 @Component
@@ -50,12 +53,13 @@ public class App {
     void init() {
         System.out.println("Hello W");
     }
-    // TODO Read corpus from a directory
-    // TODO Perform the tf-idf indexing
+
 
 
     void tryToCreateClusters() {
-
+        List<ClusterConnection> connections = Arrays.stream(ClusterMapping.ClusterEnums.values()).map(ClusterConnection::new).collect(Collectors.toList());
+        // TODO Read corpus from a directory
+        // TODO Perform the tf-idf indexing
     }
 
     /**
