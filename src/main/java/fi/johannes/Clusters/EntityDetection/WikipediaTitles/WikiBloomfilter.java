@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class WikiFilter {
+public class WikiBloomfilter {
 
     BloomFilter<String> filter;
     int size;
@@ -27,7 +27,7 @@ public class WikiFilter {
      * @param accuracy
      * @param items
      */
-    public WikiFilter(double accuracy, List<String> items) {
+    public WikiBloomfilter(double accuracy, List<String> items) {
         this.accuracy = accuracy;
         this.size = items.size();
         init();

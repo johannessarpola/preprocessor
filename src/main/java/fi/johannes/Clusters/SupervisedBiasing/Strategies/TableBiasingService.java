@@ -9,7 +9,7 @@ import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.TableBiasingConfiguration;
 import fi.johannes.Clusters.SupervisedBiasing.TableWrappers.StringTableContainerWrapper;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.GeneralUtilities;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnevenSizedListsException;
@@ -36,7 +36,7 @@ public class TableBiasingService extends GenericService {
     List<StringTableHierarchy> ths;
 
     public TableBiasingService() {
-        super(Options.SupportedProcessingStrategy.SupervisedBiasingWithTable);
+        super(App.SupportedProcessingStrategy.SupervisedBiasingWithTable);
         init();
     }
 

@@ -6,7 +6,6 @@
 package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Core.GenericCluster;
-import fi.johannes.Clusters.Mappings.EnumToCluster;
 
 import java.util.List;
 
@@ -21,13 +20,13 @@ public class ClusterConnection {
     private boolean isConnectionEstablished;
     private boolean isClusterReady;
 
-    ClusterConnection(Options.SupportedClusters c) {
+    ClusterConnection(ClusterMapping.SupportedClusters c) {
         isConnectionEstablished = false;
         initCluster(c);
     }
 
-    private void initCluster(Options.SupportedClusters c) {
-        gc = EnumToCluster.getCluster(c);
+    private void initCluster(ClusterMapping.SupportedClusters c) {
+        gc = ClusterMapping.getCluster(c);
         gc.buildCluster();
         isClusterReady = gc.isClusterReady();
         isConnectionEstablished = true;
@@ -38,7 +37,7 @@ public class ClusterConnection {
      * @param s
      * @param docs 
      */
-    public void addDocumentsToStrategy(Options.SupportedProcessingStrategy s, List<String> docs) {
+    public void addDocumentsToStrategy(App.SupportedProcessingStrategy s, List<String> docs) {
        gc.buildStrategy(s, docs);
     }
 

@@ -7,7 +7,7 @@ package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Core.ArticleProcessor;
 import junit.framework.Assert;
 import org.junit.AfterClass;
@@ -60,7 +60,7 @@ public class CombinedExtractorTest {
             int i = 0;
             //pw.setBiasingSize(1);
             for (String st : ls) {
-                String s = instance.processLine(st, Options.SupportedProcessingParadigms.Append, 1);
+                String s = instance.processLine(st, App.SupportedProcessingParadigms.Append, 1);
                 s = s.substring(st.length()+1, s.length());
                 System.out.println(i + " : " + s);
                 Assert.assertEquals(expect[i], s);

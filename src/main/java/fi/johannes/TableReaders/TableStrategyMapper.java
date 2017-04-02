@@ -6,8 +6,8 @@
 package fi.johannes.TableReaders;
 
 import fi.johannes.Abstractions.Structures.TableReader;
-import fi.johannes.Core.Options;
-import fi.johannes.Core.Options.SupportedTableStrategy;
+import fi.johannes.Core.App;
+import fi.johannes.Core.App.SupportedTableStrategy;
 import org.apache.commons.lang.NotImplementedException;
 
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
  */
 public class TableStrategyMapper {
     public static TableReader getTableReader(SupportedTableStrategy strategy, String filepath) throws FileNotFoundException{
-        if(strategy==Options.SupportedTableStrategy.xlsx){
+        if(strategy== App.SupportedTableStrategy.xlsx){
             return new XLSXReader(filepath);
         }
         else {

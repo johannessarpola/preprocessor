@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing.Internal;
 
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFileOperations;
 import fi.johannes.Utilities.Logging.CustomExceptions.TableNotSupportedException;
 
@@ -22,12 +22,12 @@ public class ExtensionStrategyMapper {
      * @return SupportedTableStrategy
      * @throws TableNotSupportedException, FileNotFoundException
      */
-    public static Options.SupportedTableStrategy getTableStrategy(String filepath) throws TableNotSupportedException, FileNotFoundException{
+    public static App.SupportedTableStrategy getTableStrategy(String filepath) throws TableNotSupportedException, FileNotFoundException{
         String fileExtension = CFileOperations.getFileExtension(filepath);
         fileExtension = fileExtension.toLowerCase();
         switch(fileExtension){
             case "xlsx":
-                return Options.SupportedTableStrategy.xlsx;
+                return App.SupportedTableStrategy.xlsx;
             default:
                 throw new TableNotSupportedException();
         }

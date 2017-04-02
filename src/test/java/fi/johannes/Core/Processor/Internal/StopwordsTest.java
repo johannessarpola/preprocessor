@@ -31,7 +31,7 @@ public class StopwordsTest {
 
     @Test
     public void testClass() {
-        int l = new Stopwords("stopwords.txt").getStopwords().size();
+        int l = new Stopwords().getStopwords().size();
         Assert.assertTrue(l!=0);
     }
     

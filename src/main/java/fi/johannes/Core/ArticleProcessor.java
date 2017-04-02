@@ -52,7 +52,7 @@ public class ArticleProcessor {
         this.stemmer = new Stemmer();
         this.states = new ArticleProcessorStates();
         this.lemmatizer = new Lemmatizer();
-        this.stopWords = getSw().getStopwords();
+        this.stopWords = new Stopwords().getStopwords();
         this.guavaSplitter = Splitter.on(CharMatcher.whitespace()).omitEmptyStrings();
     }
 

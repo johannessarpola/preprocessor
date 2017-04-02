@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.Watson.Internal;
 
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 
 /**
@@ -15,7 +15,7 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
  */
 public abstract class WatsonConnector extends GenericService{
     
-    public WatsonConnector(Options.SupportedProcessingStrategy id){
+    public WatsonConnector(App.SupportedProcessingStrategy id){
         super(id);
     }
     // This is required in rebuilding them

@@ -10,6 +10,6 @@ package fi.johannes.Core;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class ConnectionMaster {
-    ClusterConnection watson = new ClusterConnection(Options.SupportedClusters.Watson);
-    ClusterConnection tfidf = new ClusterConnection(Options.SupportedClusters.TFIDF);
+    ClusterConnection watson = new ClusterConnection(ClusterMapping.SupportedClusters.Watson);
+    ClusterConnection tfidf = new ClusterConnection(ClusterMapping.SupportedClusters.TFIDF);
 }

@@ -5,9 +5,9 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Core.Options;
-import fi.johannes.Core.Options.SupportedClusters;
-import fi.johannes.Core.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.ClusterMapping;
+import fi.johannes.Core.ClusterMapping.SupportedClusters;
+import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
 import java.util.HashMap;
@@ -21,17 +21,17 @@ import java.util.HashMap;
 public abstract class GenericCluster implements GenericClusterMethods {
     
     protected ClustersStrategyMap<? extends GenericService> map;
-    protected Options.SupportedClusters id;
+    protected SupportedClusters id;
     protected int biasingSize;
     protected boolean isClusterReady;
     protected SupportedProcessingStrategy selectedStrategy;
-    protected HashMap<Options.SupportedProcessingStrategy, GenericService> services;
+    protected HashMap<SupportedProcessingStrategy, GenericService> services;
     // Enums for each clusters
     protected SupportedProcessingStrategy[] strategies;
 
-    public GenericCluster(Options.SupportedClusters id) {
+    public GenericCluster(SupportedClusters id) {
         services = new HashMap();
-        strategies = fi.johannes.Clusters.Mappings.ClustersToStrategies.getStrategies(id);
+        strategies = ClusterMapping.getStrategies(id);
         this.id = id;
     }
 
@@ -60,7 +60,7 @@ public abstract class GenericCluster implements GenericClusterMethods {
     }
 
     public boolean checkStrategy(SupportedProcessingStrategy strategy) {
-        //SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
+        //SupportedProcessingStrategy[] strategies = ClusterMapping.getStrategies(id);
         for (int i = 0; i < strategies.length; i++) {
             if (strategies[i] == strategy) {
                 return true;
@@ -69,7 +69,7 @@ public abstract class GenericCluster implements GenericClusterMethods {
         return false;
     }
 
-    public void clearStrategy(Options.SupportedProcessingStrategy strategy) {
+    public void clearStrategy(SupportedProcessingStrategy strategy) {
         services.get(strategy).clear();
     }
 

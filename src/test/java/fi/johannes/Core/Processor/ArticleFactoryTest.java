@@ -6,7 +6,7 @@
 package fi.johannes.Core.Processor;
 
 import fi.johannes.ArticleFactory.ChunkArticleBuilder;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFileOperations;
 import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Structures.ReutersArticles;
@@ -59,7 +59,7 @@ import java.util.List;
     public void testAllArticles() throws IOException {
         ChunkArticleBuilder art = new ChunkArticleBuilder();
         ReutersArticles result;
-        List<String> chunks = CFolderOperations.getFilenamesInFolder(Options.CHUNKS);
+        List<String> chunks = CFolderOperations.getFilenamesInFolder(App.CHUNKS);
         int chunksNumber = art.getNumberOfChunks();
         for (int i = 0; i < 5; i++) {
             result = art.buildArticleChunk();

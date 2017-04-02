@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
-import fi.johannes.Core.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -29,7 +29,7 @@ public class CombinedExtractor extends FeatureExtractor {
     Map<String, List<LinkedWord>> wordToNgramMapping; // Used to access ngrams for a word quicker
     
     public CombinedExtractor() {
-        super(SupportedProcessingStrategy.TFIDF_Combined);
+        super(App.SupportedProcessingStrategy.TFIDF_Combined);
         subclassSpecificInit();
     }
 

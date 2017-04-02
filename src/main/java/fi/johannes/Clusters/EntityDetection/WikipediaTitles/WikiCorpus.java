@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 
@@ -24,26 +24,26 @@ import java.util.ListIterator;
 public class WikiCorpus extends BloomfilterCorpus{
 
     // TODO Cronjob: Update EntityCorpus
-    WikiFilter wikifilter;
+    WikiBloomfilter wikifilter;
     String pathToWikis;
     double accuracy;
 
     public WikiCorpus(String pathToWikis, double accuracy) {
-        super(Options.SupportedCorpuses.Wikipedia);
+        super(App.SupportedCorpuses.WikipediaCorpus);
         this.accuracy = accuracy;
         this.pathToWikis = pathToWikis;
         init();
     }
 
     public WikiCorpus(double accuracy) {
-        super(Options.SupportedCorpuses.Wikipedia);
+        super(App.SupportedCorpuses.WikipediaCorpus);
         this.accuracy = accuracy;
         pathToWikis = WikiPaths.WIKIFOLDER;
         init();
     }
 
     public WikiCorpus() {
-        super(Options.SupportedCorpuses.Wikipedia);
+        super(App.SupportedCorpuses.WikipediaCorpus);
         this.accuracy = 0.01;
         pathToWikis = WikiPaths.WIKIFOLDER;
         init();
@@ -64,7 +64,7 @@ public class WikiCorpus extends BloomfilterCorpus{
                 titles.addAll(iter.next());
                 iter.remove();
             }
-            wikifilter = new WikiFilter(accuracy, titles);
+            wikifilter = new WikiBloomfilter(accuracy, titles);
         } catch (IOException ex) {
             GeneralLogging.logStackTrace_Error(this, ex);
         }

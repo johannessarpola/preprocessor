@@ -7,7 +7,7 @@ package fi.johannes.Clusters.EntityDetection;
 
 import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.Clusters.EntityDetection.WikipediaTitles.WikiCorpus;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 
@@ -21,17 +21,17 @@ public class EntityCorpuses {
     // TODO Maybe implement the variations with Damerau-Levenhstein(?)
     // TODO User's table of 'higher' ranked words (it's not really a corpus but hierarchial structure)
 
-    public static final Map<Options.SupportedCorpuses, EntityCorpus> CORPUSES;
+    public static final Map<App.SupportedCorpuses, EntityCorpus> CORPUSES;
     List<EntityCorpus> corpuses;
 
     static {
 
-        Map<Options.SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
-        tMap.put(Options.SupportedCorpuses.Wikipedia, new WikiCorpus());
+        Map<App.SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
+        tMap.put(App.SupportedCorpuses.WikipediaCorpus, new WikiCorpus());
         CORPUSES = Collections.unmodifiableMap(tMap);
     }
 
-    public static EntityCorpus getService(Options.SupportedCorpuses s) throws CorpusNotAvailableException {
+    public static EntityCorpus getService(App.SupportedCorpuses s) throws CorpusNotAvailableException {
         if (CORPUSES.containsKey(s)) {
             return CORPUSES.get(s);
         } else {
@@ -39,9 +39,9 @@ public class EntityCorpuses {
         }
     }
 
-    public EntityCorpuses(Options.SupportedCorpuses... corpuses){
+    public EntityCorpuses(App.SupportedCorpuses... corpuses){
         this.corpuses = new ArrayList<>();
-        for(Options.SupportedCorpuses c : corpuses) {
+        for(App.SupportedCorpuses c : corpuses) {
             try {
                 this.corpuses.add(getService(c));
             } catch (CorpusNotAvailableException ex) {
@@ -50,8 +50,8 @@ public class EntityCorpuses {
         }
     }
     
-    public List<Options.SupportedCorpuses> doesCorpusesContain(String word){
-        List<Options.SupportedCorpuses> l = new ArrayList<>();
+    public List<App.SupportedCorpuses> doesCorpusesContain(String word){
+        List<App.SupportedCorpuses> l = new ArrayList<>();
         for(EntityCorpus c : corpuses){
             if(c.doesContain(word)) {
                 l.add(c.getId());

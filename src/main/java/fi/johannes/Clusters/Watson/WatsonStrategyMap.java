@@ -8,7 +8,8 @@ package fi.johannes.Clusters.Watson;
 import fi.johannes.Abstractions.Core.ClustersStrategyMap;
 import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Strategies.AlchemyWrapper;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
+import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
@@ -17,12 +18,12 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  */
 public class WatsonStrategyMap extends ClustersStrategyMap<WatsonConnector> {
 
-    public WatsonStrategyMap(Options.SupportedClusters id) {
+    public WatsonStrategyMap(ClusterMapping.SupportedClusters id) {
         super(id);
     }
 
     @Override
-    public WatsonConnector initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
+    public WatsonConnector initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
         switch (strategy) {
             // case ConceptInsights: return new ConceptsInsightsWrapper(); DISCONTINUED
             case Alchemy: return new AlchemyWrapper ();

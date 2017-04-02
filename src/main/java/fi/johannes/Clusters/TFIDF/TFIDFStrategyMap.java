@@ -11,7 +11,8 @@ import fi.johannes.Clusters.TFIDF.Strategies.CombinedExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.KeywordExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.KeywordsFirstExtractor;
 import fi.johannes.Clusters.TFIDF.Strategies.WordNgramExtractor;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
+import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
@@ -20,12 +21,12 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  */
 public class TFIDFStrategyMap extends ClustersStrategyMap<GenericService> {
     
-    public TFIDFStrategyMap(Options.SupportedClusters id){
+    public TFIDFStrategyMap(ClusterMapping.SupportedClusters id){
         super(id);
     }
     
     @Override
-    public GenericService initializeStrategy(Options.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException{
+    public GenericService initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException{
         switch(strategy){
             case TFIDF_Combined: return new CombinedExtractor();
             case TFIDF_Keywords: return new KeywordExtractor();

@@ -9,9 +9,10 @@ import fi.johannes.Abstractions.Core.GenericCluster;
 import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Internal.WatsonCredentialsStorage;
 import fi.johannes.Clusters.Watson.Strategies.AlchemyWrapper;
-import fi.johannes.Core.Options;
-import fi.johannes.Core.Options.SupportedProcessingParadigms;
-import fi.johannes.Core.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.App;
+import fi.johannes.Core.App.SupportedProcessingParadigms;
+import fi.johannes.Core.App.SupportedProcessingStrategy;
+import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -37,7 +38,7 @@ public class DeveloperCloudCluster extends GenericCluster {
 //    private SupportedProcessingStrategy selectedStrategy;
 //    boolean readytoUse = false;
     public DeveloperCloudCluster() {
-        super(Options.SupportedClusters.Watson);
+        super(ClusterMapping.SupportedClusters.Watson);
         credentials = new WatsonCredentialsStorage();
         connectors = new HashMap();
     }
@@ -50,7 +51,7 @@ public class DeveloperCloudCluster extends GenericCluster {
      * Sets the access rules for different services
      */
     private void setupServiceWrappers() {
-        setupAlchemyWrapper(SupportedProcessingStrategy.Alchemy);
+        setupAlchemyWrapper(App.SupportedProcessingStrategy.Alchemy);
         this.isClusterReady = true;
     }
 

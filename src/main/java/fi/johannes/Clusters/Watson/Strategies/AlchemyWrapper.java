@@ -7,7 +7,7 @@ package fi.johannes.Clusters.Watson.Strategies;
 
 import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Internal.WatsonCredentialsStorage;
-import fi.johannes.Core.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
@@ -25,7 +25,7 @@ public class AlchemyWrapper extends WatsonConnector {
 
     // TODO This class is not done yet
     public AlchemyWrapper() {
-        super(Options.SupportedProcessingStrategy.Alchemy);
+        super(App.SupportedProcessingStrategy.Alchemy);
 
     }
 

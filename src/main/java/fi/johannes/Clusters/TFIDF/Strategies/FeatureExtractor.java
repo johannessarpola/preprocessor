@@ -7,7 +7,7 @@ package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
-import fi.johannes.Core.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Adapters.StringTransforms;
 import fi.johannes.Utilities.Compression.CompressionPayload;
 import fi.johannes.Utilities.Compression.StringCompressor;

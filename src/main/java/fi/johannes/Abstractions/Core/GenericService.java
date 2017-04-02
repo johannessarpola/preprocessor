@@ -5,8 +5,8 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Core.Options;
-import fi.johannes.Core.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.App;
+import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 
@@ -40,7 +40,7 @@ public abstract class GenericService implements GenericServiceMethods {
     public abstract void build(List<String> documents);
 
     @Override
-    public String processLine(String line, Options.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException {
+    public String processLine(String line, App.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             if (null != method) {
                 switch (method) {

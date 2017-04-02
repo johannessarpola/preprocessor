@@ -57,6 +57,7 @@ public class ArticleProcessorTest {
      */
     @Test
     public void testProcessLine() {
+        p.getStates().setUseRemoveStopwords(true);
         System.out.println("processLine");
         String line = "Since it's raining, it would be better it you stayed at home. I agree with you absolutely. He translated the verse into English.";
         String[] expResult = {"rain", "stai", "home", "agre", "absolut", "translat", "vers", "english"};
@@ -65,6 +66,7 @@ public class ArticleProcessorTest {
             Assert.assertTrue(result.contains(s));
         }
         Assert.assertTrue(expResult.length == result.size());
+        p.getStates().setUseRemoveStopwords(false);
     }
 
     @Test
