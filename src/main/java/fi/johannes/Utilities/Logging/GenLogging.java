@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class GeneralLogging {
+public class GenLogging {
         static Logger logger;
         
 	public static String stringifyException(Exception e){

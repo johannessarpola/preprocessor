@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.File;
 
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -66,7 +66,6 @@ public class CFolderOperations {
      * @return
      * @throws IOException
      */
-    // TODO Maybe add chunk based reading (?)
     public static LinkedList<List<String>> readAllFilesInFolder(String folder) throws IOException {
         LinkedList<List<String>> l = new LinkedList<>();
         Files.walk(Paths.get(folder)).forEach(filePath -> {
@@ -75,7 +74,7 @@ public class CFolderOperations {
                     List<String> lines = CFileOperations.getFileContentAsStrings(filePath);
                     l.add(lines);
                 } catch (IOException ex) {
-                    GeneralLogging.logStackTrace_Error(CFolderOperations.class, ex);
+                    GenLogging.logStackTrace_Error(CFolderOperations.class, ex);
                 }
             }
         });

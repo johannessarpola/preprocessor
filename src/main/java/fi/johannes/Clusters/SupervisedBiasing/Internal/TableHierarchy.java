@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing.Internal;
 
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 import fi.johannes.Utilities.Structures.FinalizedPair;
 import fi.johannes.Utilities.Structures.Table;
 
@@ -62,7 +62,7 @@ public class TableHierarchy<T> {
             return fp;
         } else {
             FinalizedPair<T,Double> fp = new FinalizedPair(element, 1.);
-            GeneralLogging.logMessage_Error(getClass(), "No element found in weight map for " + element.toString());
+            GenLogging.logMessage_Error(getClass(), "No element found in weight map for " + element.toString());
             return null;
         }
     }

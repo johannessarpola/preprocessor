@@ -20,33 +20,23 @@ import fi.johannes.Utilities.Structures.LinkedWord;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class FeatureExtractor extends GenericService {
-    //TODO This class needs to be cleaned up
 
     protected Splitter splitter; // Class spec (delimeted by words or something else)
     protected final int sizetoDigest = 100; // Not class spec      
     protected boolean usePos, compressed; // Not class spec
-
     protected HashStore hashStore;
-
     protected List<Map<String, Double>> tfScores; // Term frequencies for documents
     protected List<Map<LinkedWord, Double>> tfScoresCompressed;
     protected Map<String, Double> idfScores; // IDF Scores for words
     protected Map<LinkedWord, Double> compressedEntities;
-    // TODO This could be optimized by storing idf store either by the linkedword alongside tf score
-    // TODO Or just store TFIDF score in the first place and not tf and idf
-
-    protected List<String> universe;
+    protected Set<String> universe;
 
     // protected Map<String, Double> reusableMap;
     // How many words are used to bias the product
@@ -57,7 +47,6 @@ public abstract class FeatureExtractor extends GenericService {
         init();
     }
 
-    // TODO Get scores for the items in lines
     public abstract Map<String, Double> getScoresByLine(String line);
 
     @Override
@@ -82,16 +71,16 @@ public abstract class FeatureExtractor extends GenericService {
 
     private void init() {
         hashStore = new HashStore(this.sizetoDigest);
-        this.tfScores = new ArrayList<>();
-        this.tfScoresCompressed = new ArrayList<>();
-        this.idfScores = new HashMap<>();
+        this.tfScores = Collections.emptyList();
+        this.tfScoresCompressed = Collections.emptyList();
+        this.idfScores = Collections.emptyMap();
         this.splitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
-        this.universe = new ArrayList<>();
+        this.universe = Collections.emptySet();
         this.compressedEntities = new HashMap<>();
-        initBooleans();
+        setupBooleans();
     }
 
-    private void initBooleans() {
+    private void setupBooleans() {
         this.isServiceReady = false;
         this.isVocabularyAdded = false;
         this.usePos = false;
@@ -108,7 +97,7 @@ public abstract class FeatureExtractor extends GenericService {
     }
 
     public void reInit() {
-        initBooleans();
+        setupBooleans();
         clearData();
     }
 
@@ -225,12 +214,14 @@ public abstract class FeatureExtractor extends GenericService {
      */
     protected CompressionPayload compress(boolean doMapping) {
         CompressionPayload cr = StringCompressor.compressTermFrequencies(tfScores, idfScores, doMapping);
-        this.universe = cr.getAllWords();
+
+        this.universe = new HashSet<>(cr.getAllWords());
         this.tfScoresCompressed = cr.getCompressedTermFrequencies();
         this.compressedEntities = cr.getCompressedIdfMap();
         this.tfScores.clear();
         this.idfScores.clear();
         this.compressed = true;
+
         return cr;
     }
 
@@ -250,7 +241,7 @@ public abstract class FeatureExtractor extends GenericService {
      * @return
      */
     protected String doAppend(String line, List<String> ls) {
-        line += ls != null && !ls.isEmpty() ? " "+ ls.stream().collect(Collectors.joining(" ")) : "" ;
+        line += ls != null && !ls.isEmpty() ? " " + ls.stream().collect(Collectors.joining(" ")) : "";
         return line;
     }
 

@@ -22,20 +22,19 @@ public class HashMethods {
      * @param sizeToDigest
      * @return 
      */
-    static String deduct128MurMurKey(String line, int sizeToDigest) {
+    static String createHashKey(String line, int sizeToDigest) {
         List<String> lineSplit = guavaSplitterWhiteSpace.splitToList(line);
         int i = 0;
-        String key = deduct128MurMurKey(lineSplit, sizeToDigest);
-        return key;
+        return createHashKey(lineSplit, sizeToDigest);
     }
     /**
      * Deducts key for line of strings based on the sizeToDigest as pointer to length
-     * ohn how many words to use 
+     * ohn how many words to use (Murmur128)
      * @param line
      * @param sizeToDigest
      * @return 
      */
-    static String deduct128MurMurKey(List<String> line, int sizeToDigest) {
+    static String createHashKey(List<String> line, int sizeToDigest) {
         String digestation = "";
         if (line.size() < sizeToDigest) {
             sizeToDigest = line.size() - 1;

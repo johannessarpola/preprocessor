@@ -6,10 +6,13 @@
 package fi.johannes.Utilities.Hashing;
 
 import fi.johannes.Utilities.GeneralUtilities;
+import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.S;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -20,42 +23,44 @@ public class HashStore {
     /**
      * Stores index of a list of strings based on the hash of it to a map
      */
-    private int digestLength;
+    private final int digestLength;
     private Map<String, Integer> keystore;
     
     public HashStore(int sizetoDigest) {
         this.digestLength = sizetoDigest;
-        keystore = new HashMap<>();
+        keystore = new ConcurrentHashMap<>();
     }
     public void storeKey(String line, int index){
         storeKey(GeneralUtilities.guavaSplitterWhiteSpace.splitToList(line), index);
     }
-    
-    /**
-     *
-     * @param stringList
-     * @param index
-     */
-    public void storeKey(List<String> stringList, int index) {
-        int dgstsize = this.digestLength;
-        String key = "";
-        if (this.digestLength > stringList.size()) {
-            dgstsize = stringList.size() - 1;
+
+    public void storeKey(List<String> stringList, int index){
+        storeKey(stringList,index,digestLength);
+    }
+
+    public void storeKey(List<String> stringList, int index, int digestLength) {
+        int dgstsize = this.digestLength < stringList.size() ? this.digestLength : stringList.size() -1;
+        String key = HashMethods.createHashKey(stringList, dgstsize);
+        if(keystore.containsKey(key)){
+            // no fancy stuff just try to recalc digest with whole list
+            if(dgstsize < stringList.size() -1){
+                storeKey(stringList,index,Integer.MAX_VALUE);
+            }
+            else {
+                GenLogging.logMessage_Error(this.getClass(), S.fmt("Hash collision with key: %s", key));
+            }
         }
-        key = HashMethods.deduct128MurMurKey(stringList, dgstsize);
-        keystore.put(key, index);
+        else {
+            keystore.put(key, index); // These need to be unique
+        }
     }
     public Integer getIndex(String line){
-        String accessKey = HashMethods.deduct128MurMurKey(line, digestLength);
+        String accessKey = HashMethods.createHashKey(line, digestLength);
         Integer ret = this.keystore.get(accessKey);
         return ret;
     }
     public int getSizeToDigest() {
         return digestLength;
-    }
-
-    public void setSizeToDigest(int sizeToDigest) {
-        this.digestLength = sizeToDigest;
     }
 
     public Integer get(String keyForLine) {

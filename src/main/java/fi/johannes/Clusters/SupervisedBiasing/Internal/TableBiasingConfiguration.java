@@ -34,7 +34,7 @@ public class TableBiasingConfiguration {
             // Allow access
             isReady = true;
         } catch (IOException ex) {
-            //GeneralLogging.logMessage_Error(getClass(), msg_info_noTableAdded);
+            //GenLogging.logMessage_Error(getClass(), msg_info_noTableAdded);
             isReady = false;
         }
     }

@@ -14,7 +14,7 @@ import fi.johannes.Utilities.GeneralUtilities;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnevenSizedListsException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 import fi.johannes.Utilities.Structures.FinalizedPair;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class TableBiasingService extends GenericService {
             if (tcw.isReady()) {
                 tcws.add(tcw);
             } else {
-                GeneralLogging.logMessage_Error(getClass(), fi.johannes.Utilities.Logging.Messages.ClustersDomain.msg_info_noTablesAdded);
+                GenLogging.logMessage_Error(getClass(), fi.johannes.Utilities.Logging.Messages.ClustersDomain.msg_info_noTablesAdded);
             }
         }
     }

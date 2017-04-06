@@ -6,7 +6,7 @@
 package fi.johannes.Utilities.Processing;
 
 import fi.johannes.Core.App;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,7 +37,7 @@ public class Stopwords {
         try {
             stopWords.addAll(readStopWords());
         } catch (IOException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            GenLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 

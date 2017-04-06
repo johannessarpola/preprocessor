@@ -12,5 +12,5 @@ package fi.johannes.Core;
 public class ConnectionMaster {
     ClusterConnection watson = new ClusterConnection(ClusterMapping.ClusterEnums.Watson);
     ClusterConnection tfidf = new ClusterConnection(ClusterMapping.ClusterEnums.TFIDF);
-    ClusterConnection supervised = new ClusterConnection(ClusterMapping.ClusterEnums.SupportedClusters.TableBiasing);
+    ClusterConnection supervised = new ClusterConnection(ClusterMapping.ClusterEnums.TableBiasing);
 }

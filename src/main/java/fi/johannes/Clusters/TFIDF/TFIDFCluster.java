@@ -13,7 +13,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class TFIDFCluster extends Cluster {
             map = new TFIDFStrategyMap(id);
             addServices();
         } catch (StrategyNotSupportedException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            GenLogging.logStackTrace_Error(getClass(), ex);
         }
 
     }

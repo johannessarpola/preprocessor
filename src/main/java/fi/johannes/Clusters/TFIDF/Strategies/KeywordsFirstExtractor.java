@@ -10,7 +10,7 @@ import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 import fi.johannes.Utilities.Map.MapUtils;
 import fi.johannes.Utilities.Structures.LinkedWord;
 
@@ -46,7 +46,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            GenLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -174,7 +174,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
                     itemsInResult++;
                     it.remove();
                     if (put != null) {
-                        GeneralLogging.logMessage_Error(getClass(), "There was duplicate value in result map (Equals or Hashmap for LW doesn't work)" + put);
+                        GenLogging.logMessage_Error(getClass(), "There was duplicate value in result map (Equals or Hashmap for LW doesn't work)" + put);
                     }
                 }
             }

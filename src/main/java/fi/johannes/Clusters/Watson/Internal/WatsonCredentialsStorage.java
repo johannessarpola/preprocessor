@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.Watson.Internal;
 
 import fi.johannes.Utilities.Json.JsonReader;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class WatsonCredentialsStorage {
         try {
             buildJsonStore();
         } catch (Exception ex) {
-             GeneralLogging.logStackTrace_Error(getClass(), ex);
+             GenLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -32,7 +32,7 @@ public class WatsonCredentialsStorage {
             try {
                 this.store = JsonReader.readJson(WatsonOptions.pathToCrendetials);
             } catch (IOException ex) {
-                  GeneralLogging.logStackTrace_Error(getClass(), ex);
+                  GenLogging.logStackTrace_Error(getClass(), ex);
             }
         }
     }

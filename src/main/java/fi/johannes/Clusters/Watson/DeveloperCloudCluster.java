@@ -17,7 +17,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 
 import java.util.HashMap;
@@ -98,7 +98,7 @@ public class DeveloperCloudCluster extends Cluster {
                     connectors.put(strategy, strategyService); // TODO See if it's needed. Not sure.
                 } catch (StrategyNotSupportedException ex) {
                     Logger.getLogger(DeveloperCloudCluster.class.getName()).log(Level.SEVERE, null, ex);
-                    GeneralLogging.logStackTrace_Error(getClass(), ex);
+                    GenLogging.logStackTrace_Error(getClass(), ex);
 
                 }
             }

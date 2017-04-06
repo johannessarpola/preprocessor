@@ -6,7 +6,7 @@
 package fi.johannes.Utilities.ChunkedInput;
 
 import fi.johannes.Utilities.File.CFileOperations;
-import fi.johannes.Utilities.Logging.GeneralLogging;
+import fi.johannes.Utilities.Logging.GenLogging;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class FileChunks {
         try {
             init(path);
         } catch (Exception ex) {
-            GeneralLogging.logStackTrace_Error(getClass(), ex);
+            GenLogging.logStackTrace_Error(getClass(), ex);
         }
     }
     private void init(String path) throws Exception{
