@@ -5,7 +5,7 @@
  */
 package fi.johannes.TableReaders;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class TableTest {
 
     @BeforeClass
     public static void setUpClass() {
-        t = new TableContainer(Options.SupportedTableStrategy.xlsx, filep);
+        t = new TableContainer(App.SupportedTableStrategy.xlsx, filep);
 
     }
 

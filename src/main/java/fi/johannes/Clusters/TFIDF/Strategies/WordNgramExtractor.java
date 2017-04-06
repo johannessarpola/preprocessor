@@ -2,7 +2,7 @@ package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Clusters.TFIDF.Internal.Ngram;
 import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -26,7 +26,7 @@ public class WordNgramExtractor extends FeatureExtractor {
     private int ngramRange = 2; // From 2 to 4 by default
 
     public WordNgramExtractor() {
-        super(Options.SupportedProcessingStrategy.TFIDF_WordNgram);
+        super(App.SupportedProcessingStrategy.TFIDF_WordNgram);
 
     }
 

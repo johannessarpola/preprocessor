@@ -5,9 +5,9 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedClusters;
-import fi.johannes.Global.Options.SupportedProcessingStrategy;
+import fi.johannes.Core.ClusterMapping;
+import fi.johannes.Core.ClusterMapping.ClusterEnums;
+import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
 import java.util.HashMap;
@@ -18,25 +18,25 @@ import java.util.HashMap;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public abstract class GenericCluster implements GenericClusterMethods {
+public abstract class Cluster implements GenericClusterMethods {
     
     protected ClustersStrategyMap<? extends GenericService> map;
-    protected Options.SupportedClusters id;
+    protected ClusterEnums id;
     protected int biasingSize;
     protected boolean isClusterReady;
     protected SupportedProcessingStrategy selectedStrategy;
-    protected HashMap<Options.SupportedProcessingStrategy, GenericService> services;
+    protected HashMap<SupportedProcessingStrategy, GenericService> services;
     // Enums for each clusters
     protected SupportedProcessingStrategy[] strategies;
 
-    public GenericCluster(Options.SupportedClusters id) {
+    public Cluster(ClusterEnums id) {
         services = new HashMap();
-        strategies = fi.johannes.Clusters.Mappings.ClustersToStrategies.getStrategies(id);
+        strategies = ClusterMapping.getStrategies(id);
         this.id = id;
     }
 
     @Override
-    public SupportedClusters getId() {
+    public ClusterEnums getId() {
         return id;
     }
 
@@ -60,7 +60,7 @@ public abstract class GenericCluster implements GenericClusterMethods {
     }
 
     public boolean checkStrategy(SupportedProcessingStrategy strategy) {
-        //SupportedProcessingStrategy[] strategies = ClustersToStrategies.getStrategies(id);
+        //SupportedProcessingStrategy[] strategies = ClusterMapping.getStrategies(id);
         for (int i = 0; i < strategies.length; i++) {
             if (strategies[i] == strategy) {
                 return true;
@@ -69,7 +69,7 @@ public abstract class GenericCluster implements GenericClusterMethods {
         return false;
     }
 
-    public void clearStrategy(Options.SupportedProcessingStrategy strategy) {
+    public void clearStrategy(SupportedProcessingStrategy strategy) {
         services.get(strategy).clear();
     }
 

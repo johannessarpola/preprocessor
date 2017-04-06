@@ -5,10 +5,12 @@
  */
 package fi.johannes.Core;
 
-import fi.johannes.Global.Options;
-
+/**
+ *
+ * @author Johannes Sarpola <johannes.sarpola@gmail.com>
+ */
 public class ConnectionMaster {
-    ClusterConnection watson = new ClusterConnection(Options.SupportedClusters.Watson);
-    ClusterConnection tfidf = new ClusterConnection(Options.SupportedClusters.TFIDF);
-    ClusterConnection supervised = new ClusterConnection(Options.SupportedClusters.TableBiasing);
+    ClusterConnection watson = new ClusterConnection(ClusterMapping.ClusterEnums.Watson);
+    ClusterConnection tfidf = new ClusterConnection(ClusterMapping.ClusterEnums.TFIDF);
+    ClusterConnection supervised = new ClusterConnection(ClusterMapping.ClusterEnums.SupportedClusters.TableBiasing);
 }

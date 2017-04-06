@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.Processing;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 
 import java.io.IOException;
@@ -21,27 +21,27 @@ import java.util.Set;
  */
 public class Stopwords {
     private Set<String> stopWords = new HashSet<>();
-    private String filepath;
-    
-    // TODO Could be db for different languages
-    public Stopwords(String stopwordsFilename){
-        this.filepath = Options.RESOURCESDIR+stopwordsFilename;
-        init();
-    }
+    protected String filepath;
+
+
     public Stopwords(){
-        this.filepath = Options.STOPWORDSPATH;
+        try {
+            this.filepath = App.getStopwordsResource().getFile().getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         init();
     }
 
     private void init() {
         try {
-            stopWords.addAll(importStopwords());
+            stopWords.addAll(readStopWords());
         } catch (IOException ex) {
             GeneralLogging.logStackTrace_Error(getClass(), ex);
         }
     }
 
-    private List<String> importStopwords() throws IOException {
+    private List<String> readStopWords() throws IOException {
         List<String> words = Files.readAllLines(Paths.get(filepath));
         return words;
     }

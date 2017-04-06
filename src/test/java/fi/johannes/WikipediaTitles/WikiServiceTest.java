@@ -5,7 +5,7 @@
  */
 package fi.johannes.WikipediaTitles;
 
-import fi.johannes.EntityDetection.WikipediaTitles.WikiCorpus;
+import fi.johannes.Clusters.EntityDetection.WikipediaTitles.WikiCorpus;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

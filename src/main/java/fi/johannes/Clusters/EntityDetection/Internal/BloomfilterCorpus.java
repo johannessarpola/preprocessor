@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection.Internal;
+package fi.johannes.Clusters.EntityDetection.Internal;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 
 /**
  * Is a corpus using Bloomfilter
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class BloomfilterCorpus implements EntityCorpus {
-    Options.SupportedCorpuses id;
+    App.SupportedCorpuses id;
     
-    public BloomfilterCorpus(Options.SupportedCorpuses id) {
+    public BloomfilterCorpus(App.SupportedCorpuses id) {
         this.id = id;
     }
     /**
@@ -28,7 +28,7 @@ public abstract class BloomfilterCorpus implements EntityCorpus {
     public abstract boolean mightContain(String word);
     public abstract void buildCorpus();
     public abstract double reliabilityOfContain();
-    public Options.SupportedCorpuses getId(){
+    public App.SupportedCorpuses getId(){
         return id;
     }
 }

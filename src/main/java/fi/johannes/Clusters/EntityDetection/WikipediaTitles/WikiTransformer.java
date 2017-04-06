@@ -1,5 +1,5 @@
 
-package fi.johannes.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
  * Translates strings to wiki form and vice versa (TODO Not used at the moment)
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class WikTransformer {
+public class WikiTransformer {
 
     /**
      * _ to space (to more detail)

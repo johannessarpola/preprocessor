@@ -6,7 +6,7 @@
 package fi.johannes.Utilities.Json;
 
 import fi.johannes.Clusters.Watson.Internal.WatsonOptions;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFileOperations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -74,7 +74,7 @@ public class JsonReaderTest {
 
         JsonObject json;
         try {
-            json = JsonReader.readJson(Options.WORKINGDIR + testJson);
+            json = JsonReader.readJson(App.WORKING_DIR + testJson);
             String result = JsonReader.accessField(json, targetField);
             String expResult = targetValue;
             Assert.assertTrue(expResult.equals(result));

@@ -5,9 +5,10 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
+import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -20,14 +21,14 @@ import java.util.List;
  * It's the cluster to bias based on data owner tabular datas
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class SupervisedBiasingCluster extends GenericCluster{
+public class SupervisedBiasingCluster extends Cluster {
     
     public SupervisedBiasingCluster(){
-        super(Options.SupportedClusters.TableBiasing);
+        super(ClusterMapping.ClusterEnums.TableBiasing);
     }
 
     @Override
-    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
+    public String processLine(String line, App.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         if(this.isClusterReady){
             GenericService serv = services.get(selectedStrategy);
             if(serv.isServiceReady()){
@@ -56,12 +57,12 @@ public class SupervisedBiasingCluster extends GenericCluster{
     }
 
     @Override
-    public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents) {
+    public void buildStrategy(App.SupportedProcessingStrategy strategy, List<String> documents) {
         services.get(strategy).build(documents);
     }
     
     private void addServices() throws StrategyNotSupportedException {
-        for(Options.SupportedProcessingStrategy strategy : strategies){
+        for(App.SupportedProcessingStrategy strategy : strategies){
             GenericService gs = map.initializeStrategy(strategy);
             services.put(strategy, gs);
         }

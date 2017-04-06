@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Set;
 
 /**
- *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class WikiFilter {
+public class WikiBloomfilter {
 
     BloomFilter<String> filter;
     int size;
@@ -23,20 +22,18 @@ public class WikiFilter {
     double accuracy = 0.01;
 
     /**
-     *
      * @param accuracy
      * @param items
      */
-    public WikiFilter(double accuracy, List<String> items) {
+    public WikiBloomfilter(double accuracy, Set<String> items) {
         this.accuracy = accuracy;
         this.size = items.size();
         init();
         addStrings(items);
     }
-    private void addStrings(List<String> list) {
-        list.stream().forEach((s) -> {
-            filter.put(s);
-        });
+
+    private void addStrings(Set<String> list) {
+        list.forEach(s -> filter.put(s));
     }
 
     private void createBloomfilter(int size, double accuracy) {
@@ -52,7 +49,8 @@ public class WikiFilter {
         this.size = (int) (size * buffer);
         createBloomfilter(size, accuracy);
     }
-    public double reliability(){
+
+    public double reliability() {
         return filter.expectedFpp();
     }
 }

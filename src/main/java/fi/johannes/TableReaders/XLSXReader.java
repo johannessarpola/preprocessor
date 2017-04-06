@@ -6,8 +6,8 @@
 package fi.johannes.TableReaders;
 
 import fi.johannes.Abstractions.Structures.TableReader;
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedTableStrategy;
+import fi.johannes.Core.App;
+import fi.johannes.Core.App.SupportedTableStrategy;
 import fi.johannes.TableReaders.Internal.Transformer;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 import org.apache.poi.EncryptedDocumentException;
@@ -29,7 +29,7 @@ public class XLSXReader extends TableReader {
 
     Workbook workbook;
     int activeSheet = 0;
-    SupportedTableStrategy strategy = Options.SupportedTableStrategy.xlsx;
+    SupportedTableStrategy strategy = App.SupportedTableStrategy.xlsx;
 
     /**
      * XLSX Reader
@@ -86,7 +86,7 @@ public class XLSXReader extends TableReader {
     }
 
     @Override
-    public Options.SupportedTableStrategy getName() {
+    public SupportedTableStrategy getName() {
         return strategy;
     }
 

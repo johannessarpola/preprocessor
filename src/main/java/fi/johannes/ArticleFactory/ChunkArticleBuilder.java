@@ -5,7 +5,7 @@
  */
 package fi.johannes.ArticleFactory;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.ChunkedInput.FileChunks;
 import fi.johannes.Utilities.Structures.ReutersArticles;
 
@@ -28,7 +28,7 @@ public class ChunkArticleBuilder {
     }
 
     private void init() {
-        fc = new FileChunks(Options.CHUNKS);
+        fc = new FileChunks(App.CHUNKS);
     }
     /**
      * Reads ALL the articles

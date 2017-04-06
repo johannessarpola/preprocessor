@@ -5,7 +5,7 @@
  */
 package fi.johannes.TableReaders;
 
-import fi.johannes.Global.Options.SupportedTableStrategy;
+import fi.johannes.Core.App.SupportedTableStrategy;
 import fi.johannes.Utilities.Logging.GeneralLogging;
 import fi.johannes.Utilities.Structures.Table;
 

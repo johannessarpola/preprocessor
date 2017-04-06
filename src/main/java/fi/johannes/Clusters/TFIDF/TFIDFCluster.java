@@ -5,10 +5,10 @@
  */
 package fi.johannes.Clusters.TFIDF;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
-import fi.johannes.Global.Options.SupportedClusters;
+import fi.johannes.Core.App;
+import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -21,14 +21,14 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TFIDFCluster extends GenericCluster {
+public class TFIDFCluster extends Cluster {
 
     public TFIDFCluster() {
-        super(SupportedClusters.TFIDF);
+        super(ClusterMapping.ClusterEnums.TFIDF);
     }
 
     @Override
-    public String processLine(String line, Options.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
+    public String processLine(String line, App.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         if (this.isClusterReady) {
             GenericService serv = services.get(selectedStrategy);
             if (serv.isServiceReady()) {
@@ -52,14 +52,14 @@ public class TFIDFCluster extends GenericCluster {
 
     }
     private void addServices() throws StrategyNotSupportedException {
-        for (Options.SupportedProcessingStrategy s : strategies) {
+        for (App.SupportedProcessingStrategy s : strategies) {
             GenericService gs = map.initializeStrategy(s);
             services.put(s, gs);
         }
     }
 
     @Override
-    public void buildStrategy(Options.SupportedProcessingStrategy strategy, List<String> documents) {
+    public void buildStrategy(App.SupportedProcessingStrategy strategy, List<String> documents) {
         services.get(strategy).build(documents);
     }
 

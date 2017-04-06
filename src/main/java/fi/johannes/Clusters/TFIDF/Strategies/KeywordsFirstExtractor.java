@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.TFIDF.Strategies;
 
 import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -32,7 +32,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     int itemsInResult;
 
     public KeywordsFirstExtractor() {
-        super(Options.SupportedProcessingStrategy.TFIDF_KeywordsFirst);
+        super(App.SupportedProcessingStrategy.TFIDF_KeywordsFirst);
         subclassSpecificInit();
     }
 
@@ -216,7 +216,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         // TODO Create combined TFIDF
         if (doCompression) {
             // We're going to use mapping in this class
-            wordToNgramMapping = this.compress(true).getMapping();
+            wordToNgramMapping = this.compress(true).getWordToNgramsMapping();
         }
         //TODO Null keywordex and ngramex
         this.isServiceReady = true;

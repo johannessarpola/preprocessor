@@ -5,9 +5,9 @@
  */
 package fi.johannes.Clusters.TFIDF.Strategies;
 
-import fi.johannes.Abstractions.Core.GenericCluster;
+import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Core.ArticleProcessor;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -28,7 +28,7 @@ public class KeywordExtractorTest {
      // TODO Needs to serialize the TF.IDF set to allow for more dynamic addition without going through all the documents all over again
     static GenericService instance;
     static ArticleProcessor apr;
-    static GenericCluster TFIDFCluster;
+    static Cluster TFIDFCluster;
 
     public KeywordExtractorTest() {
     }
@@ -82,7 +82,7 @@ public class KeywordExtractorTest {
             int i = 0;
             //pw.setBiasingSize(1);
             for (String st : ls) {
-                String s = instance.processLine(st, Options.SupportedProcessingParadigms.Append, 1);
+                String s = instance.processLine(st, App.SupportedProcessingParadigms.Append, 1);
                 System.out.println(i + " : " + s);
                 Assert.assertEquals(st + " " + expect[i] + " ", s);
                 i++;
@@ -124,7 +124,7 @@ public class KeywordExtractorTest {
         List<String> result = new ArrayList<>();
         for (String l : lspr) {
             // TODO Figure out automatic way to test this
-            String ll = instance.processLine(l, Options.SupportedProcessingParadigms.Replace, sizeofbiasing);
+            String ll = instance.processLine(l, App.SupportedProcessingParadigms.Replace, sizeofbiasing);
             result.add(ll);
             System.out.println(ll);
             String[] la = ll.split(" ");

@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.Structures;
 
-import fi.johannes.Global.Options;
+import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFileOperations;
 import org.junit.*;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 public class ReutersArticlesTest {
     // TODO Implement TemporaryFolder() for all folders, no need for "real" folders
 
-    static String testArticlesPath = Options.WORKINGDIR + "/testres/articles11.csv";
+    static String testArticlesPath = App.WORKING_DIR + "/testres/articles11.csv";
     static String testArticleName = "articles11.csv";
 
     public ReutersArticlesTest() {
