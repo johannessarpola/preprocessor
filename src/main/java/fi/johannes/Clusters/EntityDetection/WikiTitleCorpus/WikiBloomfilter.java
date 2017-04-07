@@ -24,16 +24,16 @@ public class WikiBloomfilter {
 
     /**
      * @param accuracy
-     * @param stream
+     * @param set
      */
-    public WikiBloomfilter(double accuracy, Stream<String> stream) {
+    public WikiBloomfilter(double accuracy, Set<String> set) {
         this.accuracy = accuracy;
-        this.size = stream.count();
+        this.size = set.size();
         init();
-        addStrings(stream);
+        addStrings(set);
     }
 
-    private void addStrings(Stream<String> list) {
+    private void addStrings(Set<String> list) {
         list.forEach(s -> filter.put(s));
     }
 

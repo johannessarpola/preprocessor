@@ -41,7 +41,7 @@ public class WikiCorpus extends BloomfilterCorpus {
 
     private void init() {
         try {
-            Stream<String> titles = titleStream(pathToWikis);
+            Set<String> titles = titleStream(pathToWikis).collect(Collectors.toSet());
             wikiBloomfilter = new WikiBloomfilter(accuracy, titles);
         } catch (Exception ex) {
             GenLogging.logStackTrace_Error(this, ex);
