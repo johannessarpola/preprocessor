@@ -27,7 +27,7 @@ public class WikiCorpusTest {
             try {
                 return Files.readAllLines(path);
             } catch (IOException e) { return null; }
-        }).flatMap(Collection::stream).collect(Collectors.toList());
+        }).flatMap(Collection::stream).map(WikiTransformer::transformWikiTitle).collect(Collectors.toList());
         assertEquals(0.01, wc.getAccuracy(), 0);
         boolean anyContained = lines.stream().anyMatch(wc::mightContain);
         int countContainer = (int) lines.stream().filter(wc::mightContain).count();

@@ -3,19 +3,22 @@ package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.function.Function;
+
 /**
- * Translates strings to wiki form and vice versa (TODO Not used at the moment)
+ * Translates strings to wiki form and vice versa
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class WikiTransformer {
 
+
     /**
      * _ to space (to more detail)
-     *
+     * Converts _ to ' ' and makes the string of Abc_abc_(disamb)_abc to  -> abc abc abc
      * @param title
      * @return
      */
-    public static String translateWikiTitle(String title) {
+    public static String transformWikiTitle(String title) {
         if (title.length() == 1) {
             return null;
         }
@@ -32,15 +35,24 @@ public class WikiTransformer {
         }
         mutation = StringUtils.replace(mutation, "_", " ");
         mutation = StringUtils.trim(mutation);
-        return mutation;
+        return mutation.toLowerCase();
     }
 
-    public static String transformToWTitle(String item) {
+    private static String transformItemToWikiFormat(String item) {
         String mutation = item;
         mutation = StringUtils.trim(mutation);
         mutation = StringUtils.replace(mutation, " ", "_");
         return mutation;
     }
-    // TODO Create model for probable wiki title, the parenthesis for example
-    
+
+    /**
+     * Barebones function to translate wiki titles to be something more like it would appear in text
+     */
+    public static class WikiToStringFunc implements Function<String,String>{
+        @Override
+        public String apply(String s) {
+            return transformWikiTitle(s);
+        }
+    }
+
 }

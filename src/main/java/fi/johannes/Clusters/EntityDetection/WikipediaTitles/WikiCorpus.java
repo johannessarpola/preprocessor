@@ -7,13 +7,9 @@ package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
 
 import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
 import fi.johannes.Core.App;
-import fi.johannes.Utilities.File.CFolderOperations;
 import fi.johannes.Utilities.Logging.GenLogging;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -34,12 +30,6 @@ public class WikiCorpus extends BloomfilterCorpus {
         super(App.SupportedCorpuses.WikipediaCorpus);
         this.accuracy =  0.01;;
         this.pathToWikis = pathToWikis;
-        init();
-    }
-    public WikiCorpus() {
-        super(App.SupportedCorpuses.WikipediaCorpus);
-        this.accuracy = 0.01;
-        pathToWikis = WikiPaths.WIKIFOLDER;
         init();
     }
 
@@ -66,8 +56,10 @@ public class WikiCorpus extends BloomfilterCorpus {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .flatMap(Collection::stream)
+                .map(WikiTransformer::transformWikiTitle)
                 .collect(Collectors.toSet());
     }
+
 
     public boolean mightContain(String str) {
         return wikifilter.mightContain(str);

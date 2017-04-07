@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
     WikiCorpus wise;
 
     public WikiServiceTest() {
-        wise = new WikiCorpus();
+        wise = new WikiCorpus("wiki");
     }
 
     @BeforeClass

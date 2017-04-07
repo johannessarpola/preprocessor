@@ -27,7 +27,7 @@ public class EntityCorpuses {
     static {
 
         Map<App.SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
-        tMap.put(App.SupportedCorpuses.WikipediaCorpus, new WikiCorpus());
+        tMap.put(App.SupportedCorpuses.WikipediaCorpus, new WikiCorpus("wiki"));
         CORPUSES = Collections.unmodifiableMap(tMap);
     }
 

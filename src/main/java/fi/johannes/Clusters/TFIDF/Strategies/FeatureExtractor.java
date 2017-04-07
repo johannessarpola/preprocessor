@@ -71,11 +71,11 @@ public abstract class FeatureExtractor extends GenericService {
 
     private void init() {
         hashStore = new HashStore(this.sizetoDigest);
-        this.tfScores = Collections.emptyList();
+        this.tfScores = new ArrayList<>();
         this.tfScoresCompressed = Collections.emptyList();
-        this.idfScores = Collections.emptyMap();
+        this.idfScores = new HashMap<>();
         this.splitter = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();
-        this.universe = Collections.emptySet();
+        this.universe = new HashSet<>();
         this.compressedEntities = new HashMap<>();
         setupBooleans();
     }
