@@ -22,7 +22,7 @@ public class DoubleBasedWeighingLogic implements WeighingLogic {
      * @return
      */
     @Override
-    public Double calculateWeight(WeighingPair pair) {
+    public Double calculateDepth(WeighingPair pair) {
         Double block = 1 / pair.getTotalDepth().doubleValue();
         Double blocksToCover = pair.getDepth().doubleValue() - (pair.getTotalDepth().doubleValue() + 1);
         return Math.abs(block * blocksToCover);
@@ -46,9 +46,8 @@ public class DoubleBasedWeighingLogic implements WeighingLogic {
         }
     }
 
-    public static class Builder {
-        public static DoubleBasedWeighingLogic build() {
+    public static DoubleBasedWeighingLogic build() {
             return new DoubleBasedWeighingLogic();
         }
-    }
+
 }

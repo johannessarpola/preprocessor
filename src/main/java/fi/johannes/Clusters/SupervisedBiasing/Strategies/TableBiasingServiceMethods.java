@@ -27,17 +27,16 @@ public class TableBiasingServiceMethods  {
     /**
      * Gets the weights for splitted line using tablehierarchies
      * @param splitLine
-     * @param ths
+     * @param hierarchies
      * @return the weights in the same order as the split line
      */
-    // TODO Test tablehierarchies
-    protected static List<Double> getWeightsForLine(List<String> splitLine, List<StringTableHierarchy> ths) {
+    protected static List<Double> getWeightsForLine(List<String> splitLine, List<StringTableHierarchy> hierarchies) {
         List<Double> weights = new ArrayList<>(splitLine.size());
-        DoubleBasedWeighingLogic logic = DoubleBasedWeighingLogic.Builder.build();
+        DoubleBasedWeighingLogic logic = DoubleBasedWeighingLogic.build();
         int i =0;
         for(String word : splitLine){
             List<Double> weightsForWord = new ArrayList<>();
-            for(StringTableHierarchy h: ths){
+            for(StringTableHierarchy h: hierarchies){
                 weightsForWord.add(h.getWeight(word));
             }
             Double combined = logic.combineWeights(mean, weightsForWord);

@@ -13,34 +13,34 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Johannes
  */
-public class TableBasedWeighingLogicTest {
+public class WeighingLogicTest {
     
-    public TableBasedWeighingLogicTest() {
+    public WeighingLogicTest() {
     }
 
     /**
-     * Test of calculateWeight method, of class DoubleBasedWeighingLogic.
+     * Test of calculateDepth method, of class DoubleBasedWeighingLogic.
      */
     @Test
     public void testCalculateWeight() {
         
-        System.out.println("calculateWeight");
+        System.out.println("calculateDepth");
         
         TableBasedWeighingPair tbwp = new TableBasedWeighingPair(1, 4);
         TableBasedWeighingPair tbwp2 = new TableBasedWeighingPair(2, 4);
         TableBasedWeighingPair tbwp3 = new TableBasedWeighingPair(3, 4);
         TableBasedWeighingPair tbwp4 = new TableBasedWeighingPair(4, 4);
-        DoubleBasedWeighingLogic instance = DoubleBasedWeighingLogic.Builder.build();
+        DoubleBasedWeighingLogic instance = DoubleBasedWeighingLogic.build();
         
         Double expResult = 1.;
         Double expResult2 = 0.75;
         Double expResult3 = 0.5;
         Double expResult4 = 0.25;
         
-        Double result = instance.calculateWeight(tbwp);
-        Double result2 = instance.calculateWeight(tbwp2);
-        Double result3 = instance.calculateWeight(tbwp3);
-        Double result4 = instance.calculateWeight(tbwp4);
+        Double result = instance.calculateDepth(tbwp);
+        Double result2 = instance.calculateDepth(tbwp2);
+        Double result3 = instance.calculateDepth(tbwp3);
+        Double result4 = instance.calculateDepth(tbwp4);
         
         
         assertEquals(expResult, result);

@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author Johannes Sarpola <johannes.sarpola at gmail.com>
  */
 public class TableBiasingServiceMethodsTest {
@@ -29,14 +28,15 @@ public class TableBiasingServiceMethodsTest {
 
     public TableBiasingServiceMethodsTest() {
     }
+
     @Before
     public void setUp() throws UnevenSizedListsException {
         ra = Arrays.asList("First", "Third", "Second", "Fourth");
-        rb = Arrays.asList( 1., 3., 7.,10.);
-        b = Arrays.asList(10.,7.,3.,1.);
+        rb = Arrays.asList(1., 3., 7., 10.);
+        b = Arrays.asList(10., 7., 3., 1.);
         slist = TableBiasingServiceMethods.makeListPair(ra, rb);
 
-        
+
     }
 
 
@@ -61,34 +61,34 @@ public class TableBiasingServiceMethodsTest {
      */
     @Test
     public void testGetHighestWords() throws UnevenSizedListsException {
-        List<FinalizedPair<String,Double>> lfp = TableBiasingServiceMethods.getHighestWords(ra,rb, 1);
+        List<FinalizedPair<String, Double>> lfp = TableBiasingServiceMethods.getHighestWords(ra, rb, 1);
         assertEquals(b.get(0), lfp.get(0).getValue(), 0.);
-        assertEquals(ra.get(3),lfp.get(0).getItem());
+        assertEquals(ra.get(3), lfp.get(0).getItem());
         testFlattenToString(lfp);
     }
-    
-    void testFlattenToString(List<FinalizedPair<String,Double>> lfp){
+
+    void testFlattenToString(List<FinalizedPair<String, Double>> lfp) {
         String flat = TableBiasingServiceMethods.flatten(lfp);
         String eFlat = "";
         FinalizedPair<String, Double> fp = lfp.get(0);
         Double val = fp.getValue();
-        while(val-- > 0) {
+        while (val-- > 0) {
             eFlat += fp.getItem() + TableBiasingServiceOptions.DELIM;
         }
         eFlat = eFlat.trim();
-        assertEquals(eFlat,flat);
+        assertEquals(eFlat, flat);
         // -1 magical number for trailing space
-        int expectL = (int) ((int) (fp.getItem().length()+1)*fp.getValue())-1;
+        int expectL = (int) ((int) (fp.getItem().length() + 1) * fp.getValue()) - 1;
         assertEquals(expectL, flat.length());
-        
+
     }
+
     /**
      * Test of getWeightsForLine method, of class TableBiasingServiceMethods.
      */
     @Test
     public void testGetWeightsForLine() {
-        // TableBiasingServiceMethods.getWeightsForLine(ra, rb);
-        // TODO This test
+
     }
 
 }

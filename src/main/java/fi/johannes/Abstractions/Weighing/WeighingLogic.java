@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface WeighingLogic {
     
-     public Double calculateWeight(WeighingPair pair);
+     public Double calculateDepth(WeighingPair pair);
      /**
       * Combines multiple weights for a single element
       * @param strategy how weights are combined

@@ -9,6 +9,7 @@ import fi.johannes.Utilities.Logging.GenLogging;
 import fi.johannes.Utilities.Structures.FinalizedPair;
 import fi.johannes.Utilities.Structures.Table;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class TableHierarchy<T> {
     private DoubleBasedWeighingLogic tbwl;
 
     public TableHierarchy(Table<T> t) {
+        weightMap = new HashMap<T, Double>();
         createHierarchy(t);
     }
 
@@ -33,7 +35,7 @@ public class TableHierarchy<T> {
         int weightFactor = t.getHeader().size();
         int position = 1;
         TableBasedWeighingPair twp = new TableBasedWeighingPair(0, weightFactor);
-        tbwl = DoubleBasedWeighingLogic.Builder.build();
+        tbwl = DoubleBasedWeighingLogic.build();
         for (List<T> row : t.getRows()) {
             for (T element : row) {
                 twp.newPosition(position);
@@ -43,7 +45,7 @@ public class TableHierarchy<T> {
         }
     }
     private void initializeElementWithWeight(TableBasedWeighingPair twp, T element) {
-        Double weight = tbwl.calculateWeight(twp);
+        Double weight = tbwl.calculateDepth(twp);
         weightMap.put(element, weight);
     }
     public Double getWeight(T element){
