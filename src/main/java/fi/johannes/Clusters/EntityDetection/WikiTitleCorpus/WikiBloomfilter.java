@@ -3,40 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class WikiBloomfilter {
 
-    BloomFilter<String> filter;
-    int size;
-    double buffer = 1.2;
-    double accuracy = 0.01;
+    private BloomFilter<String> filter;
+    private long size;
+    private double buffer = 1.2;
+    private double accuracy = 0.01;
 
     /**
      * @param accuracy
-     * @param items
+     * @param stream
      */
-    public WikiBloomfilter(double accuracy, Set<String> items) {
+    public WikiBloomfilter(double accuracy, Stream<String> stream) {
         this.accuracy = accuracy;
-        this.size = items.size();
+        this.size = stream.count();
         init();
-        addStrings(items);
+        addStrings(stream);
     }
 
-    private void addStrings(Set<String> list) {
+    private void addStrings(Stream<String> list) {
         list.forEach(s -> filter.put(s));
     }
 
-    private void createBloomfilter(int size, double accuracy) {
+    private void createBloomfilter(long size, double accuracy) {
         filter = BloomFilter.create(Funnels.stringFunnel(StandardCharsets.UTF_8), size, accuracy);
     }
 

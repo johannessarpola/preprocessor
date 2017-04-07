@@ -1,5 +1,5 @@
 
-package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -18,7 +18,7 @@ public class WikiTransformer {
      * @param title
      * @return
      */
-    public static String transformWikiTitle(String title) {
+    public static String transformTitle(String title) {
         if (title.length() == 1) {
             return null;
         }
@@ -51,7 +51,7 @@ public class WikiTransformer {
     public static class WikiToStringFunc implements Function<String,String>{
         @Override
         public String apply(String s) {
-            return transformWikiTitle(s);
+            return transformTitle(s);
         }
     }
 

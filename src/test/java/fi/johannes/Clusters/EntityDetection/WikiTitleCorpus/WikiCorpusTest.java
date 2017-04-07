@@ -1,4 +1,4 @@
-package fi.johannes.Clusters.EntityDetection.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -6,7 +6,6 @@ import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +26,7 @@ public class WikiCorpusTest {
             try {
                 return Files.readAllLines(path);
             } catch (IOException e) { return null; }
-        }).flatMap(Collection::stream).map(WikiTransformer::transformWikiTitle).collect(Collectors.toList());
+        }).flatMap(Collection::stream).map(WikiTransformer::transformTitle).collect(Collectors.toList());
         assertEquals(0.01, wc.getAccuracy(), 0);
         boolean anyContained = lines.stream().anyMatch(wc::mightContain);
         int countContainer = (int) lines.stream().filter(wc::mightContain).count();

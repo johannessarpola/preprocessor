@@ -1,9 +1,6 @@
-package fi.johannes.Clusters.EntityDetection.WikipediaTitles
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus
 
-import org.apache.lucene.search.MultiCollectorManager;
 import org.junit.Test
-
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +11,7 @@ class WikiTransformerTest {
     @Test
     void translateWikiTitle() throws Exception {
         List<String> collect = ["Abc_abc_(disamb)_as", "Bank_of_Nothing"].collect
-                { s -> return WikiTransformer.transformWikiTitle(s)}
+                { s -> return WikiTransformer.transformTitle(s)}
         assertTrue(collect.contains("abc abc as"))
         assertTrue(collect.contains("bank of nothing"))
 

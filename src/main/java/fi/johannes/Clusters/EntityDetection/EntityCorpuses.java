@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.EntityDetection;
 
 import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
-import fi.johannes.Clusters.EntityDetection.WikipediaTitles.WikiCorpus;
+import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
 import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import fi.johannes.Utilities.Logging.GenLogging;
@@ -18,8 +18,6 @@ import java.util.*;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class EntityCorpuses {
-    // TODO Maybe implement the variations with Damerau-Levenhstein(?)
-    // TODO User's table of 'higher' ranked words (it's not really a corpus but hierarchial structure)
 
     public static final Map<App.SupportedCorpuses, EntityCorpus> CORPUSES;
     List<EntityCorpus> corpuses;
@@ -50,14 +48,14 @@ public class EntityCorpuses {
         }
     }
     
-    public List<App.SupportedCorpuses> doesCorpusesContain(String word){
-        List<App.SupportedCorpuses> l = new ArrayList<>();
+    public List<App.SupportedCorpuses> doesCorpusesContain(String str){
+        List<App.SupportedCorpuses> containedIn = new ArrayList<>();
         for(EntityCorpus c : corpuses){
-            if(c.doesContain(word)) {
-                l.add(c.getId());
+            if(c.doesContain(str)) {
+                containedIn.add(c.getId());
             }
         }
-        return l;
+        return containedIn;
     }
     
 }
