@@ -41,7 +41,7 @@ import org.junit.*;
         String line = "Wikipedia";
         dc.selectStrategy(App.SupportedProcessingStrategy.ConceptInsights);
         String expResult = "Wikipedia Wikipedia";
-        String result = dc.processLine(line, App.SupportedProcessingParadigms.Append);
+        String result = dc.processLine(line, App.SupportedProcessingMethods.Append);
         Assert.assertEquals(expResult.toLowerCase(), result.toLowerCase());
     }
     @Test
@@ -49,7 +49,7 @@ import org.junit.*;
         dc.selectStrategy(App.SupportedProcessingStrategy.ConceptInsights);
         dc.setBiasingSize(5);
         String line = "during the American of his|North Carolina the North the North Carolina during the one of the American 1954, the North Carolina of Jethro Sumner had Hogun's career as virtually no|that would his life. surviving correspondence that would appear to have American Civil War, North Carolina legislature 1786, the North Carolina and one ;;";
-        System.out.println(dc.processLine(line, App.SupportedProcessingParadigms.Append));
+        System.out.println(dc.processLine(line, App.SupportedProcessingMethods.Append));
                 
     }
 }

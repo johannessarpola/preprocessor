@@ -5,11 +5,13 @@
  */
 package fi.johannes.TableReaders;
 
+import fi.johannes.Core.App;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,13 +26,14 @@ import static org.junit.Assert.assertThat;
 public class XLSXReaderTest {
 
     static XLSXReader xlsx;
-    static String filep = System.getProperty("user.dir") + "/src/test/resources/TestXLSX.xlsx";
+    static String filep;
 
     public XLSXReaderTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws FileNotFoundException {
+    public static void setUpClass() throws IOException {
+        filep = App.getResource("test.xlsx").getFile().getAbsolutePath();
         xlsx = new XLSXReader(filep);
     }
 
@@ -44,7 +47,7 @@ public class XLSXReaderTest {
     @Test
     public void testRetrieveRows() {
         System.out.println("Rows");
-        int expectLength = 4;
+        int expectLength = 3;
         List<String> firstRow = new ArrayList<>();
         firstRow.add("1.0");
         firstRow.add("2.0");

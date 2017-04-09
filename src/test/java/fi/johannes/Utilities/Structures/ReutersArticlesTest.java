@@ -13,16 +13,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 /**
  *
  * @author Johannes töissä
  */
 public class ReutersArticlesTest {
-    // TODO Implement TemporaryFolder() for all folders, no need for "real" folders
-
-    static String testArticlesPath = App.WORKING_DIR + "/testres/articles11.csv";
-    static String testArticleName = "articles11.csv";
-
     public ReutersArticlesTest() {
     }
 
@@ -35,27 +33,39 @@ public class ReutersArticlesTest {
     }
 
     @Test
-    // TODO Missing the files as well
-    @Ignore public void testConstruct() throws IOException {
-        List<char[]> content = CFileOperations.getFileContentAsChars(testArticlesPath);
-        int linecount = CFileOperations.countLines(testArticlesPath);
-        ReutersArticles ra = new ReutersArticles(content, testArticleName);
-        Map<String, String> article = ra.getArticle(0);
+    public void testConstruct() throws IOException {
+        String absolutePath = App.getResource("headlines/headlines-docs-100.csv").getFile().getAbsolutePath();
+        List<char[]> content = CFileOperations.getFileContentAsChars(absolutePath);
+        int linecount = CFileOperations.countLines(absolutePath);
+        ReutersArticles ra = new ReutersArticles(content, "headlines-docs-100.csv");
+        Map<String, String> article = ra.getArticleAsMap(0);
         String[] keys = (String[]) article.keySet().toArray(new String[article.keySet().size()]);
-        Assert.assertTrue(keys.length > 0);
+        assertTrue(keys.length > 0);
 
-        Assert.assertTrue(linecount == ra.getArticleCount() + 1);
+        assertTrue(linecount == ra.getArticleCount() + 1);
 
         String first = article.get(keys[0]);
         String second = article.get(keys[1]);
         String third = article.get(keys[2]);
 
-        Assert.assertTrue(first.length() > 0);
-        Assert.assertTrue(second.length() > 0);
-        Assert.assertTrue(third.length() > 0);
+        assertTrue(first.length() > 0);
+        assertTrue(second.length() > 0);
+        assertTrue(third.length() > 0);
         Assert.assertFalse(third.equals(first));
         Assert.assertFalse(second.equals(first));
         Assert.assertFalse(third.equals(second));
+    }
+
+    @Test
+    public void testDto() throws IOException {
+        String absolutePath = App.getResource("headlines/headlines-docs-100.csv").getFile().getAbsolutePath();
+        List<char[]> content = CFileOperations.getFileContentAsChars(absolutePath);
+        ReutersArticles ra = new ReutersArticles(content, "headlines-docs-100.csv");
+        ReutersArticles.ArticleDto dto = ReutersArticles.ArticleDto.from(ra.getArticle(0));
+        assertTrue(dto.getDate() != null);
+        assertTrue(dto.getTitle() != null);
+        assertTrue(dto.getStory() != null);
+
     }
 
 }

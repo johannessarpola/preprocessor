@@ -6,10 +6,14 @@
 package fi.johannes.WikipediaTitles;
 
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
+import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiTransformer;
+import fi.johannes.Core.App;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,17 +21,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-// TODO Need to import the Wikititles
-@Ignore public class WikiServiceTest {
+public class WikiServiceTest {
 
-    WikiCorpus wise;
-
+    private WikiCorpus corpus;
+    private static String pathtowikis;
     public WikiServiceTest() {
-        wise = new WikiCorpus("wiki");
+        corpus = new WikiCorpus(pathtowikis);
     }
 
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws IOException {
+        pathtowikis = App.getResource("wiki").getFile().getAbsolutePath();
     }
 
     @AfterClass
@@ -39,10 +43,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
         String[] contains = {"Finland", "Sentence_function", "Sentence_stress"};
         String[] shouldnotcontain = {"Johannes Sarpola is the best"};
         for (String s : contains) {
-            assertThat("bloom filter contains", wise.mightContain(s), equalTo(true));
+            assertThat("bloom filter contains", corpus.mightContain(WikiTransformer.transformTitle(s)), equalTo(true));
         }
         for (String s : shouldnotcontain) {
-            assertThat("bloom filter contains", wise.mightContain(s), equalTo(false));
+            assertThat("bloom filter contains", corpus.mightContain(WikiTransformer.transformTitle(s)), equalTo(false));
         }
     }
 

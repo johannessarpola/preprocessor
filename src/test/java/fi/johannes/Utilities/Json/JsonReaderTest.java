@@ -21,9 +21,8 @@ import java.util.logging.Logger;
  * @author Johannes töissä
  */
 public class JsonReaderTest {
-    // TODO Implement TemporaryFolder() for all folders, no need for "real" folders
 
-    static String testJson = "/testres/test.json";
+    static String testJson;
     static String targetField = "1.2.3.4.5.6.7.test";
     static String targetValue = "ok";
 
@@ -31,8 +30,8 @@ public class JsonReaderTest {
     }
 
     @BeforeClass
-    public static void setUpClass() {
-
+    public static void setUpClass() throws IOException {
+        testJson = App.getResource("test.json").getFile().getAbsolutePath();
     }
 
     @AfterClass
@@ -74,7 +73,7 @@ public class JsonReaderTest {
 
         JsonObject json;
         try {
-            json = JsonReader.readJson(App.WORKING_DIR + testJson);
+            json = JsonReader.readJson(testJson);
             String result = JsonReader.accessField(json, targetField);
             String expResult = targetValue;
             Assert.assertTrue(expResult.equals(result));

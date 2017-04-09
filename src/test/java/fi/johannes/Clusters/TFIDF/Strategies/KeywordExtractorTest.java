@@ -82,7 +82,7 @@ public class KeywordExtractorTest {
             int i = 0;
             //pw.setBiasingSize(1);
             for (String st : ls) {
-                String s = instance.processLine(st, App.SupportedProcessingParadigms.Append, 1);
+                String s = instance.processLine(st, App.SupportedProcessingMethods.Append, 1);
                 System.out.println(i + " : " + s);
                 Assert.assertEquals(st + " " + expect[i] + " ", s);
                 i++;
@@ -124,7 +124,7 @@ public class KeywordExtractorTest {
         List<String> result = new ArrayList<>();
         for (String l : lspr) {
             // TODO Figure out automatic way to test this
-            String ll = instance.processLine(l, App.SupportedProcessingParadigms.Replace, sizeofbiasing);
+            String ll = instance.processLine(l, App.SupportedProcessingMethods.Replace, sizeofbiasing);
             result.add(ll);
             System.out.println(ll);
             String[] la = ll.split(" ");

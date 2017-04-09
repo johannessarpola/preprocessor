@@ -33,10 +33,10 @@ public class App {
 
 
     public static Resource getStopwordsResource(){
-        return getPathToResource(STOWORD_FILLE);
+        return getResource(STOWORD_FILLE);
     }
 
-    public static Resource getPathToResource(String resourcePath){
+    public static Resource getResource(String resourcePath){
         Resource resource = new ClassPathResource(resourcePath);
         return resource;
     }
@@ -57,7 +57,11 @@ public class App {
 
 
     void tryToCreateClusters() {
-        List<ClusterConnection> connections = Arrays.stream(ClusterMapping.ClusterEnums.values()).map(ClusterConnection::new).collect(Collectors.toList());
+        List<ClusterConnection> connections = Arrays
+                .stream(ClusterMapping.ClusterEnums
+                        .values()).map(ClusterConnection::new)
+                .collect(Collectors.toList());
+
         // TODO Read corpus from a directory
         // TODO Perform the tf-idf indexing
     }
@@ -77,7 +81,7 @@ public class App {
         ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, SupervisedBiasingWithTable
     }
 
-    public enum SupportedProcessingParadigms {
+    public enum SupportedProcessingMethods {
         Append, Replace
     }
 }

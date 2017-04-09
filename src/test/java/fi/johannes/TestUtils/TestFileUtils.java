@@ -19,7 +19,7 @@ import java.nio.file.Paths;
  * @author Johannes
  */
 public class TestFileUtils {
-    public static final String testFilesFolder = "."+File.separator+"testfiles"+File.separator;
+    public static final String testFilesFolder = "testfiles"+File.separator;
     /**
      * Create file for testing and return Path
      * @param path

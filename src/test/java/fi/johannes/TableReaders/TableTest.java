@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,15 +24,16 @@ import static org.junit.Assert.assertThat;
  */
 public class TableTest {
 
-    static String filep = System.getProperty("user.dir") + "/src/test/resources/TestXLSX.xlsx";
-    static TableContainer t;
+    private static String filep;
+    private static TableContainer<String> t;
 
     public TableTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() {
-        t = new TableContainer(App.SupportedTableStrategy.xlsx, filep);
+    public static void setUpClass() throws IOException {
+        filep = App.getResource("test.xlsx").getFile().getAbsolutePath();
+        t = new TableContainer<>(App.SupportedTableStrategy.xlsx, filep);
 
     }
 
@@ -65,7 +67,7 @@ public class TableTest {
     @Test
     public void testGetRows() {
         System.out.println("Rows");
-        int expectLength = 4;
+        int expectLength = 3;
         List<String> firstRow = new ArrayList<>();
         firstRow.add("1.0");
         firstRow.add("2.0");

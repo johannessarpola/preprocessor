@@ -6,6 +6,7 @@
 package fi.johannes.Utilities.File;
 
 import fi.johannes.TestUtils.TestFileUtils;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +27,8 @@ public class CFilePathOperationsTest {
     public CFilePathOperationsTest() {
     }
     
-    @AfterClass
-    public static void tearDownClass() {
+    @After
+    public void tearDown() {
         TestFileUtils.cleanTestFiles();
     }
     

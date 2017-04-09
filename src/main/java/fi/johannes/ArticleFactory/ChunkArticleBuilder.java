@@ -10,6 +10,8 @@ import fi.johannes.Utilities.ChunkedInput.FileChunks;
 import fi.johannes.Utilities.Structures.ReutersArticles;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Manages reading from filechunks to news articles,
@@ -25,12 +27,13 @@ public class ChunkArticleBuilder {
     /**
      * Manages the articles in chunks on disk
      */
-    public ChunkArticleBuilder() {
-        init();
+    public ChunkArticleBuilder(String dirPath) {
+        init(dirPath);
     }
 
-    private void init() {
-        fc = new FileChunks(App.CHUNKS);
+    private void init(String dirPath) {
+        assert (Files.isDirectory(Paths.get(dirPath)));
+        fc = new FileChunks(dirPath);
     }
 
     /**
