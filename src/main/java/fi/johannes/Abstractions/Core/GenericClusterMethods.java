@@ -22,7 +22,7 @@ import java.util.List;
 public interface GenericClusterMethods {
 
     public void selectStrategy(SupportedProcessingStrategy strategy) throws InvalidStrategyForClusterException;
-    public String processLine(String line, App.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException;
+    public String processLine(String line, App.SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException;
     public ClusterEnums getId();
     public boolean isClusterReady();
     //public void addVocabulary(List<String> documents);

@@ -40,7 +40,7 @@ public abstract class GenericService implements GenericServiceMethods {
     public abstract void build(List<String> documents);
 
     @Override
-    public String processLine(String line, App.SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException {
+    public String processLine(String line, App.SupportedProcessingMethods method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException {
         if (isServiceReady) {
             if (null != method) {
                 switch (method) {

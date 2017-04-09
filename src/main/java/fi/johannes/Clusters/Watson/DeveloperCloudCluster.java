@@ -10,7 +10,7 @@ import fi.johannes.Clusters.Watson.Internal.WatsonConnector;
 import fi.johannes.Clusters.Watson.Internal.WatsonCredentialsStorage;
 import fi.johannes.Clusters.Watson.Strategies.AlchemyWrapper;
 import fi.johannes.Core.App;
-import fi.johannes.Core.App.SupportedProcessingParadigms;
+import fi.johannes.Core.App.SupportedProcessingMethods;
 import fi.johannes.Core.App.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
@@ -74,7 +74,7 @@ public class DeveloperCloudCluster extends Cluster {
     }
 
     @Override
-    public String processLine(String line, SupportedProcessingParadigms method) throws ServiceNotReadyException, UnhandledServiceException, ClusterNoteadyException {
+    public String processLine(String line, SupportedProcessingMethods method) throws ServiceNotReadyException, UnhandledServiceException, ClusterNoteadyException {
         if (this.isClusterReady) {
             if(!services.get(selectedStrategy).isServiceReady()) throw new ServiceNotReadyException();
             else line = services.get(selectedStrategy).processLine(line, method, biasingSize);

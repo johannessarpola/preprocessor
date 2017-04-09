@@ -5,7 +5,7 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Core.App.SupportedProcessingParadigms;
+import fi.johannes.Core.App.SupportedProcessingMethods;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 
@@ -16,5 +16,5 @@ import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 public interface GenericServiceMethods {
     // Need just to define that there is a method to process line which is implemented
     // as defined in the abstract class of Cluster or implementation specific case
-    public String processLine(String line, SupportedProcessingParadigms method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException;
+    public String processLine(String line, SupportedProcessingMethods method, int biasingsize) throws ServiceNotReadyException, UnhandledServiceException;
 }

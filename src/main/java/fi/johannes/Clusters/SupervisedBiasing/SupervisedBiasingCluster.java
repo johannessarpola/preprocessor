@@ -28,7 +28,7 @@ public class SupervisedBiasingCluster extends Cluster {
     }
 
     @Override
-    public String processLine(String line, App.SupportedProcessingParadigms method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
+    public String processLine(String line, App.SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         if(this.isClusterReady){
             GenericService serv = services.get(selectedStrategy);
             if(serv.isServiceReady()){
