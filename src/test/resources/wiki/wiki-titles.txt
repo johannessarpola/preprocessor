@@ -10,3 +10,6 @@ Atom_enabled
 Atom_feed
 Atom_heart_mother_suite
 Atom_intel
+Finland
+Sentence_function
+Sentence_stress
