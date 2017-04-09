@@ -19,8 +19,7 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-// TODO Coupled to paths as well
-@Ignore public class ArticleFactoryTest {
+public class ArticleFactoryTest {
 
     public ArticleFactoryTest() {
     }
@@ -38,16 +37,16 @@ import java.util.List;
      */
     @Test
     public void testBuildArticleChunk() throws Exception {
-        ChunkArticleBuilder art = new ChunkArticleBuilder();
-
+        String respath = App.getResource("headlines/chunks").getFile().getAbsolutePath();
+        ChunkArticleBuilder art = new ChunkArticleBuilder(respath);
         System.out.println("buildArticleChunk");
         int expLength = CFileOperations.countLines(art.getChunk(0)) - 1; // Header is removed from size below
         int length = art.buildArticleChunk().getNumberOfArticles();
         Assert.assertEquals(expLength, length);
 
         ReutersArticles result = art.buildArticleChunk();
-        for (int i = 0; i < 10; i++) {
-            Assert.assertTrue(result.getArticle(i).toString().length() > 0);
+        for (int i = 0; i < 5; i++) {
+            Assert.assertTrue(result.getArticleAsMap(i).toString().length() > 0);
         }
         String resultName = result.getSourceFilename();
         String expResultName = art.getChunkName(1);
@@ -57,10 +56,10 @@ import java.util.List;
 
     @Test
     public void testAllArticles() throws IOException {
-        ChunkArticleBuilder art = new ChunkArticleBuilder();
+        String respath = App.getResource("headlines/chunks").getFile().getAbsolutePath();
+        ChunkArticleBuilder art = new ChunkArticleBuilder(respath);
         ReutersArticles result;
-        List<String> chunks = CFolderOperations.getFilenamesInFolder(App.CHUNKS);
-        int chunksNumber = art.getNumberOfChunks();
+        List<String> chunks = CFolderOperations.getFilenamesInFolder(respath);
         for (int i = 0; i < 5; i++) {
             result = art.buildArticleChunk();
             String resultName = result.getSourceFilename();

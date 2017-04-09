@@ -7,13 +7,14 @@ package fi.johannes.Utilities.Structures;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+import lombok.Data;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  *
@@ -21,10 +22,10 @@ import java.util.TreeMap;
  */
 public class ReutersArticles {
 
-    String[] columnNames;
-    private ArrayList<Article> Articles;
+    private String[] columnNames;
+    private ArrayList<Article> articles;
     private int numberOfArticles = 0;
-    Charset cs;
+    private Charset cs;
     private String sourceFilename = "";
 
     public ReutersArticles(List<char[]> rows, String sourceFile, String delimeter, Charset cs) {
@@ -51,12 +52,12 @@ public class ReutersArticles {
     }
 
     private void init(List<char[]> rows, String delimeter) {
-        this.Articles = new ArrayList<>();
+        this.articles = new ArrayList<>();
         for (char[] article : rows) {
-            Articles.add(new Article(article, delimeter));
+            articles.add(new Article(article, delimeter));
         }
         // Column names are in the first
-        Article first = Articles.get(0);
+        Article first = articles.get(0);
         int i = 0;
         columnNames = new String[first.getCharArraysInOrder().size()];
         for (char[] charArr : first.getCharArraysInOrder()) {
@@ -67,8 +68,8 @@ public class ReutersArticles {
             columnNames[i] = field;
             i++;
         }
-        Articles.remove(0);
-        numberOfArticles = Articles.size();
+        articles.remove(0);
+        numberOfArticles = articles.size();
     }
 
     /**
@@ -78,8 +79,8 @@ public class ReutersArticles {
      * @return Map of article
      */
     // TODO Remove \"
-    public Map<String, String> getArticle(int index) {
-        Article art = Articles.get(index);
+    public Map<String, String> getArticleAsMap(int index) {
+        Article art = articles.get(index);
         TreeMap<String, String> tm = new TreeMap<>();
         int i = 0;
         for (char[] charArr : art.getCharArraysInOrder()) {
@@ -89,13 +90,16 @@ public class ReutersArticles {
         }
         return tm;
     }
+    public Article getArticle(int index) {
+        return articles.get(index);
+    }
 
     public int getArticleCount() {
-        return Articles.size();
+        return articles.size();
     }
 
     public List<Article> getArticles() {
-        return Articles;
+        return articles;
     }
 
     public int getNumberOfArticles() {
@@ -104,6 +108,24 @@ public class ReutersArticles {
 
     public String getSourceFilename() {
         return sourceFilename;
+    }
+
+    @Data
+    public static class ArticleDto {
+        private LocalDateTime date;
+        private String title;
+        private String story;
+
+        // headlines don't use iso
+        static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        public static ArticleDto from(Article article) {
+            ArticleDto dto = new ArticleDto();
+            dto.date = LocalDateTime.parse(new String(article.date), formatter);
+            dto.title = new String(article.date);
+            dto.story = new String(article.story);
+            return dto;
+        }
     }
 
     public class Article {
