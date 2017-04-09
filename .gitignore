@@ -1,15 +1,7 @@
-/testoutput/*
-/testres/*
-/res/*
-/raw data/*
-/chunks/
+/.data/
+/logs/
 *.class
-*.qvw
-*.csv
-/src/main/resources/wikis/*
 *.log
-/testfiles/
-# Created by https://www.gitignore.io/api/netbeans,maven
 
 ### NetBeans ###
 nbproject/private/
