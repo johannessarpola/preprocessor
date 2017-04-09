@@ -6,6 +6,7 @@
 package fi.johannes.Utilities.File;
 
 import fi.johannes.Utilities.Logging.GenLogging;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -105,23 +106,11 @@ public class CFolderOperations {
      * Removes folder and everything inside it
      * @param folder 
      */
-    // TODO This doesn't work always, need to be tested
     public static void recursiveDelete(String folder) {
-        File f = new File(folder);
-        if (f.exists() && f.isDirectory()) {
-            File[] fs = CFolderOperations.getFilesInFolder(folder);
-            for (File fo : fs) {
-                fo.delete();
-                // Back up for deletion upon closing VM
-                if(fo.exists()){
-                    fo.deleteOnExit();
-                }
-            }
-            f.delete();
-            // Back up for deletion upon closing VM
-            if(f.exists()){
-                f.deleteOnExit();
-            }
+        try {
+            FileUtils.deleteDirectory(new File(folder));
+        } catch (IOException e) {
+            GenLogging.logMessage_Error(CFolderOperations.class, "Could not delete folder:"+folder );
         }
     }
 
