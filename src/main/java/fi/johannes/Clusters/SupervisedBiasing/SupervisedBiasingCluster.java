@@ -38,7 +38,6 @@ public class SupervisedBiasingCluster extends Cluster {
                 throw new ServiceNotReadyException();
             }
         }
-        
         else {
             throw new ClusterNoteadyException();
         }

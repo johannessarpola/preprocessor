@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.TFIDF.Strategies;
+package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;

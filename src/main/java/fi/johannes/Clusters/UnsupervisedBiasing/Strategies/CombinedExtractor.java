@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.TFIDF.Strategies;
+package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
-import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
+import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
 import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;

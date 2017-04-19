@@ -1,4 +1,4 @@
-package fi.johannes.Clusters.TFIDF.Internal;
+package fi.johannes.Clusters.UnsupervisedBiasing.Internal;
 
 import lombok.Builder;
 import lombok.Data;

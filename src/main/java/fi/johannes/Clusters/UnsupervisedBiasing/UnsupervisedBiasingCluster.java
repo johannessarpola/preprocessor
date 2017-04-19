@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.TFIDF;
+package fi.johannes.Clusters.UnsupervisedBiasing;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
@@ -21,9 +21,9 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TFIDFCluster extends Cluster {
+public class UnsupervisedBiasingCluster extends Cluster {
 
-    public TFIDFCluster() {
+    public UnsupervisedBiasingCluster() {
         super(ClusterMapping.ClusterEnums.TFIDF);
     }
 
@@ -44,7 +44,7 @@ public class TFIDFCluster extends Cluster {
     @Override
     public void buildCluster() {
         try {
-            map = new TFIDFStrategyMap(id);
+            map = new UnsupervisedStrategyMap(id);
             addServices();
         } catch (StrategyNotSupportedException ex) {
             GenLogging.logStackTrace_Error(getClass(), ex);

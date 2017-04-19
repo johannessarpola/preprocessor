@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.TFIDF.Strategies;
+package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
-import fi.johannes.Clusters.TFIDF.Internal.TFIDF;
+import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
 import fi.johannes.Core.App;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -24,12 +24,11 @@ import java.util.Map.Entry;
  */
 public class KeywordsFirstExtractor extends FeatureExtractor {
 
-    WordNgramExtractor wne;
-    KeywordExtractor ke;
-    Map<String, List<LinkedWord>> wordToNgramMapping; // Used to access ngrams for a word quicker
-    double totalScore;
-    double avgScore;
-    int itemsInResult;
+    private WordNgramExtractor wne;
+    private KeywordExtractor ke;
+    private Map<String, List<LinkedWord>> wordToNgramMapping; // Used to access ngrams for a word quicker
+    private double totalScore;
+    private int itemsInResult;
 
     public KeywordsFirstExtractor() {
         super(App.SupportedProcessingStrategy.TFIDF_KeywordsFirst);
@@ -103,7 +102,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     private List<String> getHighestEntriesAsStrings(Map<LinkedWord, Double> map) {
         map = MapUtils.sortByValue(map, true);
         List<String> l = new ArrayList<>();
-        double avg = getAvg();
+        double avg = totalScore / itemsInResult;
         for (Entry<LinkedWord, Double> e : map.entrySet()) {
             if (e.getValue() >= avg) {
                 l.add(e.getKey().toString());
@@ -115,7 +114,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     private List<LinkedWord> getHighestEntriesAsLinkedWord(Map<LinkedWord, Double> map) {
         map = MapUtils.sortByValue(map, true);
         List<LinkedWord> l = new ArrayList<>();
-        double avg = getAvg();
+        double avg = totalScore / itemsInResult;
         for (Entry<LinkedWord, Double> e : map.entrySet()) {
             if (e.getValue() >= avg) {
                 l.add(e.getKey());
@@ -229,8 +228,4 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private double getAvg() {
-        avgScore = totalScore / itemsInResult;
-        return avgScore;
-    }
 }

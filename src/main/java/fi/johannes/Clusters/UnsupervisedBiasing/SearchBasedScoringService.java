@@ -1,8 +1,8 @@
-package fi.johannes.Clusters.TFIDF;
+package fi.johannes.Clusters.UnsupervisedBiasing;
 
-import fi.johannes.Clusters.TFIDF.Internal.Converter;
-import fi.johannes.Clusters.TFIDF.Internal.Result;
-import fi.johannes.Clusters.TFIDF.Internal.SearchEngine;
+import fi.johannes.Clusters.UnsupervisedBiasing.Internal.Converter;
+import fi.johannes.Clusters.UnsupervisedBiasing.Internal.Result;
+import fi.johannes.Clusters.UnsupervisedBiasing.Internal.SearchEngine;
 import fi.johannes.Utilities.Structures.LinkedWord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

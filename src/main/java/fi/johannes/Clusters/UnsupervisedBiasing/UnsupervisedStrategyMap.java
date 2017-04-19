@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Clusters.TFIDF;
+package fi.johannes.Clusters.UnsupervisedBiasing;
 
 import fi.johannes.Abstractions.Core.ClustersStrategyMap;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Clusters.TFIDF.Strategies.CombinedExtractor;
-import fi.johannes.Clusters.TFIDF.Strategies.KeywordExtractor;
-import fi.johannes.Clusters.TFIDF.Strategies.KeywordsFirstExtractor;
-import fi.johannes.Clusters.TFIDF.Strategies.WordNgramExtractor;
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.CombinedExtractor;
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordExtractor;
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordsFirstExtractor;
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.WordNgramExtractor;
 import fi.johannes.Core.App;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -19,9 +19,9 @@ import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedExcept
  * Maps strategy to object (TFIDF)
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class TFIDFStrategyMap extends ClustersStrategyMap<GenericService> {
+public class UnsupervisedStrategyMap extends ClustersStrategyMap<GenericService> {
     
-    public TFIDFStrategyMap(ClusterMapping.ClusterEnums id){
+    public UnsupervisedStrategyMap(ClusterMapping.ClusterEnums id){
         super(id);
     }
     
