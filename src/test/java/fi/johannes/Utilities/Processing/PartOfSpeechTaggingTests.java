@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.StanfordNLP;
+package fi.johannes.Utilities.Processing;
 
 import fi.johannes.Utilities.Processing.PartOfSpeechTagging;
 import org.junit.AfterClass;
@@ -18,11 +18,11 @@ import java.util.Map.Entry;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-public class StanfordPOSTest {
+public class PartOfSpeechTaggingTests {
 
     static PartOfSpeechTagging spr;
 
-    public StanfordPOSTest() {
+    public PartOfSpeechTaggingTests() {
     }
 
     @BeforeClass

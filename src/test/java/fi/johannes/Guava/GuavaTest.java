@@ -18,7 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- *
+ * Some tests for GoogleGuava
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class GuavaTest {

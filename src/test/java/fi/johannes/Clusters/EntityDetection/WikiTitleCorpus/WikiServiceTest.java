@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.WikipediaTitles;
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiTransformer;
 import fi.johannes.Core.App;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
