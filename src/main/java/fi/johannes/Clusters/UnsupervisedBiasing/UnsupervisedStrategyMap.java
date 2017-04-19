@@ -16,7 +16,7 @@ import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
 /**
- * Maps strategy to object (TFIDF)
+ * Maps strategy to object (UnsupervisedBiasing)
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class UnsupervisedStrategyMap extends ClustersStrategyMap<GenericService> {

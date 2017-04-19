@@ -212,7 +212,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             docIndex++;
         }
         this.idfScores = TFIDF.idfFromTfs(this.tfScores);
-        // TODO Create combined TFIDF
+        // TODO Create combined UnsupervisedBiasing
         if (doCompression) {
             // We're going to use mapping in this class
             wordToNgramMapping = this.compress(true).getWordToNgramsMapping();

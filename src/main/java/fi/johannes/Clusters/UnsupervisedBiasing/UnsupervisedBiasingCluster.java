@@ -24,7 +24,7 @@ import java.util.List;
 public class UnsupervisedBiasingCluster extends Cluster {
 
     public UnsupervisedBiasingCluster() {
-        super(ClusterMapping.ClusterEnums.TFIDF);
+        super(ClusterMapping.ClusterEnums.UnsupervisedBiasing);
     }
 
     @Override

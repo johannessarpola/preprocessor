@@ -37,8 +37,7 @@ public class App {
     }
 
     public static Resource getResource(String resourcePath){
-        Resource resource = new ClassPathResource(resourcePath);
-        return resource;
+        return new ClassPathResource(resourcePath);
     }
     public static Collection<String> getResources(String resourcePath){
         return ResourceList.getResources(Pattern.compile("src/main/resources/.*"));
@@ -61,7 +60,6 @@ public class App {
                 .stream(ClusterMapping.ClusterEnums
                         .values()).map(ClusterConnection::new)
                 .collect(Collectors.toList());
-
         // TODO Read corpus from a directory
         // TODO Perform the tf-idf indexing
     }
@@ -78,7 +76,7 @@ public class App {
     }
 
     public enum SupportedProcessingStrategy {
-        ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, SupervisedBiasingWithTable
+        ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, SupervisedBiasingWithTable, WikipediaTitles
     }
 
     public enum SupportedProcessingMethods {

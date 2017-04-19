@@ -10,7 +10,7 @@ package fi.johannes.Core;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class ConnectionMaster {
-    ClusterConnection watson = new ClusterConnection(ClusterMapping.ClusterEnums.Watson);
-    ClusterConnection tfidf = new ClusterConnection(ClusterMapping.ClusterEnums.TFIDF);
-    ClusterConnection supervised = new ClusterConnection(ClusterMapping.ClusterEnums.TableBiasing);
+    ClusterConnection unsupervised = new ClusterConnection(ClusterMapping.ClusterEnums.UnsupervisedBiasing);
+    ClusterConnection supervised = new ClusterConnection(ClusterMapping.ClusterEnums.SupervisedBiasing);
+    ClusterConnection entitydetection = new ClusterConnection(ClusterMapping.ClusterEnums.EntityDetection);
 }

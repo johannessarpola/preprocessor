@@ -171,7 +171,7 @@ public abstract class FeatureExtractor extends GenericService {
     }
 
     /**
-     * Gets the highest ranking parts based on TFIDF
+     * Gets the highest ranking parts based on UnsupervisedBiasing
      *
      * @param line
      * @return

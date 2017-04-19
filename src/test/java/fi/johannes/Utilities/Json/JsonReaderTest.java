@@ -5,7 +5,6 @@
  */
 package fi.johannes.Utilities.Json;
 
-import fi.johannes.Clusters.Watson.Internal.WatsonOptions;
 import fi.johannes.Core.App;
 import fi.johannes.Utilities.File.CFileOperations;
 import com.google.gson.JsonObject;
@@ -54,7 +53,7 @@ public class JsonReaderTest {
     @Test
     public void testReadJson() throws Exception {
         System.out.println("readJson");
-        String filepath = WatsonOptions.pathToCrendetials;
+        String filepath = App.getResource("test.json").getFile().getAbsolutePath();
         String jsonString = CFileOperations.fileContentToString(filepath);
         JsonParser parser = new JsonParser();
         JsonObject expResult = parser.parse(jsonString).getAsJsonObject();

@@ -30,7 +30,7 @@ public abstract class Cluster implements GenericClusterMethods {
     protected SupportedProcessingStrategy[] strategies;
 
     public Cluster(ClusterEnums id) {
-        services = new HashMap();
+        services = new HashMap<>();
         strategies = ClusterMapping.getStrategies(id);
         this.id = id;
     }

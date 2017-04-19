@@ -45,7 +45,7 @@ public class CombinedExtractorTest {
      */
     @Test
     public void testProcessLineByReplace() throws Exception {
-         //pw.selectProcessing(Options.SemanticProcessingStrategy.TFIDF);
+         //pw.selectProcessing(Options.SemanticProcessingStrategy.UnsupervisedBiasing);
         List<String> ls = new ArrayList<>();
         ls.add("Dog Cat Bird");
         ls.add("Dog Cat Horse");

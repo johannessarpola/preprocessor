@@ -24,7 +24,7 @@ import java.util.List;
 public class SupervisedBiasingCluster extends Cluster {
     
     public SupervisedBiasingCluster(){
-        super(ClusterMapping.ClusterEnums.TableBiasing);
+        super(ClusterMapping.ClusterEnums.SupervisedBiasing);
     }
 
     @Override
