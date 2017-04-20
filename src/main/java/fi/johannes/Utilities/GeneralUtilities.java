@@ -10,6 +10,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class GeneralUtilities {
             public static Splitter guavaSplitterWhiteSpace = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings();;
-            public static HashFunction murmur128 = Hashing.murmur3_128(App.MURMURSEED);
+            public static HashFunction murmur128 = Hashing.murmur3_128(23417789); // W/e
 
     /**
      * Splits with white list, uses GuavaSplitter (Google)

@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SearchBasedScoringService {
 
-    private final SearchEngine searcEngine;
+    private final SearchEngine searchEngine;
 
     @Autowired
     public SearchBasedScoringService(SearchEngine searchService) {
-        this.searcEngine = searchService;
+        this.searchEngine = searchService;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SearchBasedScoringService {
      */
     public Result query(LinkedWord lw){
         String queryString = Converter.linkedWordToString(lw);
-        Result result = searcEngine.query(queryString);
+        Result result = searchEngine.query(queryString);
         return result;
     }
 

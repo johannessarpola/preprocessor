@@ -8,7 +8,7 @@ package fi.johannes.Clusters.UnsupervisedBiasing;
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
-import fi.johannes.Core.ClusterMapping;
+import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
@@ -24,7 +24,7 @@ import java.util.List;
 public class UnsupervisedBiasingCluster extends Cluster {
 
     public UnsupervisedBiasingCluster() {
-        super(ClusterMapping.ClusterEnums.UnsupervisedBiasing);
+        super(ClusterEnums.UnsupervisedBiasing);
     }
 
     @Override

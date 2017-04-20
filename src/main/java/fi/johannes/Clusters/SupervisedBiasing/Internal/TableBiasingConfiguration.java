@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class TableBiasingConfiguration {
     
     public static List<String> getResourcePaths() {
         // TODO Get table paths
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Collections.emptyList();
     }
     private JsonObject conf;
     boolean isReady;

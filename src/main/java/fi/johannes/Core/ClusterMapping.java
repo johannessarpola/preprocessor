@@ -5,67 +5,88 @@
  */
 package fi.johannes.Core;
 
+import com.google.common.collect.ImmutableMap;
 import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Clusters.EntityDetection.EntityDetectionCluster;
 import fi.johannes.Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import fi.johannes.Clusters.UnsupervisedBiasing.UnsupervisedBiasingCluster;
 
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static fi.johannes.Core.App.SupportedProcessingStrategy.*;
+import static fi.johannes.Core.ClusterMapping.ClusterEnums.*;
 
 /**
  * Static mapping of fi.johannes.Clusters -> Strategies
+ *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class ClusterMapping {
 
-    public static Map<ClusterEnums, Cluster> getClusters() {
-        return CLUSTERS;
+    public enum ClusterEnums {
+        UnsupervisedBiasing, SupervisedBiasing, EntityDetection
     }
-
-    public static Map<ClusterEnums, App.SupportedProcessingStrategy[]> getClustersToServices() {
-        return CLUSTERS_TO_SERVICES;
-    }
-
     /**
      * Maps Cluster (Enum):Cluster
      */
-    private static final Map<ClusterEnums, Cluster> CLUSTERS;
-
-    static {
-        Map<ClusterEnums, Cluster> tMap = new HashMap<>();
-        tMap.put(ClusterEnums.UnsupervisedBiasing, new UnsupervisedBiasingCluster());
-        tMap.put(ClusterEnums.SupervisedBiasing, new SupervisedBiasingCluster());
-        CLUSTERS = Collections.unmodifiableMap(tMap);
-    }
+    private static Map<ClusterEnums, Cluster> CLUSTERS;
 
     /**
      * Maps the fi.johannes.Clusters to Strategies 1:N
      */
-    private static final Map<ClusterEnums, App.SupportedProcessingStrategy[]> CLUSTERS_TO_SERVICES;
-    static {
-        Map<ClusterEnums, App.SupportedProcessingStrategy[]> temp = new HashMap<>();
-        temp.put(ClusterEnums.UnsupervisedBiasing, new App.SupportedProcessingStrategy[]{App.SupportedProcessingStrategy.TFIDF_Keywords, App.SupportedProcessingStrategy.TFIDF_Combined,
-            App.SupportedProcessingStrategy.TFIDF_WordNgram, App.SupportedProcessingStrategy.TFIDF_KeywordsFirst});
-        temp.put(ClusterEnums.SupervisedBiasing, new App.SupportedProcessingStrategy[]{App.SupportedProcessingStrategy.SupervisedBiasingWithTable});
-        temp.put(ClusterEnums.EntityDetection, new App.SupportedProcessingStrategy[]{App.SupportedProcessingStrategy.WikipediaTitles});
-        CLUSTERS_TO_SERVICES = Collections.unmodifiableMap(temp);
+    private static Map<ClusterEnums, App.SupportedProcessingStrategy[]> CLUSTERS_TO_SERVICES;
+
+    private static void  buildClustersToServicesMapping() {
+        CLUSTERS_TO_SERVICES = Collections.unmodifiableMap(Stream.of(
+                new SimpleEntry<>(UnsupervisedBiasing, new App.SupportedProcessingStrategy[]{TFIDF_Keywords,TFIDF_Combined,TFIDF_WordNgram, TFIDF_KeywordsFirst}),
+                new SimpleEntry<>(SupervisedBiasing, new App.SupportedProcessingStrategy[]{SupervisedBiasingWithTable}),
+                new SimpleEntry<>(EntityDetection, new App.SupportedProcessingStrategy[]{WikipediaTitles}))
+                .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
     }
+    private static void  buildClustersMapping() {
+        CLUSTERS = Collections.unmodifiableMap(Stream.of(
+                new SimpleEntry<>(UnsupervisedBiasing, new UnsupervisedBiasingCluster()),
+                new SimpleEntry<>(SupervisedBiasing, new SupervisedBiasingCluster()),
+                new SimpleEntry<>(EntityDetection, new EntityDetectionCluster()))
+                .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
+    }
+
+    public static Map<ClusterEnums, Cluster> getClusters() {
+        if(CLUSTERS == null) {
+            buildClustersMapping();
+        }
+        return CLUSTERS;
+    }
+
+    public static Map<ClusterEnums, App.SupportedProcessingStrategy[]> getClustersToServices() {
+        if(CLUSTERS_TO_SERVICES == null) {
+            buildClustersToServicesMapping();
+        }
+        return CLUSTERS_TO_SERVICES;
+    }
+
 
     public static Cluster getCluster(ClusterEnums c) {
-        return CLUSTERS.get(c);
+        Map<ClusterEnums, Cluster> clusters = getClusters();
+        return clusters.get(c);
     }
+
+
     /**
      * Gets the correct strategy for a Cluster id
-     * @param id Cluster id 
-     * @return 
+     *
+     * @param id Cluster id
+     * @return
      */
     public static App.SupportedProcessingStrategy[] getStrategies(ClusterEnums id) {
-        return CLUSTERS_TO_SERVICES.get(id);
+        Map<ClusterEnums, App.SupportedProcessingStrategy[]> clustersToServices = getClustersToServices();
+        return clustersToServices.get(id);
     }
 
-
-    public enum ClusterEnums {
-        UnsupervisedBiasing, SupervisedBiasing, EntityDetection
-    }
 }
