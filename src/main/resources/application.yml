@@ -1,0 +1,12 @@
+spring:
+  profiles: default
+
+general:
+  seed: 23417789
+  paths:
+    data: .data
+    raw: .data/chunks
+    supervised: .data/tables
+    entities: .data/wiki
+  resources:
+    stopwords: stopwords.txt
