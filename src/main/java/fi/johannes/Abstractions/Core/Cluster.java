@@ -5,6 +5,7 @@
  */
 package fi.johannes.Abstractions.Core;
 
+import fi.johannes.Core.AppConf;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Core.App.SupportedProcessingStrategy;
@@ -19,25 +20,29 @@ import java.util.HashMap;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class Cluster implements GenericClusterMethods {
-    
-    protected ClustersStrategyMap<? extends GenericService> map;
-    protected ClusterEnums id;
+
+    private AppConf conf;
+
     protected int biasingSize;
     protected boolean isClusterReady;
+
+    protected ClusterEnums clusterId;
+    protected ClustersStrategyMap<? extends GenericService> serviceMap;
     protected SupportedProcessingStrategy selectedStrategy;
-    protected HashMap<SupportedProcessingStrategy, GenericService> services;
+
     // Enums for each clusters
     protected SupportedProcessingStrategy[] strategies;
+    protected HashMap<SupportedProcessingStrategy, GenericService> services;
 
     public Cluster(ClusterEnums id) {
         services = new HashMap<>();
         strategies = ClusterMapping.getStrategies(id);
-        this.id = id;
+        this.clusterId = id;
     }
 
     @Override
-    public ClusterEnums getId() {
-        return id;
+    public ClusterEnums getClusterId() {
+        return clusterId;
     }
 
     @Override
@@ -60,7 +65,6 @@ public abstract class Cluster implements GenericClusterMethods {
     }
 
     public boolean checkStrategy(SupportedProcessingStrategy strategy) {
-        //SupportedProcessingStrategy[] strategies = ClusterMapping.getStrategies(id);
         for (int i = 0; i < strategies.length; i++) {
             if (strategies[i] == strategy) {
                 return true;
@@ -78,5 +82,13 @@ public abstract class Cluster implements GenericClusterMethods {
         services.values().stream().forEach((s) -> {
             s.clear();
         });
+    }
+
+    protected AppConf getConf() {
+        return conf;
+    }
+
+    protected void setConf(AppConf conf) {
+        this.conf = conf;
     }
 }

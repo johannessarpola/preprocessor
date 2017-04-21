@@ -7,6 +7,7 @@ package fi.johannes.Abstractions.Core;
 
 import fi.johannes.Core.App;
 import fi.johannes.Core.App.SupportedProcessingStrategy;
+import fi.johannes.Core.AppConf;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 
@@ -24,7 +25,7 @@ public abstract class GenericService implements GenericServiceMethods {
     protected boolean isServiceReady;
     protected boolean requiresVocabulary;
     protected boolean isVocabularyAdded;
-
+    protected AppConf appConf;
     
     public GenericService(SupportedProcessingStrategy id) {
         this.serviceId = id;

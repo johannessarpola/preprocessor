@@ -6,6 +6,8 @@
 package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Core.Cluster;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
+@Component
 public class ClusterConnection {
 
     // Hold clusters
@@ -20,14 +23,19 @@ public class ClusterConnection {
     private boolean isConnectionEstablished;
     private boolean isClusterReady;
 
-    ClusterConnection(ClusterMapping.ClusterEnums c) {
+    private AppConf appConf;
+
+    ClusterConnection(ClusterMapping.ClusterEnums c, AppConf appConf) {
         isConnectionEstablished = false;
         initCluster(c);
+        this.appConf = appConf;
     }
+
+
 
     private void initCluster(ClusterMapping.ClusterEnums c) {
         gc = ClusterMapping.getCluster(c);
-        gc.buildCluster();
+        gc.buildCluster(appConf);
         isClusterReady = gc.isClusterReady();
         isConnectionEstablished = true;
     }
@@ -37,7 +45,7 @@ public class ClusterConnection {
      * @param s
      * @param docs 
      */
-    public void addDocumentsToStrategy(App.SupportedProcessingStrategy s, List<String> docs) {
+    public void buildCluster(App.SupportedProcessingStrategy s, List<String> docs) {
        gc.buildStrategy(s, docs);
     }
 

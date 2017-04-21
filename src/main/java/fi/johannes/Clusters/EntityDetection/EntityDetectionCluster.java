@@ -2,6 +2,7 @@ package fi.johannes.Clusters.EntityDetection;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
@@ -25,12 +26,13 @@ public class EntityDetectionCluster  extends Cluster {
     }
 
     @Override
-    public void buildCluster() {
-
+    public void buildCluster(AppConf conf) {
+        super.setConf(conf);
+        // TODO
     }
 
     @Override
     public void buildStrategy(App.SupportedProcessingStrategy strategy, List<String> documents) {
-
+        // TODO
     }
 }

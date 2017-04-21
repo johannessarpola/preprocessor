@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Is basically a map of weights for different words in regards to it 'position'
+ * Is basically a serviceMap of weights for different words in regards to it 'position'
  * in table e.g. with columns 1st would have 1, 2nd 0.5, 3rd 0.25, 4th, 0.125
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
@@ -64,7 +64,7 @@ public class TableHierarchy<T> {
             return fp;
         } else {
             FinalizedPair<T,Double> fp = new FinalizedPair(element, 1.);
-            GenLogging.logMessage_Error(getClass(), "No element found in weight map for " + element.toString());
+            GenLogging.logMessage_Error(getClass(), "No element found in weight serviceMap for " + element.toString());
             return null;
         }
     }

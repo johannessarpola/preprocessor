@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 public class StringTransforms {
 
     /**
-     * Transfors map of LinkedWord,Double to String,Double
+     * Transfors serviceMap of LinkedWord,Double to String,Double
      *
      * @param map
      * @return

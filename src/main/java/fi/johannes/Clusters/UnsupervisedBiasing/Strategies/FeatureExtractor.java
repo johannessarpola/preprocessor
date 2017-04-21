@@ -158,7 +158,7 @@ public abstract class FeatureExtractor extends GenericService {
     }
 
     /**
-     * Gets sorted map of tfidf scores for a line
+     * Gets sorted serviceMap of tfidf scores for a line
      *
      * @param line
      * @return
@@ -183,7 +183,7 @@ public abstract class FeatureExtractor extends GenericService {
     }
 
     /**
-     * Translates entries of map to Strings based on ranking in a line
+     * Translates entries of serviceMap to Strings based on ranking in a line
      *
      * @param sortedMap
      * @param line

@@ -25,7 +25,7 @@ public class StringCompressor {
     /**
      * Should compress the strings and remove duplicates result has mapping from
      * word -> list for ngrams e.g 'Word' in Ngram 'Word is the bird' or 'Word
-     * is the herd' should map to both ngrams This should allow for fast access
+     * is the herd' should serviceMap to both ngrams This should allow for fast access
      * from word level to ngram
      *
      * By using a Set and same String object there should be no excess

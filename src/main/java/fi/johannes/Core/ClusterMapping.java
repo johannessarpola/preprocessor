@@ -79,9 +79,9 @@ public class ClusterMapping {
 
 
     /**
-     * Gets the correct strategy for a Cluster id
+     * Gets the correct strategy for a Cluster clusterId
      *
-     * @param id Cluster id
+     * @param id Cluster clusterId
      * @return
      */
     public static App.SupportedProcessingStrategy[] getStrategies(ClusterEnums id) {

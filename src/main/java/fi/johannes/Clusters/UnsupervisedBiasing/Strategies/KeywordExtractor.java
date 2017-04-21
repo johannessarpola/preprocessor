@@ -158,7 +158,7 @@ public class KeywordExtractor extends FeatureExtractor {
     }
 
     /**
-     * Translates entries of map to Strings based on ranking in a line
+     * Translates entries of serviceMap to Strings based on ranking in a line
      *
      * @param sortedMap
      * @param line

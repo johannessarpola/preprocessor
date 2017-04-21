@@ -6,7 +6,7 @@
 package fi.johannes.Utilities.Map;
 
 /**
- * Holds utilities for map operations
+ * Holds utilities for serviceMap operations
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 
@@ -15,7 +15,7 @@ import java.util.*;
 public class MapUtils {
 
     /**
-     * Sorts the map according to value (V) descending
+     * Sorts the serviceMap according to value (V) descending
      *
      * @param <K>
      * @param <V>
@@ -28,7 +28,7 @@ public class MapUtils {
     }
 
     /**
-     * Sorts the map according to value (V) either desc or asc, depending on the
+     * Sorts the serviceMap according to value (V) either desc or asc, depending on the
      * boolean param
      *
      * @param <K>

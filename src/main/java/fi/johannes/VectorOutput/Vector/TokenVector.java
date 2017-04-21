@@ -31,7 +31,7 @@ public class TokenVector implements Iterable<FinalizedPair<Integer, Integer>> {
     final char vectorItemSepartor = ' ';
 
     /**
-     * A POJO for int vector from Multiset, AtomicLong is a singular long for id
+     * A POJO for int vector from Multiset, AtomicLong is a singular long for clusterId
      *
      * @param ms
      */

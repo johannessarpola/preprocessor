@@ -173,7 +173,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
                     itemsInResult++;
                     it.remove();
                     if (put != null) {
-                        GenLogging.logMessage_Error(getClass(), "There was duplicate value in result map (Equals or Hashmap for LW doesn't work)" + put);
+                        GenLogging.logMessage_Error(getClass(), "There was duplicate value in result serviceMap (Equals or Hashmap for LW doesn't work)" + put);
                     }
                 }
             }

@@ -41,7 +41,7 @@ public class App implements CommandLineRunner {
     private void createClusters() {
         List<ClusterConnection> connections = Arrays
                 .stream(ClusterMapping.ClusterEnums
-                        .values()).map(ClusterConnection::new)
+                        .values()).map(c-> new ClusterConnection(c, conf))
                 .collect(Collectors.toList());
     }
 

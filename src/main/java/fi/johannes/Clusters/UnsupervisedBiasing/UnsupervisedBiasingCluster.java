@@ -8,6 +8,7 @@ package fi.johannes.Clusters.UnsupervisedBiasing;
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -42,9 +43,10 @@ public class UnsupervisedBiasingCluster extends Cluster {
         }
     }
     @Override
-    public void buildCluster() {
+    public void buildCluster(AppConf conf) {
         try {
-            map = new UnsupervisedStrategyMap(id);
+            super.setConf(conf);
+            serviceMap = new UnsupervisedStrategyMap(clusterId);
             addServices();
         } catch (StrategyNotSupportedException ex) {
             GenLogging.logStackTrace_Error(getClass(), ex);
@@ -53,7 +55,7 @@ public class UnsupervisedBiasingCluster extends Cluster {
     }
     private void addServices() throws StrategyNotSupportedException {
         for (App.SupportedProcessingStrategy s : strategies) {
-            GenericService gs = map.initializeStrategy(s);
+            GenericService gs = serviceMap.initializeStrategy(s);
             services.put(s, gs);
         }
     }
