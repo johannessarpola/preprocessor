@@ -7,7 +7,7 @@ package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
-import fi.johannes.Core.App.SupportedProcessingStrategy;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Adapters.StringTransforms;
 import fi.johannes.Utilities.Compression.CompressionPayload;
 import fi.johannes.Utilities.Compression.StringCompressor;

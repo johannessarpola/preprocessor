@@ -5,16 +5,16 @@
  */
 package fi.johannes.Clusters.EntityDetection.Internal;
 
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedCorpuses;
 
 /**
  * Is a corpus using Bloomfilter
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public abstract class BloomfilterCorpus implements EntityCorpus {
-    App.SupportedCorpuses id;
+    SupportedCorpuses id;
     
-    public BloomfilterCorpus(App.SupportedCorpuses id) {
+    public BloomfilterCorpus(SupportedCorpuses id) {
         this.id = id;
     }
     /**
@@ -28,7 +28,7 @@ public abstract class BloomfilterCorpus implements EntityCorpus {
     public abstract boolean mightContain(String word);
     public abstract void buildCorpus();
     public abstract double reliabilityOfContain();
-    public App.SupportedCorpuses getId(){
+    public SupportedCorpuses getId(){
         return id;
     }
 }

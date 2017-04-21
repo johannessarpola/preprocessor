@@ -7,7 +7,7 @@ package fi.johannes.Clusters.SupervisedBiasing.TableWrappers;
 
 import fi.johannes.Clusters.SupervisedBiasing.Internal.ExtensionStrategyMapper;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.TableHierarchy;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedTableStrategy;
 import fi.johannes.TableReaders.TableContainer;
 import fi.johannes.Utilities.Logging.CustomExceptions.TableNotSupportedException;
 import fi.johannes.Utilities.Logging.GenLogging;
@@ -23,10 +23,10 @@ public class TableContainerWrapper<T> {
     private boolean isReady = false;
 
     public TableContainerWrapper(String filepath) {
-        App.SupportedTableStrategy strategy = deductStrategy(filepath);
+        SupportedTableStrategy strategy = deductStrategy(filepath);
         createReader(strategy, filepath);
     }
-    private void createReader(App.SupportedTableStrategy strategy, String filepath) {
+    private void createReader(SupportedTableStrategy strategy, String filepath) {
             tableContainer = new TableContainer(strategy,filepath);
     }
     public TableHierarchy<T> createTableHierarchy(){
@@ -37,9 +37,9 @@ public class TableContainerWrapper<T> {
      * @param filepath
      * @return 
      */
-    private App.SupportedTableStrategy deductStrategy(String filepath) {
+    private SupportedTableStrategy deductStrategy(String filepath) {
         try {
-            App.SupportedTableStrategy s = ExtensionStrategyMapper.getTableStrategy(filepath);
+            SupportedTableStrategy s = ExtensionStrategyMapper.getTableStrategy(filepath);
             isReady= true;
             return s;
         } catch (TableNotSupportedException | FileNotFoundException ex) {

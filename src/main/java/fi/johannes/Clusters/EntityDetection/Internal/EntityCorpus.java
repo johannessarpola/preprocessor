@@ -6,6 +6,7 @@
 package fi.johannes.Clusters.EntityDetection.Internal;
 
 import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedCorpuses;
 
 /**
  * EntityCorpus is a set where you check if something exists
@@ -16,5 +17,5 @@ public interface EntityCorpus {
     public void buildCorpus();
     public boolean doesContain(String word);
     public double reliabilityOfContain();
-    public App.SupportedCorpuses getId();
+    public SupportedCorpuses getId();
 }

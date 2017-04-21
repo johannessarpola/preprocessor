@@ -8,7 +8,7 @@ package fi.johannes.Abstractions.Core;
 import fi.johannes.Core.AppConf;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
-import fi.johannes.Core.App.SupportedProcessingStrategy;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
 import java.util.HashMap;

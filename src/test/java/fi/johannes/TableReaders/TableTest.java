@@ -6,6 +6,7 @@
 package fi.johannes.TableReaders;
 
 import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedTableStrategy;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class TableTest {
     @BeforeClass
     public static void setUpClass() throws IOException {
         filep = App.getResource("test.xlsx").getFile().getAbsolutePath();
-        t = new TableContainer<>(App.SupportedTableStrategy.xlsx, filep);
+        t = new TableContainer<>(SupportedTableStrategy.xlsx, filep);
 
     }
 

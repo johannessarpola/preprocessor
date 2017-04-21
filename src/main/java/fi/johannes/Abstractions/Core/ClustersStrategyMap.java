@@ -5,7 +5,7 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
@@ -18,5 +18,5 @@ public abstract class ClustersStrategyMap <T> {
     protected ClustersStrategyMap(ClusterMapping.ClusterEnums id){
         this.id = id;
     }
-    public abstract T initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException;
+    public abstract T initializeStrategy(SupportedProcessingStrategy strategy) throws StrategyNotSupportedException;
 }

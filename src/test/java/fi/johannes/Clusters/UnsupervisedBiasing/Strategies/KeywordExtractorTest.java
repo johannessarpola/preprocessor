@@ -7,7 +7,7 @@ package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Core.ArticleProcessor;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -25,7 +25,6 @@ import java.util.List;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class KeywordExtractorTest {
-     // TODO Needs to serialize the TF.IDF set to allow for more dynamic addition without going through all the documents all over again
     static GenericService instance;
     static ArticleProcessor apr;
     static Cluster TFIDFCluster;
@@ -82,7 +81,7 @@ public class KeywordExtractorTest {
             int i = 0;
             //pw.setBiasingSize(1);
             for (String st : ls) {
-                String s = instance.processLine(st, App.SupportedProcessingMethods.Append, 1);
+                String s = instance.processLine(st, SupportedProcessingMethods.Append, 1);
                 System.out.println(i + " : " + s);
                 Assert.assertEquals(st + " " + expect[i] + " ", s);
                 i++;
@@ -123,8 +122,7 @@ public class KeywordExtractorTest {
         ls = null;
         List<String> result = new ArrayList<>();
         for (String l : lspr) {
-            // TODO Figure out automatic way to test this
-            String ll = instance.processLine(l, App.SupportedProcessingMethods.Replace, sizeofbiasing);
+            String ll = instance.processLine(l, SupportedProcessingMethods.Replace, sizeofbiasing);
             result.add(ll);
             System.out.println(ll);
             String[] la = ll.split(" ");
@@ -157,7 +155,7 @@ public class KeywordExtractorTest {
             }
         }
 
-        instance.clear(); // TODO doesnt fully work atm, some null pointers
+        instance.clear();
         Assert.assertFalse(instance.isServiceReady());
     }
 

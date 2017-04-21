@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedCorpuses;
 import fi.johannes.Utilities.Logging.GenLogging;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class WikiCorpus extends BloomfilterCorpus {
     private double accuracy;
 
     public WikiCorpus(String pathToWikis) {
-        super(App.SupportedCorpuses.WikipediaCorpus);
+        super(SupportedCorpuses.WikipediaCorpus);
         this.accuracy =  0.01;;
         this.pathToWikis = pathToWikis;
         init();

@@ -6,8 +6,10 @@
 package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Core.AppConf.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class ClusterConnection {
      * @param s
      * @param docs 
      */
-    public void buildCluster(App.SupportedProcessingStrategy s, List<String> docs) {
+    public void buildCluster(SupportedProcessingStrategy s, List<String> docs) {
        gc.buildStrategy(s, docs);
     }
 

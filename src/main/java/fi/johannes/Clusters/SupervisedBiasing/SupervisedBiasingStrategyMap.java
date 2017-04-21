@@ -8,7 +8,7 @@ package fi.johannes.Clusters.SupervisedBiasing;
 import fi.johannes.Abstractions.Core.ClustersStrategyMap;
 import fi.johannes.Abstractions.Core.GenericService;
 import fi.johannes.Clusters.SupervisedBiasing.Strategies.TableBiasingService;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
@@ -22,7 +22,7 @@ public class SupervisedBiasingStrategyMap extends ClustersStrategyMap<GenericSer
         super(id);
     }
     @Override
-    public GenericService initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
+    public GenericService initializeStrategy(SupportedProcessingStrategy strategy) throws StrategyNotSupportedException {
         switch(strategy){
             case SupervisedBiasingWithTable: return new TableBiasingService();
             default: throw new StrategyNotSupportedException();

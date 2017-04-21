@@ -5,7 +5,7 @@
  */
 package fi.johannes.Abstractions.Core;
 
-import fi.johannes.Core.App.SupportedProcessingMethods;
+import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 

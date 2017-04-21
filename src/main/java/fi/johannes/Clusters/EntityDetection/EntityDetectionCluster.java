@@ -1,9 +1,9 @@
 package fi.johannes.Clusters.EntityDetection;
 
 import fi.johannes.Abstractions.Core.Cluster;
-import fi.johannes.Core.App;
 import fi.johannes.Core.AppConf;
-import fi.johannes.Core.ClusterMapping;
+import fi.johannes.Core.AppConf.SupportedProcessingMethods;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -21,7 +21,7 @@ public class EntityDetectionCluster  extends Cluster {
     }
 
     @Override
-    public String processLine(String line, App.SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
+    public String processLine(String line, SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         return null;
     }
 
@@ -32,7 +32,7 @@ public class EntityDetectionCluster  extends Cluster {
     }
 
     @Override
-    public void buildStrategy(App.SupportedProcessingStrategy strategy, List<String> documents) {
+    public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents) {
         // TODO
     }
 }

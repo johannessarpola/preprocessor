@@ -5,7 +5,7 @@
  */
 package fi.johannes.Abstractions.Structures;
 
-import fi.johannes.Core.App.SupportedTableStrategy;
+import fi.johannes.Core.AppConf.SupportedTableStrategy;
 
 import java.io.File;
 import java.io.FileNotFoundException;

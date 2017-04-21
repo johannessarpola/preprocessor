@@ -11,7 +11,7 @@ import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.CombinedExtractor;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordExtractor;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordsFirstExtractor;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.WordNgramExtractor;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 
@@ -26,7 +26,7 @@ public class UnsupervisedStrategyMap extends ClustersStrategyMap<GenericService>
     }
     
     @Override
-    public GenericService initializeStrategy(App.SupportedProcessingStrategy strategy) throws StrategyNotSupportedException{
+    public GenericService initializeStrategy(SupportedProcessingStrategy strategy) throws StrategyNotSupportedException{
         switch(strategy){
             case TFIDF_Combined: return new CombinedExtractor();
             case TFIDF_Keywords: return new KeywordExtractor();

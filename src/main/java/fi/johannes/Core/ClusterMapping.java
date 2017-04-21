@@ -19,7 +19,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static fi.johannes.Core.App.SupportedProcessingStrategy.*;
+import static fi.johannes.Core.AppConf.*;
+import static fi.johannes.Core.AppConf.SupportedProcessingStrategy.*;
 import static fi.johannes.Core.ClusterMapping.ClusterEnums.*;
 
 /**
@@ -40,13 +41,13 @@ public class ClusterMapping {
     /**
      * Maps the fi.johannes.Clusters to Strategies 1:N
      */
-    private static Map<ClusterEnums, App.SupportedProcessingStrategy[]> CLUSTERS_TO_SERVICES;
+    private static Map<ClusterEnums, SupportedProcessingStrategy[]> CLUSTERS_TO_SERVICES;
 
     private static void  buildClustersToServicesMapping() {
         CLUSTERS_TO_SERVICES = Collections.unmodifiableMap(Stream.of(
-                new SimpleEntry<>(UnsupervisedBiasing, new App.SupportedProcessingStrategy[]{TFIDF_Keywords,TFIDF_Combined,TFIDF_WordNgram, TFIDF_KeywordsFirst}),
-                new SimpleEntry<>(SupervisedBiasing, new App.SupportedProcessingStrategy[]{SupervisedBiasingWithTable}),
-                new SimpleEntry<>(EntityDetection, new App.SupportedProcessingStrategy[]{WikipediaTitles}))
+                new SimpleEntry<>(UnsupervisedBiasing, new SupportedProcessingStrategy[]{TFIDF_Keywords,TFIDF_Combined,TFIDF_WordNgram, TFIDF_KeywordsFirst}),
+                new SimpleEntry<>(SupervisedBiasing, new SupportedProcessingStrategy[]{SupervisedBiasingWithTable}),
+                new SimpleEntry<>(EntityDetection, new SupportedProcessingStrategy[]{WikipediaTitles}))
                 .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
     }
     private static void  buildClustersMapping() {
@@ -64,7 +65,7 @@ public class ClusterMapping {
         return CLUSTERS;
     }
 
-    public static Map<ClusterEnums, App.SupportedProcessingStrategy[]> getClustersToServices() {
+    public static Map<ClusterEnums, SupportedProcessingStrategy[]> getClustersToServices() {
         if(CLUSTERS_TO_SERVICES == null) {
             buildClustersToServicesMapping();
         }
@@ -84,8 +85,8 @@ public class ClusterMapping {
      * @param id Cluster clusterId
      * @return
      */
-    public static App.SupportedProcessingStrategy[] getStrategies(ClusterEnums id) {
-        Map<ClusterEnums, App.SupportedProcessingStrategy[]> clustersToServices = getClustersToServices();
+    public static SupportedProcessingStrategy[] getStrategies(ClusterEnums id) {
+        Map<ClusterEnums, SupportedProcessingStrategy[]> clustersToServices = getClustersToServices();
         return clustersToServices.get(id);
     }
 

@@ -7,8 +7,9 @@ package fi.johannes.Clusters.UnsupervisedBiasing;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Abstractions.Core.GenericService;
-import fi.johannes.Core.App;
 import fi.johannes.Core.AppConf;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
+import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -29,7 +30,7 @@ public class UnsupervisedBiasingCluster extends Cluster {
     }
 
     @Override
-    public String processLine(String line, App.SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
+    public String processLine(String line, SupportedProcessingMethods method) throws ServiceNotReadyException, ClusterNoteadyException, UnhandledServiceException {
         if (this.isClusterReady) {
             GenericService serv = services.get(selectedStrategy);
             if (serv.isServiceReady()) {
@@ -54,14 +55,14 @@ public class UnsupervisedBiasingCluster extends Cluster {
 
     }
     private void addServices() throws StrategyNotSupportedException {
-        for (App.SupportedProcessingStrategy s : strategies) {
+        for (SupportedProcessingStrategy s : strategies) {
             GenericService gs = serviceMap.initializeStrategy(s);
             services.put(s, gs);
         }
     }
 
     @Override
-    public void buildStrategy(App.SupportedProcessingStrategy strategy, List<String> documents) {
+    public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents) {
         services.get(strategy).build(documents);
     }
 

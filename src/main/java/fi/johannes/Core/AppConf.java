@@ -92,4 +92,24 @@ public class AppConf {
         public Resources() {
         }
     }
+
+    /**
+     * Application specific enums
+     */
+    // TODO Move to yml
+    public enum SupportedTableStrategy {
+        xlsx
+    }
+
+    public enum SupportedCorpuses {
+        WikipediaCorpus
+    }
+
+    public enum SupportedProcessingStrategy {
+        ConceptInsights, Alchemy, TFIDF_Keywords, TFIDF_WordNgram, TFIDF_Combined, TFIDF_KeywordsFirst, SupervisedBiasingWithTable, WikipediaTitles
+    }
+
+    public enum SupportedProcessingMethods {
+        Append, Replace
+    }
 }

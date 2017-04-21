@@ -7,7 +7,7 @@ package fi.johannes.Clusters.EntityDetection;
 
 import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedCorpuses;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
 import fi.johannes.Utilities.Logging.GenLogging;
 
@@ -19,17 +19,17 @@ import java.util.*;
  */
 public class EntityCorpuses {
 
-    public static final Map<App.SupportedCorpuses, EntityCorpus> CORPUSES;
+    public static final Map<SupportedCorpuses, EntityCorpus> CORPUSES;
     List<EntityCorpus> corpuses;
 
     static {
 
-        Map<App.SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
-        tMap.put(App.SupportedCorpuses.WikipediaCorpus, new WikiCorpus("wiki"));
+        Map<SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
+        tMap.put(SupportedCorpuses.WikipediaCorpus, new WikiCorpus("wiki"));
         CORPUSES = Collections.unmodifiableMap(tMap);
     }
 
-    public static EntityCorpus getService(App.SupportedCorpuses s) throws CorpusNotAvailableException {
+    public static EntityCorpus getService(SupportedCorpuses s) throws CorpusNotAvailableException {
         if (CORPUSES.containsKey(s)) {
             return CORPUSES.get(s);
         } else {
@@ -37,9 +37,9 @@ public class EntityCorpuses {
         }
     }
 
-    public EntityCorpuses(App.SupportedCorpuses... corpuses){
+    public EntityCorpuses(SupportedCorpuses... corpuses){
         this.corpuses = new ArrayList<>();
-        for(App.SupportedCorpuses c : corpuses) {
+        for(SupportedCorpuses c : corpuses) {
             try {
                 this.corpuses.add(getService(c));
             } catch (CorpusNotAvailableException ex) {
@@ -48,8 +48,8 @@ public class EntityCorpuses {
         }
     }
     
-    public List<App.SupportedCorpuses> doesCorpusesContain(String str){
-        List<App.SupportedCorpuses> containedIn = new ArrayList<>();
+    public List<SupportedCorpuses> doesCorpusesContain(String str){
+        List<SupportedCorpuses> containedIn = new ArrayList<>();
         for(EntityCorpus c : corpuses){
             if(c.doesContain(str)) {
                 containedIn.add(c.getId());

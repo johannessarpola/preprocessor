@@ -6,7 +6,7 @@
 package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
 import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
-import fi.johannes.Core.App;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -30,7 +30,7 @@ public class KeywordExtractor extends FeatureExtractor {
      * Gets the Keywords based on TDIDF scores. Scope is only on word level.
      */
     public KeywordExtractor() {
-        super(App.SupportedProcessingStrategy.TFIDF_Keywords);
+        super(SupportedProcessingStrategy.TFIDF_Keywords);
         subclassSpecificInit();
     }
 
