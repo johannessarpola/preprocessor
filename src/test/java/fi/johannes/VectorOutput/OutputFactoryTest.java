@@ -7,11 +7,15 @@ package fi.johannes.VectorOutput;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,16 +31,13 @@ public class OutputFactoryTest {
     public OutputFactoryTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-        of = new OutputFactory<String>();
-    }
-
     /**
      * Test of createUniverse method, of class OutputFactory.
      */
     @Test
     public void testCreateMaster() {
+
+        of = new OutputFactory<String>();
         Multiset<String> ms = HashMultiset.create();
         ms.add("A");
         ms.add("B");
@@ -71,6 +72,25 @@ public class OutputFactoryTest {
      */
     @Test
     public void testSortSet() {
+
+        of = new OutputFactory<String>();
+        Multiset<String> ms = HashMultiset.create();
+        ms.add("A");
+        ms.add("B");
+        ms.add("C");
+        ms.add("A");
+        ms.add("B");
+        ms.add("C", 10);
+
+
+        Set<String> set = new HashSet<>(ms);
+        Set<String> orig = new HashSet<>(ms);
+
+
+        Set<String> sorted = of.sortSet(set);
+        Assert.assertEquals ("List is not sorted", sorted, orig);
+
+
     }
 
 }

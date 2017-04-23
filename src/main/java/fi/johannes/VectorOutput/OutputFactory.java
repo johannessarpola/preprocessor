@@ -13,6 +13,7 @@ import com.google.common.collect.Multiset;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -28,8 +29,7 @@ public class OutputFactory<E extends Comparable<E>> {
     // NOTE Multisets are already weighed according to preprocessing stuff before this
     /**
      * Creates and outputs vectors to a set folder
-     * @param outputFolder
-     * @param tokens 
+     * @param tokens
      */
     public void createVectors(List<Multiset<E>> tokens){
         universe = createUniverse(tokens);
@@ -50,7 +50,6 @@ public class OutputFactory<E extends Comparable<E>> {
         File folder = CFolderOperations.createFolder(outputFolder);
         for(int i=0; i<vectorChunks && i<vectors.size(); i++){
             Multiset m = vectors.get(i);
-            //chunks.add(new TokenVector(m));
             if(chunks.size()==vectorChunks){
                 // TODO Create filewrite
             }
@@ -72,25 +71,14 @@ public class OutputFactory<E extends Comparable<E>> {
     }
     // Take in a line and output a vector
     public List<E> createUniverse(List<Multiset<E>> tokens){
-        Set<E> setMaster = new HashSet<>();
-        for(Multiset<E> ms : tokens){
-            Set<Multiset.Entry<E>> entrySet = ms.entrySet();
-            for(Multiset.Entry<E> entry : entrySet){
-                setMaster.add(entry.getElement());
-                // Would be improved with sorted listed
-            }
-        }
-        List<E> sortedMaster = sortSet(setMaster);
-        setMaster.clear();
-        return sortedMaster;
+        Set<E> setMaster = tokens.parallelStream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+        return new ArrayList<>(sortSet(setMaster));
     }
     
-    public List<E> sortSet(Set<E> set){
-        ArrayList<E> arrList = new ArrayList<>();
-        arrList.addAll(set);
-        Collections.sort(arrList);
-        //Collections.sort(arrList, StringComparators.ALPHABETICAL_ORDER);
-        return arrList;
+    public Set<E> sortSet(Set<E> set){
+        return set.parallelStream().sorted().collect(Collectors.toSet());
     }
 
     public int getVectorChunks() {
