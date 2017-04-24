@@ -39,6 +39,7 @@ public abstract class GenericService implements GenericServiceMethods {
         return serviceId;
     }
 
+    // todo This would be better as a interface which requires documents to be added
     public abstract void build(List<String> documents);
 
     @Override
@@ -57,7 +58,6 @@ public abstract class GenericService implements GenericServiceMethods {
         }
         throw new ServiceNotReadyException();
     }
-    // Needs to implement both methods of processing
 
     public abstract String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException;
 

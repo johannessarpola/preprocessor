@@ -19,17 +19,17 @@ import java.util.*;
  */
 public class EntityCorpuses {
 
-    public static final Map<SupportedCorpuses, EntityCorpus> CORPUSES;
-    List<EntityCorpus> corpuses;
+    private List<EntityCorpus> corpuses;
 
+    private static final Map<SupportedCorpuses, EntityCorpus> CORPUSES;
+    // todo Could be somewhere better
     static {
-
         Map<SupportedCorpuses, EntityCorpus> tMap = new HashMap<>();
         tMap.put(SupportedCorpuses.WikipediaCorpus, new WikiCorpus("wiki"));
         CORPUSES = Collections.unmodifiableMap(tMap);
     }
 
-    public static EntityCorpus getService(SupportedCorpuses s) throws CorpusNotAvailableException {
+    public static EntityCorpus getCorpus(SupportedCorpuses s) throws CorpusNotAvailableException {
         if (CORPUSES.containsKey(s)) {
             return CORPUSES.get(s);
         } else {
@@ -37,17 +37,23 @@ public class EntityCorpuses {
         }
     }
 
-    public EntityCorpuses(SupportedCorpuses... corpuses){
+    public EntityCorpuses(List<SupportedCorpuses> corpuses){
         this.corpuses = new ArrayList<>();
         for(SupportedCorpuses c : corpuses) {
             try {
-                this.corpuses.add(getService(c));
+                this.corpuses.add(getCorpus(c));
             } catch (CorpusNotAvailableException ex) {
                 GenLogging.logStackTrace_Error(this.getClass(), ex);
             }
         }
     }
-    
+
+    /**
+     * Returns list of corpuses in which the word is contained. Could use some kind of
+     * measure on how sure can you be that it's an entity if it's contained in multiple corpuses.
+     * @param str
+     * @return
+     */
     public List<SupportedCorpuses> doesCorpusesContain(String str){
         List<SupportedCorpuses> containedIn = new ArrayList<>();
         for(EntityCorpus c : corpuses){

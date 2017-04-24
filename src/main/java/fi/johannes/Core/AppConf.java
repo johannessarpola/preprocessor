@@ -3,6 +3,9 @@ package fi.johannes.Core;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Johannes on 20.4.2017.
  */
@@ -111,5 +114,9 @@ public class AppConf {
 
     public enum SupportedProcessingMethods {
         Append, Replace
+    }
+
+    public List<SupportedCorpuses> getCorpuses() {
+        return Arrays.<SupportedCorpuses>asList(SupportedCorpuses.values());
     }
 }
