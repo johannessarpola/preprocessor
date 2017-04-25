@@ -12,6 +12,7 @@ import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.InvalidStrategyForClusterException;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Is the main class to implement in preprocessing clusters Just has the general
@@ -30,8 +31,7 @@ public abstract class Cluster implements GenericClusterMethods {
     protected ClustersStrategyMap<? extends GenericService> serviceMap;
     protected SupportedProcessingStrategy selectedStrategy;
 
-    // Enums for each clusters
-    protected SupportedProcessingStrategy[] strategies;
+    protected List<SupportedProcessingStrategy> strategies;
     protected HashMap<SupportedProcessingStrategy, GenericService> services;
 
     public Cluster(ClusterEnums id) {
@@ -57,21 +57,13 @@ public abstract class Cluster implements GenericClusterMethods {
 
     @Override
     public void selectStrategy(SupportedProcessingStrategy strategy) throws InvalidStrategyForClusterException {
-        if (checkStrategy(strategy)) {
+        if (strategies.contains(strategy)) {
             this.selectedStrategy = strategy;
         } else {
             throw new InvalidStrategyForClusterException();
         }
     }
 
-    public boolean checkStrategy(SupportedProcessingStrategy strategy) {
-        for (int i = 0; i < strategies.length; i++) {
-            if (strategies[i] == strategy) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void clearStrategy(SupportedProcessingStrategy strategy) {
         services.get(strategy).clear();
@@ -79,9 +71,7 @@ public abstract class Cluster implements GenericClusterMethods {
 
     @Override
     public void clear() {
-        services.values().stream().forEach((s) -> {
-            s.clear();
-        });
+        services.values().forEach(GenericService::clear);
     }
 
     protected AppConf getConf() {

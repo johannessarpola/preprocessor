@@ -10,12 +10,10 @@ import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Clusters.EntityDetection.EntityDetectionCluster;
 import fi.johannes.Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import fi.johannes.Clusters.UnsupervisedBiasing.UnsupervisedBiasingCluster;
+import org.apache.commons.lang3.ClassUtils;
 
-import java.util.AbstractMap;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +31,7 @@ public class ClusterMapping {
     public enum ClusterEnums {
         UnsupervisedBiasing, SupervisedBiasing, EntityDetection
     }
+
     /**
      * Maps Cluster (Enum):Cluster
      */
@@ -43,14 +42,15 @@ public class ClusterMapping {
      */
     private static Map<ClusterEnums, SupportedProcessingStrategy[]> CLUSTERS_TO_SERVICES;
 
-    private static void  buildClustersToServicesMapping() {
+    private static void buildClustersToServicesMapping() {
         CLUSTERS_TO_SERVICES = Collections.unmodifiableMap(Stream.of(
-                new SimpleEntry<>(UnsupervisedBiasing, new SupportedProcessingStrategy[]{TFIDF_Keywords,TFIDF_Combined,TFIDF_WordNgram, TFIDF_KeywordsFirst}),
+                new SimpleEntry<>(UnsupervisedBiasing, new SupportedProcessingStrategy[]{TFIDF_Keywords, TFIDF_Combined, TFIDF_WordNgram, TFIDF_KeywordsFirst}),
                 new SimpleEntry<>(SupervisedBiasing, new SupportedProcessingStrategy[]{SupervisedBiasingWithTable}),
                 new SimpleEntry<>(EntityDetection, new SupportedProcessingStrategy[]{WikipediaTitles}))
                 .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
     }
-    private static void  buildClustersMapping() {
+
+    private static void buildClustersMapping() {
         CLUSTERS = Collections.unmodifiableMap(Stream.of(
                 new SimpleEntry<>(UnsupervisedBiasing, new UnsupervisedBiasingCluster()),
                 new SimpleEntry<>(SupervisedBiasing, new SupervisedBiasingCluster()),
@@ -59,14 +59,14 @@ public class ClusterMapping {
     }
 
     public static Map<ClusterEnums, Cluster> getClusters() {
-        if(CLUSTERS == null) {
+        if (CLUSTERS == null) {
             buildClustersMapping();
         }
         return CLUSTERS;
     }
 
     public static Map<ClusterEnums, SupportedProcessingStrategy[]> getClustersToServices() {
-        if(CLUSTERS_TO_SERVICES == null) {
+        if (CLUSTERS_TO_SERVICES == null) {
             buildClustersToServicesMapping();
         }
         return CLUSTERS_TO_SERVICES;
@@ -78,6 +78,17 @@ public class ClusterMapping {
         return clusters.get(c);
     }
 
+    public static ClusterEnums whichCluster(SupportedProcessingStrategy strategy) {
+        Optional<ClusterEnums> found = getClustersToServices()
+                .entrySet()
+                .stream()
+                .filter(entry -> Arrays.stream(entry.getValue()).anyMatch(s -> s == strategy))
+                .map(Map.Entry::getKey)
+                .findFirst();
+        assert found.isPresent(); // there's some forgotten mapping if this is not present
+        return found.get();
+    }
+
 
     /**
      * Gets the correct strategy for a Cluster clusterId
@@ -85,9 +96,9 @@ public class ClusterMapping {
      * @param id Cluster clusterId
      * @return
      */
-    public static SupportedProcessingStrategy[] getStrategies(ClusterEnums id) {
+    public static List<SupportedProcessingStrategy> getStrategies(ClusterEnums id) {
         Map<ClusterEnums, SupportedProcessingStrategy[]> clustersToServices = getClustersToServices();
-        return clustersToServices.get(id);
+        return Arrays.asList(clustersToServices.get(id));
     }
 
 }
