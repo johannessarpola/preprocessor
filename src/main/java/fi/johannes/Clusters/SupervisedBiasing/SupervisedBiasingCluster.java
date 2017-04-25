@@ -48,7 +48,7 @@ public class SupervisedBiasingCluster extends Cluster {
     }
 
     @Override
-    public void buildCluster(AppConf conf) {
+    public void initClusterWithConf(AppConf conf) {
         try {
             super.setConf(conf);
             serviceMap = new SupervisedBiasingStrategyMap(clusterId);

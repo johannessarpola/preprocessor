@@ -7,7 +7,6 @@ package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Core.Cluster;
 import fi.johannes.Core.AppConf.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -20,15 +19,13 @@ import java.util.List;
 @Component
 public class ClusterConnection {
 
-    // Hold clusters
     private Cluster gc;
-    private boolean isConnectionEstablished;
-    private boolean isClusterReady;
+    private boolean isClusterInitialized;
 
     private AppConf appConf;
 
     ClusterConnection(ClusterMapping.ClusterEnums c, AppConf appConf) {
-        isConnectionEstablished = false;
+        isClusterInitialized = false;
         initCluster(c);
         this.appConf = appConf;
     }
@@ -37,18 +34,17 @@ public class ClusterConnection {
 
     private void initCluster(ClusterMapping.ClusterEnums c) {
         gc = ClusterMapping.getCluster(c);
-        gc.buildCluster(appConf);
-        isClusterReady = gc.isClusterReady();
-        isConnectionEstablished = true;
+        gc.initClusterWithConf(appConf);
+        isClusterInitialized = true;
     }
     /**
      * Adds documents for given strategy. Doesn't really matter if a strategy doesn' need
-     * documents as then it'll just lead to nothing. 
+     * documents as then it'll just lead to nothing.
      * @param s
-     * @param docs 
+     * @param docs
      */
     public void buildCluster(SupportedProcessingStrategy s, List<String> docs) {
-       gc.buildStrategy(s, docs);
+        gc.buildStrategy(s, docs);
     }
 
 }

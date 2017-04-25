@@ -28,7 +28,7 @@ public class EntityDetectionCluster extends Cluster {
     }
 
     @Override
-    public void buildCluster(AppConf conf) {
+    public void initClusterWithConf(AppConf conf) {
         assert conf != null;
         super.setConf(conf);
         this.isClusterReady = true;

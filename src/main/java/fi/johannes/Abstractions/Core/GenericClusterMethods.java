@@ -28,6 +28,6 @@ public interface GenericClusterMethods {
     public boolean isClusterReady();
     public void clear();
     public void setBiasingSize(int size);
-    public void buildCluster(AppConf conf); // List<String> documents
+    public void initClusterWithConf(AppConf conf); // List<String> documents
     public void buildStrategy(SupportedProcessingStrategy strategy, List<String> documents);
 }
