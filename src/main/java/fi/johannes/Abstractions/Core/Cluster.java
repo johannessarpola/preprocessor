@@ -78,6 +78,10 @@ public abstract class Cluster implements GenericClusterMethods {
         return conf;
     }
 
+    /**
+     * Sets conf, used in child clusters
+     * @param conf
+     */
     protected void setConf(AppConf conf) {
         this.conf = conf;
     }

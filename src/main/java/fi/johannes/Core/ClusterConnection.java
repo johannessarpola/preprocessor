@@ -16,35 +16,34 @@ import java.util.List;
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
-@Component
 public class ClusterConnection {
 
-    private Cluster gc;
-    private boolean isClusterInitialized;
-
-    private AppConf appConf;
+    private final ClusterMapping.ClusterEnums clusterId;
+    private final List<SupportedProcessingStrategy> strategies;
+    private final Cluster gc;
+    private final AppConf appConf;
 
     ClusterConnection(ClusterMapping.ClusterEnums c, AppConf appConf) {
-        isClusterInitialized = false;
-        initCluster(c);
+        this.clusterId = c;
+        this.strategies = ClusterMapping.getStrategies(c);
         this.appConf = appConf;
-    }
-
-
-
-    private void initCluster(ClusterMapping.ClusterEnums c) {
-        gc = ClusterMapping.getCluster(c);
+        this.gc = ClusterMapping.getCluster(c);
         gc.initClusterWithConf(appConf);
-        isClusterInitialized = true;
-    }
-    /**
-     * Adds documents for given strategy. Doesn't really matter if a strategy doesn' need
-     * documents as then it'll just lead to nothing.
-     * @param s
-     * @param docs
-     */
-    public void buildCluster(SupportedProcessingStrategy s, List<String> docs) {
-        gc.buildStrategy(s, docs);
     }
 
+    public Cluster getCluster() {
+        return gc;
+    }
+
+    public ClusterMapping.ClusterEnums getClusterId() {
+        return clusterId;
+    }
+
+    public List<SupportedProcessingStrategy> getStrategies() {
+        return strategies;
+    }
+
+    public AppConf getAppConf() {
+        return appConf;
+    }
 }

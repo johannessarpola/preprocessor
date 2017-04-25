@@ -49,6 +49,7 @@ public class UnsupervisedBiasingCluster extends Cluster {
             super.setConf(conf);
             serviceMap = new UnsupervisedStrategyMap(clusterId);
             addServices();
+            this.isClusterReady = true;
         } catch (StrategyNotSupportedException ex) {
             GenLogging.logStackTrace_Error(getClass(), ex);
         }
