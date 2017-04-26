@@ -91,6 +91,7 @@ public class App implements CommandLineRunner {
                         List<String> collect = processedDocuments.parallelStream()
                                 .map(line -> {
                                     try {
+                                        // fixme keywordsfirst has empty and wikipedia as well
                                         return s.toString()+"| "+c.processLine(line, SupportedProcessingMethods.Replace);
                                     } catch (ServiceNotReadyException | ClusterNoteadyException | UnhandledServiceException e) {
                                         e.printStackTrace();
