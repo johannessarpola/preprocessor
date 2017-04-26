@@ -114,10 +114,12 @@ public class ArticleProcessorStates {
     }
     public ArticleProcessorStates useLemmatization() {
         this.useStanfordLemmatizer = true;
+        this.usePorterstemmer = false;
         return this;
     }
     public ArticleProcessorStates useStemming() {
         this.usePorterstemmer = true;
+        this.useStanfordLemmatizer = false;
         return this;
     }
     public ArticleProcessorStates removeUrls() {

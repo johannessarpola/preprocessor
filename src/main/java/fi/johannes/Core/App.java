@@ -63,24 +63,35 @@ public class App implements CommandLineRunner {
         documents.add("Calvert took an interest in the British colonisation of the Americas, at first for commercial reasons and later to create a refuge for English Catholics. He became the proprietor of Avalon, the first sustained English settlement on the southeastern peninsula on the island of Newfoundland (off the eastern coast of modern Canada). Discouraged by its cold and sometimes inhospitable climate and the sufferings of the settlers, Sir George looked for a more suitable spot further south and sought a new royal charter to settle the region, which would become the state of Maryland. Calvert died five weeks before the new Charter was sealed, leaving the settlement of the Maryland colony to his son Cecil, (1605–1675). His second son Leonard Calvert, (1606–1647), was the first colonial governor of the Province of Maryland.");
         documents.add("Little is known of the ancestry of the Yorkshire branch of the Calverts. At George Calvert's knighting, it was claimed that his family originally came from Flanders (a Dutch-speaking area today across the English Channel in modern Belgium).[1] Calvert's father, (an earlier) Leonard was a country gentleman who had achieved some prominence as a tenant of Lord Wharton,[2] and was wealthy enough to marry a \"gentlewoman\" of a noble line, Alicia or Alice Crossland (or sometimes spelled: \"Crosland\"). He established his family on the estate of the later-built Kiplin Hall, near Catterick in Richmondshire, of Yorkshire.[3] George Calvert was born at Kiplin in late 1579.[2] His mother Alicia/Alice died on 28 November 1587, when he was fifteen years old. His father then married Grace Crossland (sometimes spelled: \"Crosland\"), Alicia's first cousin.");
         List<AppConf.SupportedProcessingStrategy> selectedStrategies
-                = Arrays.asList(TFIDF_Keywords, TFIDF_Combined, TFIDF_WordNgram /*WikipediaTitles*/);
+                = Arrays.asList(TFIDF_Keywords, TFIDF_Combined, TFIDF_WordNgram, TFIDF_KeywordsFirst, WikipediaTitles /*WikipediaTitles*/);
 
         List<String> result = new ArrayList<>();
 
         // todo article processor
+        ArticleProcessor processor = new ArticleProcessor();
+        processor.getStates()
+                .removeNumbers()
+                .removeUrls()
+                .removeRemoveTags()
+                .removeSingleCharacters()
+                .removeStopwords()
+                .removeStopwords()
+                .useLemmatization()
+                .useLowercase();
 
+        List<String> processedDocuments = documents.stream().map(processor::processLineToString).collect(Collectors.toList());
         for (SupportedProcessingStrategy s : selectedStrategies) {
             for (ClusterConnection connection : cons) {
                 if (connection.getStrategies().contains(s)) {
                     Cluster c = connection.getCluster();
-                    c.buildStrategy(s, documents);
+                    c.buildStrategy(s, processedDocuments);
                     c.selectStrategy(s);
                     c.setBiasingSize(5); // fixme biasing size appears to be +1
                     if (c.isClusterReady()) {
-                        List<String> collect = documents.parallelStream()
+                        List<String> collect = processedDocuments.parallelStream()
                                 .map(line -> {
                                     try {
-                                        return c.processLine(line, SupportedProcessingMethods.Replace);
+                                        return s.toString()+"| "+c.processLine(line, SupportedProcessingMethods.Replace);
                                     } catch (ServiceNotReadyException | ClusterNoteadyException | UnhandledServiceException e) {
                                         e.printStackTrace();
                                         return "";
