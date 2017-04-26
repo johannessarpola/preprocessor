@@ -107,4 +107,45 @@ public class ArticleProcessorStates {
     public void setUseRemoveSingleCharacters(boolean useRemoveSingleCharacters) {
         this.useRemoveSingleCharacters = useRemoveSingleCharacters;
     }
+
+    public ArticleProcessorStates useLowercase() {
+        this.useLowercaseOnly = true;
+        return this;
+    }
+    public ArticleProcessorStates useLemmatization() {
+        this.useStanfordLemmatizer = true;
+        return this;
+    }
+    public ArticleProcessorStates useStemming() {
+        this.usePorterstemmer = true;
+        return this;
+    }
+    public ArticleProcessorStates removeUrls() {
+        this.useRemoveURLs = true;
+        return this;
+    }
+    public ArticleProcessorStates removeNumbers() {
+        this.useRemoveNumbers = true;
+        return this;
+    }
+    public ArticleProcessorStates removeStopwords() {
+        this.useRemoveStopwords = true;
+        return this;
+    }
+    public ArticleProcessorStates removeRemoveTags() {
+        this.useRemoveTags = true;
+        return this;
+    }
+    public ArticleProcessorStates removeSingleCharacters() {
+        this.useRemoveSingleCharacters = true;
+        return this;
+    }
+    public ArticleProcessorStates removePunctuation() {
+        this.useRemovePunctuationMarks = true;
+        return this;
+    }
+    public ArticleProcessorStates removeSpecialCharacters() {
+        this.useRemoveSpecialCharacters = true;
+        return this;
+    }
 }
