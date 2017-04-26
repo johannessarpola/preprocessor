@@ -5,19 +5,20 @@
  */
 package fi.johannes.Core;
 
-import fi.johannes.Utilities.Processing.Lemmatizer;
-import fi.johannes.Utilities.Processing.Stemmer;
-import fi.johannes.Utilities.Processing.Stopwords;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.primitives.Doubles;
+import fi.johannes.Utilities.Processing.Lemmatizer;
+import fi.johannes.Utilities.Processing.Stemmer;
+import fi.johannes.Utilities.Processing.Stopwords;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static fi.johannes.Utilities.Processing.URLRemover.removeUrl;
 import static fi.johannes.Utilities.String.StringOperations.removeTags;
@@ -56,21 +57,6 @@ public class ArticleProcessor {
         this.guavaSplitter = Splitter.on(CharMatcher.whitespace()).omitEmptyStrings();
     }
 
-    public String processLineToString(String line) {
-        List<String> ms = processLine(line);
-        String str = "";
-        boolean firstrun = true;
-        for (String s : ms) {
-            if(firstrun) {
-                str = s;
-                firstrun = false;
-            }
-            else {
-                str += " " + s;
-            }
-        }
-        return str;
-    }
     /**
      * Saves up memory but looses the ordering
      * @param line
@@ -78,18 +64,23 @@ public class ArticleProcessor {
      */
     public Multiset<String> processLineToMultiset(String line){
          HashMultiset<String> ms = HashMultiset.create();
-         List<String> lineL = processLine(line);
+         List<String> lineL = processLineToList(line);
          for(String s : lineL){
              ms.add(s);
          }
          return ms;
     }
+
+    public String processLineToString(String line){
+        return processLineToList(line).stream().collect(Collectors.joining(" "));
+    }
+
     /**
      * Processes a line (article) in order
      * @param line
      * @return
      */
-    public List<String> processLine(String line) {
+    public List<String> processLineToList(String line) {
         List<String> tokens = getSplitter().splitToList(line);
         // MultiSet is a Set where count of occurencies are stored also
        List<String> cleanTokens = new ArrayList<String>();

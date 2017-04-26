@@ -64,7 +64,7 @@ public class KeywordExtractorTest {
     }
 
     /**
-     * Test of processLine method, of class KeywordExtractor.
+     * Test of processLineToList method, of class KeywordExtractor.
      */
     @Test
     public void testAppend() throws ServiceNotReadyException, UnhandledServiceException {
