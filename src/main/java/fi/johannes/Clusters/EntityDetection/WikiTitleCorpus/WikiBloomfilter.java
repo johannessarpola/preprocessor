@@ -34,11 +34,7 @@ public class WikiBloomfilter {
     }
 
     private void addStrings(Set<String> list) {
-        list.forEach(s -> filter.put(s));
-    }
-
-    private void createBloomfilter(long size, double accuracy) {
-        filter = BloomFilter.create(Funnels.stringFunnel(StandardCharsets.UTF_8), size, accuracy);
+        list.parallelStream().forEach(s -> filter.put(s));
     }
 
     public boolean mightContain(String str) {
@@ -48,7 +44,7 @@ public class WikiBloomfilter {
     private void init() {
         // Add buffer to size since bloomFilter doesn't work if it exceeds size
         this.size = (int) (size * buffer);
-        createBloomfilter(size, accuracy);
+        filter = BloomFilter.create(Funnels.stringFunnel(StandardCharsets.UTF_8), size, accuracy);
     }
 
     public double reliability() {

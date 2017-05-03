@@ -35,7 +35,7 @@ public class EntityDetectionService extends GenericService {
         this.isServiceReady = true;
     }
 
-    private List<String> addItemsFromLine(String line ){
+    private List<String> splitLine(String line ){
         List<String> list = createNgrams(line);
         list.addAll(GeneralUtilities.guavaSplitterWhiteSpace.splitToList(line));
         return list;
@@ -43,8 +43,8 @@ public class EntityDetectionService extends GenericService {
 
     @Override
     public String processLineByAppend(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
-        // todo there's no really hierarchy in corpuses so biasingSize is quite hard to handle, probably need some kind of ranking
-        List<String> list = addItemsFromLine(line);
+        // todo needs to remove duplicates
+        List<String> list = splitLine(line);
         String contained = list.parallelStream()
                 .filter(s -> corpuses.stream().anyMatch(c -> c.doesContain(s)))
                 .collect(Collectors.joining(" "));
@@ -53,8 +53,8 @@ public class EntityDetectionService extends GenericService {
 
     @Override
     public String processLineByReplace(String line, int biasingSize) throws ServiceNotReadyException, UnhandledServiceException {
-        // todo there's no really hierarchy in corpuses so biasingSize is quite hard to handle, probably need some kind of ranking
-        List<String> list = addItemsFromLine(line);
+        // todo needs to remove duplicates
+        List<String> list = splitLine(line);
         return list.parallelStream()
                 .filter(s -> corpuses.stream().anyMatch(c -> c.doesContain(s)))
                 .collect(Collectors.joining(" "));

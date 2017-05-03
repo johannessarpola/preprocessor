@@ -8,11 +8,13 @@ package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
 import fi.johannes.Core.AppConf.SupportedCorpuses;
 import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.String.StringFilters;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,12 +43,17 @@ public class WikiCorpus extends BloomfilterCorpus {
 
     private void init() {
         try {
-            Set<String> titles = titleStream(pathToWikis).collect(Collectors.toSet());
+            Set<String> titles = titleStream(pathToWikis).filter(WikiCorpus::stringFilter).collect(Collectors.toSet());
             wikiBloomfilter = new WikiBloomfilter(accuracy, titles);
         } catch (Exception ex) {
             GenLogging.logStackTrace_Error(this, ex);
         }
     }
+
+    private static boolean stringFilter(String s) {
+        return (s != null && !s.isEmpty() && s.length() > 1 && StringFilters.hasOnlyAllowedCharacters(s));
+    }
+
     private Stream<String> titleStream(String path) throws IOException {
         return Files.list(Paths.get(path)).parallel()
                 .map(p -> {
@@ -62,7 +69,7 @@ public class WikiCorpus extends BloomfilterCorpus {
 
 
     public boolean mightContain(String str) {
-        return wikiBloomfilter.mightContain(str);
+        return wikiBloomfilter.mightContain(str.toLowerCase());
     }
 
     @Override

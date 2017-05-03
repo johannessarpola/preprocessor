@@ -7,6 +7,6 @@ general:
     data: .data
     raw: .data/chunks
     supervised: .data/tables
-    entities: .data/wiki
+    entities: .data/wiki/en
   resources:
     stopwords: stopwords.txt
