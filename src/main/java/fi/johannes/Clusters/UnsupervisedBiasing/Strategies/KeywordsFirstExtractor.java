@@ -93,7 +93,6 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         Integer index = getDocIndex(line);
         Map<LinkedWord, Double> tfidf = this.tfidfScoreAsLinkedWordMap(index);
         Map<LinkedWord, Double> ngrams = getNgramsForKeywords(keywords, tfidf);
-        //return StringTransforms.LinkedWordListToStringList(ngrams);
         List<String> highestNgrams = getHighestEntriesAsStrings(ngrams);
         return highestNgrams;
     }

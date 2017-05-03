@@ -6,6 +6,7 @@
 package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
 import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.FeatureExtractor;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
@@ -18,20 +19,15 @@ import com.google.common.base.Splitter;
 import java.util.*;
 
 /**
- *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class KeywordExtractor extends FeatureExtractor {
-
-    // TODO Figure out a better way to remove stopwords, this messes up the contract
-    private Set<String> stopwords;
 
     /**
      * Gets the Keywords based on TDIDF scores. Scope is only on word level.
      */
     public KeywordExtractor() {
         super(SupportedProcessingStrategy.TFIDF_Keywords);
-        subclassSpecificInit();
     }
 
     @Override
@@ -57,7 +53,6 @@ public class KeywordExtractor extends FeatureExtractor {
     private void setupService(List<String> documents, boolean doCompression) {
 
         int docIndex = 0;
-        // TODO remove the other stuff than noun,verbs and adjectives here. Tests break?
         for (String doc : documents) {
             List<String> d = splitter.splitToList(doc);
             Map<String, Double> map = TFIDF.tf(d);
@@ -126,12 +121,8 @@ public class KeywordExtractor extends FeatureExtractor {
     @Override
     public void clear() {
         super.reInit();
-        subclassSpecificInit();
     }
 
-    private void subclassSpecificInit() {
-        stopwords = new Stopwords().getStopwords();
-    }
 
     @Override
     protected void defineSplitter() {
@@ -173,12 +164,9 @@ public class KeywordExtractor extends FeatureExtractor {
             if (i == this.numberOfDefiningFeatures && i < lineLen) {
                 break;
             }
-            if (!stopwords.contains(entry.getKey())) {
-                kws.add(entry.getKey());
-                i++;
-            }
+            kws.add(entry.getKey());
+            i++;
         }
-        // TODO Handle if input is ONLY stopwords
         return kws;
     }
 

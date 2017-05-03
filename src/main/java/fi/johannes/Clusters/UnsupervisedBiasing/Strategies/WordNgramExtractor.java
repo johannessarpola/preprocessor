@@ -1,5 +1,6 @@
 package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
+import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.FeatureExtractor;
 import fi.johannes.Utilities.String.Ngram;
 import fi.johannes.Clusters.UnsupervisedBiasing.Internal.TFIDF;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;

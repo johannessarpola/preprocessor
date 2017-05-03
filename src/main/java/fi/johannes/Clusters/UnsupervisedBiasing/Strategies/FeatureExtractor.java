@@ -190,18 +190,18 @@ public abstract class FeatureExtractor extends GenericService {
      * @return
      */
     private List<String> getDefinedNumberOfFeatures(Map<String, Double> sortedMap, String line) {
-        List<String> kws = new ArrayList<>();
+        List<String> features = new ArrayList<>();
         int maxSize = splitter.splitToList(line).size();
         int i = 0;
         for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
             if (i == this.numberOfDefiningFeatures && i < maxSize) {
                 break;
             }
-            kws.add(entry.getKey());
+            features.add(entry.getKey());
             i++;
 
         }
-        return kws;
+        return features;
     }
 
     // This is for backwards compatibility
