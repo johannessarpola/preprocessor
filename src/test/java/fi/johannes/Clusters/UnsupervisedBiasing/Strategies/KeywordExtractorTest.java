@@ -27,7 +27,6 @@ import java.util.List;
 public class KeywordExtractorTest {
     static GenericService instance;
     static ArticleProcessor apr;
-    static Cluster TFIDFCluster;
 
     public KeywordExtractorTest() {
     }
