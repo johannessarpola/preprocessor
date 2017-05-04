@@ -15,7 +15,7 @@ import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.StrategyNotSupportedException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class SupervisedBiasingCluster extends Cluster {
             addServices();
             this.isClusterReady = true;
         } catch (StrategyNotSupportedException ex) {
-            GenLogging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTrace_Error(getClass(), ex);
         }
     }
 

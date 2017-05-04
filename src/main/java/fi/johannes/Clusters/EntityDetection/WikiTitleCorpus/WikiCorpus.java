@@ -7,14 +7,13 @@ package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
 import fi.johannes.Clusters.EntityDetection.Internal.BloomfilterCorpus;
 import fi.johannes.Core.AppConf.SupportedCorpuses;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.String.StringFilters;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,7 +45,7 @@ public class WikiCorpus extends BloomfilterCorpus {
             Set<String> titles = titleStream(pathToWikis).filter(WikiCorpus::stringFilter).collect(Collectors.toSet());
             wikiBloomfilter = new WikiBloomfilter(accuracy, titles);
         } catch (Exception ex) {
-            GenLogging.logStackTrace_Error(this, ex);
+            Logging.logStackTrace_Error(this, ex);
         }
     }
 

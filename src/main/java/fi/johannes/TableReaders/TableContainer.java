@@ -7,7 +7,7 @@ package fi.johannes.TableReaders;
 
 import fi.johannes.Abstractions.TableReader;
 import fi.johannes.Core.AppConf.SupportedTableStrategy;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.Structures.Table;
 
 import java.io.FileNotFoundException;
@@ -33,7 +33,7 @@ public class TableContainer<E> {
                 getContent();
             }
         } catch (FileNotFoundException ex) {
-             GenLogging.logStackTrace_Error(getClass(), ex);
+             Logging.logStackTrace_Error(getClass(), ex);
         }
     }
     public void clear(){

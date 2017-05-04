@@ -79,6 +79,16 @@ public class AppConf {
         public void setEntities(String entities) {
             this.entities = entities;
         }
+
+        @Override
+        public String toString() {
+            return "Paths{" +
+                    "data='" + data + '\'' +
+                    ", raw='" + raw + '\'' +
+                    ", supervised='" + supervised + '\'' +
+                    ", entities='" + entities + '\'' +
+                    '}';
+        }
     }
 
     public static class Resources {
@@ -93,6 +103,13 @@ public class AppConf {
         }
 
         public Resources() {
+        }
+
+        @Override
+        public String toString() {
+            return "Resources{" +
+                    "stopwords='" + stopwords + '\'' +
+                    '}';
         }
     }
 
@@ -118,5 +135,14 @@ public class AppConf {
 
     public List<SupportedCorpuses> getCorpuses() {
         return Arrays.<SupportedCorpuses>asList(SupportedCorpuses.values());
+    }
+
+    @Override
+    public String toString() {
+        return "AppConf{" +
+                "seed=" + seed +
+                ", paths= { " + paths.toString() + "}"+
+                ", resources={" + resources + "}" +
+                '}';
     }
 }

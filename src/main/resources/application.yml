@@ -1,6 +1,7 @@
 spring:
   profiles: default
 
+
 general:
   seed: 23417789
   paths:
@@ -10,3 +11,17 @@ general:
     entities: .data/wiki/en
   resources:
     stopwords: stopwords.txt
+
+---
+spring:
+  profiles: full
+general:
+  paths:
+    entities: .data/wiki/en
+
+---
+spring:
+  profiles: fast
+general:
+  paths:
+    entities: .data/wiki/en/sample

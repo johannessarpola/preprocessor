@@ -9,7 +9,7 @@ import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
 import fi.johannes.Core.AppConf.SupportedCorpuses;
 import fi.johannes.Utilities.Logging.CustomExceptions.CorpusNotAvailableException;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class EntityCorpuses {
             try {
                 this.corpuses.add(getCorpus(c));
             } catch (CorpusNotAvailableException ex) {
-                GenLogging.logStackTrace_Error(this.getClass(), ex);
+                Logging.logStackTrace_Error(this.getClass(), ex);
             }
         }
     }

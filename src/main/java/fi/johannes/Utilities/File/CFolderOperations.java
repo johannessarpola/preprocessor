@@ -5,7 +5,7 @@
  */
 package fi.johannes.Utilities.File;
 
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
@@ -75,7 +75,7 @@ public class CFolderOperations {
                     List<String> lines = CFileOperations.getFileContentAsStrings(filePath);
                     l.add(lines);
                 } catch (IOException ex) {
-                    GenLogging.logStackTrace_Error(CFolderOperations.class, ex);
+                    Logging.logStackTrace_Error(CFolderOperations.class, ex);
                 }
             }
         });
@@ -110,7 +110,7 @@ public class CFolderOperations {
         try {
             FileUtils.deleteDirectory(new File(folder));
         } catch (IOException e) {
-            GenLogging.logMessage_Error(CFolderOperations.class, "Could not delete folder:"+folder );
+            Logging.logMessage_Error(CFolderOperations.class, "Could not delete folder:"+folder );
         }
     }
 

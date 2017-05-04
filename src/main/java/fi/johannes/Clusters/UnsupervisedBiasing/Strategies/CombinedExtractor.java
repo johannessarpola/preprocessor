@@ -10,7 +10,7 @@ import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.NoValueFoundException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.Structures.LinkedWord;
 
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class CombinedExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            GenLogging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -54,7 +54,7 @@ public class CombinedExtractor extends FeatureExtractor {
             List<String> res = this.getHighestScoringEntries(line);
             return this.doAppend(line, res);
         } catch (NoValueFoundException ex) {
-            GenLogging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTrace_Error(getClass(), ex);
         }
         return null;
     }

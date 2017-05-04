@@ -6,10 +6,9 @@
 package fi.johannes.Utilities.Hashing;
 
 import fi.johannes.Utilities.GeneralUtilities;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.S;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,7 +46,7 @@ public class HashStore {
                 storeKey(stringList,index,Integer.MAX_VALUE);
             }
             else {
-                GenLogging.logMessage_Error(this.getClass(), S.fmt("Hash collision with key: %s", key));
+                Logging.logMessage_Error(this.getClass(), S.fmt("Hash collision with key: %s", key));
             }
         }
         else {

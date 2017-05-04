@@ -8,7 +8,7 @@ package fi.johannes.TableReaders;
 import fi.johannes.Abstractions.TableReader;
 import fi.johannes.Core.AppConf.SupportedTableStrategy;
 import fi.johannes.TableReaders.Internal.Transformer;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
@@ -41,7 +41,7 @@ public class XLSXReader extends TableReader {
         try {
             init();
         } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
-            GenLogging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTrace_Error(getClass(), ex);
         }
     }
 
@@ -76,11 +76,11 @@ public class XLSXReader extends TableReader {
             try {
                 workbook.close();
             } catch (IOException ex) {
-                GenLogging.logStackTrace_Error(getClass(), ex);
+                Logging.logStackTrace_Error(getClass(), ex);
             }
             init();
         } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
-            GenLogging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTrace_Error(getClass(), ex);
         }
     }
 

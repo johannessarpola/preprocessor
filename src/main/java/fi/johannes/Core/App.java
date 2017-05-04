@@ -1,6 +1,8 @@
 package fi.johannes.Core;
 
 import fi.johannes.Abstractions.Cluster;
+import fi.johannes.Core.AppConf.SupportedProcessingMethods;
+import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
@@ -19,8 +21,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import fi.johannes.Core.AppConf.*;
 
 import static fi.johannes.Core.AppConf.SupportedProcessingStrategy.*;
 
@@ -57,6 +57,9 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+
+
         List<ClusterConnection> cons = this.createClusters();
         List<String> documents = new ArrayList<>();
         documents.add("George Calvert, 1st Baron Baltimore (1579 – 15 April 1632) was an English politician and coloniser. He achieved domestic political success as a Member of Parliament and later Secretary of State under King James I. He lost much of his political power after his support for a failed marriage alliance between Prince Charles and the Spanish House of Habsburg royal family. Rather than continue in politics, he resigned all of his political offices in 1625 except for his position on the Privy Council and declared his Catholicism publicly. He was created Baron Baltimore in the Irish peerage upon his resignation. Baltimore Manor was located in County Longford, Ireland.");

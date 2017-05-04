@@ -10,7 +10,7 @@ import fi.johannes.Clusters.SupervisedBiasing.Internal.TableHierarchy;
 import fi.johannes.Core.AppConf.SupportedTableStrategy;
 import fi.johannes.TableReaders.TableContainer;
 import fi.johannes.Utilities.Logging.CustomExceptions.TableNotSupportedException;
-import fi.johannes.Utilities.Logging.GenLogging;
+import fi.johannes.Utilities.Logging.Logging;
 
 import java.io.FileNotFoundException;
 
@@ -43,7 +43,7 @@ public class TableContainerWrapper<T> {
             isReady= true;
             return s;
         } catch (TableNotSupportedException | FileNotFoundException ex) {
-            GenLogging.logStackTrace_Fatal(getClass(), ex);
+            Logging.logStackTrace_Fatal(getClass(), ex);
         }
         isReady = false;
         return null;
