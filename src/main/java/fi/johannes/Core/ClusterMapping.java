@@ -5,12 +5,10 @@
  */
 package fi.johannes.Core;
 
-import com.google.common.collect.ImmutableMap;
-import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Abstractions.Cluster;
 import fi.johannes.Clusters.EntityDetection.EntityDetectionCluster;
 import fi.johannes.Clusters.SupervisedBiasing.SupervisedBiasingCluster;
 import fi.johannes.Clusters.UnsupervisedBiasing.UnsupervisedBiasingCluster;
-import org.apache.commons.lang3.ClassUtils;
 
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;

@@ -1,20 +1,15 @@
 package fi.johannes.Clusters.EntityDetection;
 
-import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Abstractions.Cluster;
 import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
 import fi.johannes.Core.AppConf;
-import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping.ClusterEnums;
-import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
-import fi.johannes.Utilities.String.Ngram;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Johannes on 20.4.2017.

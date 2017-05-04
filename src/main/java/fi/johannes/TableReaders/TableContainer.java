@@ -5,6 +5,7 @@
  */
 package fi.johannes.TableReaders;
 
+import fi.johannes.Abstractions.TableReader;
 import fi.johannes.Core.AppConf.SupportedTableStrategy;
 import fi.johannes.Utilities.Logging.GenLogging;
 import fi.johannes.Utilities.Structures.Table;
@@ -20,7 +21,7 @@ import java.util.List;
 public class TableContainer<E> {
     private List<E> header;
     private List<List<E>> rows;
-    private fi.johannes.Abstractions.Structures.TableReader tools;
+    private TableReader tools;
     private boolean isReady;
     
     public TableContainer(SupportedTableStrategy strategy, String filepath){

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Abstractions.Core;
+package fi.johannes.Abstractions;
 
-import fi.johannes.Core.App;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Core.AppConf;

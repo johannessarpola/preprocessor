@@ -1,6 +1,6 @@
 package fi.johannes.Core;
 
-import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Abstractions.Cluster;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;

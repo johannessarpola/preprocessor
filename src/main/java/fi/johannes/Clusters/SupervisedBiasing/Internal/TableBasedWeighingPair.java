@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing.Internal;
 
-import fi.johannes.Abstractions.Weighing.WeighingPair;
+import fi.johannes.Abstractions.WeighingPair;
 
 /**
  * 

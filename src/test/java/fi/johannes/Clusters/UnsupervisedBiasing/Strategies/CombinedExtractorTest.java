@@ -5,8 +5,8 @@
  */
 package fi.johannes.Clusters.UnsupervisedBiasing.Strategies;
 
-import fi.johannes.Abstractions.Core.Cluster;
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.Cluster;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Core.AppConf.SupportedProcessingMethods;
 import fi.johannes.Core.ArticleProcessor;
 import junit.framework.Assert;

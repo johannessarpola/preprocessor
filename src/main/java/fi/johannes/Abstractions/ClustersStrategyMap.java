@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johannes.Abstractions.Core;
+package fi.johannes.Abstractions;
 
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;

@@ -1,6 +1,6 @@
 package fi.johannes.Clusters.EntityDetection;
 
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Clusters.EntityDetection.Internal.EntityCorpus;
 import fi.johannes.Core.AppConf;
 import fi.johannes.Utilities.GeneralUtilities;

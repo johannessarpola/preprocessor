@@ -14,7 +14,7 @@ import fi.johannes.Utilities.Structures.SortedListPair;
 import java.util.ArrayList;
 import java.util.List;
 
-import static fi.johannes.Abstractions.Weighing.WeighingLogic.CombineStrategies.mean;
+import static fi.johannes.Abstractions.WeighingLogic.CombineStrategies.mean;
 import static fi.johannes.Clusters.SupervisedBiasing.Strategies.TableBiasingServiceOptions.DELIM;
 
 /**

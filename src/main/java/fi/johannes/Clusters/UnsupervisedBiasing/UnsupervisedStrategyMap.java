@@ -5,8 +5,8 @@
  */
 package fi.johannes.Clusters.UnsupervisedBiasing;
 
-import fi.johannes.Abstractions.Core.ClustersStrategyMap;
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.ClustersStrategyMap;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.CombinedExtractor;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordExtractor;
 import fi.johannes.Clusters.UnsupervisedBiasing.Strategies.KeywordsFirstExtractor;

@@ -5,7 +5,7 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing.Strategies;
 
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.StringTableHierarchy;
 import fi.johannes.Clusters.SupervisedBiasing.Internal.TableBiasingConfiguration;
 import fi.johannes.Clusters.SupervisedBiasing.TableWrappers.StringTableContainerWrapper;

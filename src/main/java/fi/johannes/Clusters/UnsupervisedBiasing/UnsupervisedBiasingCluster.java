@@ -5,8 +5,8 @@
  */
 package fi.johannes.Clusters.UnsupervisedBiasing;
 
-import fi.johannes.Abstractions.Core.Cluster;
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.Cluster;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Core.AppConf;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.AppConf.SupportedProcessingMethods;

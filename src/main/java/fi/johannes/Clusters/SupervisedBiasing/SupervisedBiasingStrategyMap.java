@@ -5,8 +5,8 @@
  */
 package fi.johannes.Clusters.SupervisedBiasing;
 
-import fi.johannes.Abstractions.Core.ClustersStrategyMap;
-import fi.johannes.Abstractions.Core.GenericService;
+import fi.johannes.Abstractions.ClustersStrategyMap;
+import fi.johannes.Abstractions.GenericService;
 import fi.johannes.Clusters.SupervisedBiasing.Strategies.TableBiasingService;
 import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Core.ClusterMapping;

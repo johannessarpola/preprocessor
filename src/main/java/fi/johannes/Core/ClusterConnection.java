@@ -5,9 +5,8 @@
  */
 package fi.johannes.Core;
 
-import fi.johannes.Abstractions.Core.Cluster;
+import fi.johannes.Abstractions.Cluster;
 import fi.johannes.Core.AppConf.*;
-import org.springframework.stereotype.Component;
 
 
 import java.util.List;
