@@ -109,7 +109,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         List<LinkedWord> l = new ArrayList<>();
         double avg = MapUtils.sumMap(map) / map.size();
         for (Entry<LinkedWord, Double> e : map.entrySet()) {
-            if (e.getValue() >= avg) {
+            if (e.getValue() > avg) { // > or >= ????
                 l.add(e.getKey());
             }
         }
