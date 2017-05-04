@@ -10,6 +10,9 @@ package fi.johannes.Utilities.Map;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.*;
 
 public class MapUtils {
@@ -53,5 +56,9 @@ public class MapUtils {
             result.put(entry.getKey(), entry.getValue());
         });
         return result;
+    }
+    public static Double sumMap(Map<?,Double> map) {
+        Double sum = map.values().stream().mapToDouble(Double::doubleValue).sum();
+        return sum;
     }
 }

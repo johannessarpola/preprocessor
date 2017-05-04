@@ -16,6 +16,7 @@ import fi.johannes.Utilities.Structures.LinkedWord;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * Gets ngrams for set number of keywords.
@@ -27,8 +28,6 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
     private WordNgramExtractor wne;
     private KeywordExtractor ke;
     private Map<String, List<LinkedWord>> wordToNgramMapping; // Used to access ngrams for a word quicker
-    private double totalScore;
-    private int itemsInResult;
 
     public KeywordsFirstExtractor() {
         super(SupportedProcessingStrategy.TFIDF_KeywordsFirst);
@@ -55,7 +54,6 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             this.setNumberOfDefiningFeatures(biasingSize);
             List<String> keywords = getKeywords(line, biasingSize);
             List<String> ngrams = getHighestNgramsForKeywords(line, keywords);
-            // TODO using mapping to get highest ngrams
             return this.doAppend(line, ngrams);
         } catch (NoValueFoundException ex) {
             throw new UnhandledServiceException();
@@ -82,7 +80,6 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             this.setNumberOfDefiningFeatures(biasingSize);
             List<String> keywords = getKeywords(line, biasingSize);
             List<String> ngrams = getHighestNgramsForKeywords(line, keywords);
-            // TODO using mapping to get highest ngrams
             return this.doReplace(line, ngrams);
         } catch (NoValueFoundException ex) {
             throw new UnhandledServiceException();
@@ -97,23 +94,20 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         return highestNgrams;
     }
 
-    // TODO  Avg is not probably the best
+    /**
+     * This removes the ngrams which are lower than avg in weight
+     * @param map
+     * @return
+     */
     private List<String> getHighestEntriesAsStrings(Map<LinkedWord, Double> map) {
-        map = MapUtils.sortByValue(map, true);
-        List<String> l = new ArrayList<>();
-        double avg = totalScore / itemsInResult;
-        for (Entry<LinkedWord, Double> e : map.entrySet()) {
-            if (e.getValue() >= avg) {
-                l.add(e.getKey().toString());
-            }
-        }
-        return l;
+        List<LinkedWord> linkedWords = getHighestEntriesAsLinkedWord(map);
+        return linkedWords.stream().map(LinkedWord::toString).collect(Collectors.toList());
     }
 
     private List<LinkedWord> getHighestEntriesAsLinkedWord(Map<LinkedWord, Double> map) {
         map = MapUtils.sortByValue(map, true);
         List<LinkedWord> l = new ArrayList<>();
-        double avg = totalScore / itemsInResult;
+        double avg = MapUtils.sumMap(map) / map.size();
         for (Entry<LinkedWord, Double> e : map.entrySet()) {
             if (e.getValue() >= avg) {
                 l.add(e.getKey());
@@ -158,23 +152,18 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
      */
     private Map<LinkedWord, Double> getNgramsForKeywords(List<String> keywords, Map<LinkedWord, Double> tfidfMap) {
         Map<LinkedWord, Double> result = new HashMap<>();
-        List<LinkedWord> lwsForKw = new ArrayList<>();
-        Map<LinkedWord, Double> copyoftfidf = new HashMap<>(tfidfMap);
+        List<LinkedWord> ngramsForKeyword = new ArrayList<>();
+        Map<LinkedWord, Double> tfidfMapCopy = new HashMap<>(tfidfMap);
         for (String kw : keywords) {
-            lwsForKw = wordToNgramMapping.get(kw);
-            // TODO There's problem with LwsForKW
-            Iterator<Entry<LinkedWord, Double>> it = copyoftfidf.entrySet().iterator();
-            while (it.hasNext()) {
-                Entry<LinkedWord, Double> item = it.next();
-                if (lwsForKw.contains(item.getKey()) && !result.containsKey(item.getKey())) {
-                    Double put = result.put(item.getKey(), item.getValue());
-                    totalScore += item.getValue();
-                    itemsInResult++;
-                    it.remove();
-                    if (put != null) {
-                        Logging.logMessage_Error(getClass(), "There was duplicate value in result serviceMap (Equals or Hashmap for LW doesn't work)" + put);
+            ngramsForKeyword = wordToNgramMapping.get(kw);
+            for (Entry<LinkedWord, Double> item : tfidfMapCopy.entrySet()) {
+                // fixme contains for list is slow
+                if (!result.containsKey(item.getKey()))
+                    if (ngramsForKeyword.contains(item.getKey())) {
+                        Double put = result.put(item.getKey(), item.getValue());
+                        if (put != null)
+                            Logging.logMessage_Error(getClass(), "There was duplicate value in result serviceMap (Equals or Hashmap for LW doesn't work)" + put);
                     }
-                }
             }
         }
         return result;
