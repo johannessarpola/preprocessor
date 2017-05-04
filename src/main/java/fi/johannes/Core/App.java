@@ -6,6 +6,7 @@ import fi.johannes.Core.AppConf.SupportedProcessingStrategy;
 import fi.johannes.Utilities.Logging.CustomExceptions.ClusterNoteadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
+import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.Resources.ResourceList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -58,7 +59,7 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
+        Logging.logMessage_Info(this.getClass(), "Using configuration: "+conf.toString());
 
         List<ClusterConnection> cons = this.createClusters();
         List<String> documents = new ArrayList<>();
