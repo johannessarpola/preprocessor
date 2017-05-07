@@ -24,12 +24,14 @@ public class AppCli {
 
     public AppCli(String[] args) {
         this.args = args;
-
+        state = new AppState();
         options.addOption("h", "help", false, "show help.");
         options.addOption("v", "var", true, "Here you can set parameter .");
-
-        // todo input folder
-        // todo output if vector out
+        options.addOption("i", "input", true, "Input documents folder");
+        options.addOption("if", "input-file", true, "Input file folder");
+        options.addOption("o", "output", true, "Output vectors folder");
+        options.addOption("of", "output-file", true, "Output vectors file");
+        options.addOption("li", "limit-input", true, "Limit input rows");
     }
 
     public AppCli parse() {
@@ -39,14 +41,28 @@ public class AppCli {
         try {
             cmd = parser.parse(options, args);
 
-            if (cmd.hasOption("h"))
+            if (cmd.hasOption("h")) {
                 help();
+            }
 
             if (cmd.hasOption("v")) {
                 Logging.logMessage_Info(this.getClass(), "Using cli argument -v=" + cmd.getOptionValue("v"));
-            } else {
-                Logging.logMessage_Error(this.getClass(), "MIssing v option");
-                help();
+            }
+            if(cmd.hasOption("i")) {
+                state.setInputFolder(cmd.getOptionValue("i"));
+            }
+            if(cmd.hasOption("if")) {
+                state.setInputFile(cmd.getOptionValue("if"));
+            }
+            if(cmd.hasOption("o")) {
+                state.setOutputFolder(cmd.getOptionValue("o"));
+            }
+            if(cmd.hasOption("of")) {
+                state.setOutputFile(cmd.getOptionValue("of"));
+            }
+            if(cmd.hasOption("li")) {
+                // fixme no error handling
+                state.setLimitInputRows(Integer.parseInt(cmd.getOptionValue("li")));
             }
 
         } catch (ParseException e) {
