@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clusters.SupervisedBiasing.Strategies
+package fi.johannes.Clusters.SupervisedBiasing.Strategies
 
 import fi.johannes.Clusters.SupervisedBiasing.Internal.StringTableHierarchy
-import fi.johannes.Clusters.SupervisedBiasing.Strategies.TableBiasingServiceMethods
 import fi.johannes.Utilities.Structures.Table
 import org.junit.Test
 

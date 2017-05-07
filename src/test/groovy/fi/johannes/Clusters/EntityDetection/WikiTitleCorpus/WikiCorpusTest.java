@@ -1,7 +1,5 @@
-package Clusters.EntityDetection.WikiTitleCorpus;
+package fi.johannes.Clusters.EntityDetection.WikiTitleCorpus;
 
-import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiCorpus;
-import fi.johannes.Clusters.EntityDetection.WikiTitleCorpus.WikiTransformer;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

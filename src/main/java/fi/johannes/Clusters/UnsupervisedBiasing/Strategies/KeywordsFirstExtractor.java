@@ -205,7 +205,6 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
             // We're going to use mapping in this class
             wordToNgramMapping = this.compress(true).getWordToNgramsMapping();
         }
-        //TODO Null keywordex and ngramex
         this.isServiceReady = true;
         this.isVocabularyAdded = true;
         wne = null;
