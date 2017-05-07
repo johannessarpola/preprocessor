@@ -27,7 +27,7 @@ public class FileChunks {
         try {
             init(path);
         } catch (Exception ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
     private void init(String path) throws Exception{

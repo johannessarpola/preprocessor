@@ -65,7 +65,7 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Logging.logMessage_Info(this.getClass(), "Using configuration: "+conf.toString());
+        Logging.logMessageInfo(App.class, "Using configuration: "+conf.toString());
 
         this.cli = new AppCli(args).parse();
         Stream<String> input = null;
@@ -112,6 +112,9 @@ public class App implements CommandLineRunner {
                 .removeStopwords()
                 .useLemmatization()
                 .useLowercase();
+
+        Logging.logMessageError(App.class, "error");
+        Logging.logMessageWarn(App.class, "warning");
 
         List<String> processedDocuments = documents.stream().map(processor::processLineToString).collect(Collectors.toList());
         for (SupportedProcessingStrategy s : selectedStrategies) {

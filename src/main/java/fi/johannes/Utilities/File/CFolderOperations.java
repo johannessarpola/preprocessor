@@ -75,7 +75,7 @@ public class CFolderOperations {
                     List<String> lines = CFileOperations.getFileContentAsStrings(filePath);
                     l.add(lines);
                 } catch (IOException ex) {
-                    Logging.logStackTrace_Error(CFolderOperations.class, ex);
+                    Logging.logStackTraceError(CFolderOperations.class, ex);
                 }
             }
         });
@@ -110,7 +110,7 @@ public class CFolderOperations {
         try {
             FileUtils.deleteDirectory(new File(folder));
         } catch (IOException e) {
-            Logging.logMessage_Error(CFolderOperations.class, "Could not delete folder:"+folder );
+            Logging.logMessageError(CFolderOperations.class, "Could not delete folder:"+folder );
         }
     }
 

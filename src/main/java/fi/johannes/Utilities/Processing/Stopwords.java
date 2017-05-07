@@ -37,7 +37,7 @@ public class Stopwords {
         try {
             stopWords.addAll(readStopWords());
         } catch (IOException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
 

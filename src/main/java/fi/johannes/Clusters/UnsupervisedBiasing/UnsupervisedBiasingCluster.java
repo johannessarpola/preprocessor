@@ -51,7 +51,7 @@ public class UnsupervisedBiasingCluster extends Cluster {
             addServices();
             this.isClusterReady = true;
         } catch (StrategyNotSupportedException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
 
     }

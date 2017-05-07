@@ -46,7 +46,7 @@ public class AppCli {
             }
 
             if (cmd.hasOption("v")) {
-                Logging.logMessage_Info(this.getClass(), "Using cli argument -v=" + cmd.getOptionValue("v"));
+                Logging.logMessageInfo(this.getClass(), "Using cli argument -v=" + cmd.getOptionValue("v"));
             }
             if(cmd.hasOption("i")) {
                 state.setInputFolder(cmd.getOptionValue("i"));
@@ -66,7 +66,7 @@ public class AppCli {
             }
 
         } catch (ParseException e) {
-            Logging.logMessage_Error(this.getClass(), "Failed to parse comand line properties", e);
+            Logging.logMessageError(this.getClass(), "Failed to parse comand line properties", e);
             help();
         }
         return this;

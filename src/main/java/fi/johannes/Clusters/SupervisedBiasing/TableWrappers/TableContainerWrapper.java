@@ -43,7 +43,7 @@ public class TableContainerWrapper<T> {
             isReady= true;
             return s;
         } catch (TableNotSupportedException | FileNotFoundException ex) {
-            Logging.logStackTrace_Fatal(getClass(), ex);
+            Logging.logMessageError(getClass(),"No file found or table strategy not supported", ex);
         }
         isReady = false;
         return null;

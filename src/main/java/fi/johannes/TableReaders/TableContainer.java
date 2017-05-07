@@ -33,7 +33,7 @@ public class TableContainer<E> {
                 getContent();
             }
         } catch (FileNotFoundException ex) {
-             Logging.logStackTrace_Error(getClass(), ex);
+             Logging.logStackTraceError(getClass(), ex);
         }
     }
     public void clear(){

@@ -45,7 +45,7 @@ public class WikiCorpus extends BloomfilterCorpus {
             Set<String> titles = titleStream(pathToWikis).filter(WikiCorpus::stringFilter).collect(Collectors.toSet());
             wikiBloomfilter = new WikiBloomfilter(accuracy, titles);
         } catch (Exception ex) {
-            Logging.logStackTrace_Error(this, ex);
+            Logging.logStackTraceError(this, ex);
         }
     }
 

@@ -49,7 +49,7 @@ public class TableBiasingService extends GenericService {
             if (tcw.isReady()) {
                 tcws.add(tcw);
             } else {
-                Logging.logMessage_Error(getClass(), fi.johannes.Utilities.Logging.Messages.ClustersDomain.msg_info_noTablesAdded);
+                Logging.logMessageError(getClass(), fi.johannes.Utilities.Logging.Messages.ClustersDomain.msg_info_noTablesAdded);
             }
         }
     }

@@ -43,7 +43,7 @@ public class CombinedExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
 
@@ -54,7 +54,7 @@ public class CombinedExtractor extends FeatureExtractor {
             List<String> res = this.getHighestScoringEntries(line);
             return this.doAppend(line, res);
         } catch (NoValueFoundException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
         return null;
     }

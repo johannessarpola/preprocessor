@@ -41,7 +41,7 @@ public class XLSXReader extends TableReader {
         try {
             init();
         } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
 
@@ -76,11 +76,11 @@ public class XLSXReader extends TableReader {
             try {
                 workbook.close();
             } catch (IOException ex) {
-                Logging.logStackTrace_Error(getClass(), ex);
+                Logging.logStackTraceError(getClass(), ex);
             }
             init();
         } catch (IOException | EncryptedDocumentException | InvalidFormatException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
 

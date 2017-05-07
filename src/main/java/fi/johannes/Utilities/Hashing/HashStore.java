@@ -46,7 +46,7 @@ public class HashStore {
                 storeKey(stringList,index,Integer.MAX_VALUE);
             }
             else {
-                Logging.logMessage_Error(this.getClass(), S.fmt("Hash collision with key: %s", key));
+                Logging.logMessageError(this.getClass(), S.fmt("Hash collision with key: %s", key));
             }
         }
         else {

@@ -44,7 +44,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
         try {
             setupBoth(documents, doCompression);
         } catch (NoValueFoundException ex) {
-            Logging.logStackTrace_Error(getClass(), ex);
+            Logging.logStackTraceError(getClass(), ex);
         }
     }
 
@@ -162,7 +162,7 @@ public class KeywordsFirstExtractor extends FeatureExtractor {
                     if (ngramsForKeyword.contains(item.getKey())) {
                         Double put = result.put(item.getKey(), item.getValue());
                         if (put != null)
-                            Logging.logMessage_Error(getClass(), "There was duplicate value in result serviceMap (Equals or Hashmap for LW doesn't work)" + put);
+                            Logging.logMessageError(getClass(), "There was duplicate value in result serviceMap (Equals or Hashmap for LW doesn't work)" + put);
                     }
             }
         }

@@ -43,7 +43,7 @@ public class EntityCorpuses {
             try {
                 this.corpuses.add(getCorpus(c));
             } catch (CorpusNotAvailableException ex) {
-                Logging.logStackTrace_Error(this.getClass(), ex);
+                Logging.logStackTraceError(this.getClass(), ex);
             }
         }
     }

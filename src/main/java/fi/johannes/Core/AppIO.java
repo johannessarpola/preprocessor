@@ -25,7 +25,7 @@ public class AppIO {
                     try {
                         return Files.lines(f);
                     } catch (IOException e) {
-                        Logging.logMessage_Error(AppIO.class, "Could not read file "+f.getFileName());
+                        Logging.logMessageError(AppIO.class, "Could not read file "+f.getFileName());
                         return null;
                     }
                 });

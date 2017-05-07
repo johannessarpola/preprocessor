@@ -1,12 +1,12 @@
 package fi.johannes.Utilities.Logging;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class Logging {
-    static Logger logger;
 
     public static String stringifyException(Exception e) {
         StringWriter errors = new StringWriter();
@@ -20,54 +20,40 @@ public class Logging {
      * @param from
      * @param e
      */
-    public static void logStackTrace_Error(Object from, Exception e) {
-        logger = Logger.getLogger(from.getClass());
+    public static void logStackTraceError(Object from, Exception e) {
+        Logger logger = LoggerFactory.getLogger(from.getClass());
         logger.error(stringifyException(e));
     }
 
-    public static void logStackTrace_Error(Class<? extends Object> from, Exception e) {
-        logger = Logger.getLogger(from);
+    public static void logStackTraceError(Class<? extends Object> from, Exception e) {
+        Logger logger = LoggerFactory.getLogger(from);
         logger.error(stringifyException(e));
     }
 
-    /**
-     * Logs the from and stacktrace (fatal)
-     *
-     * @param from
-     * @param e
-     */
-    public static void logStackTrace_Fatal(Object from, Exception e) {
-        logger = Logger.getLogger(from.getClass());
-        logger.fatal(stringifyException(e));
-    }
-
-    public static void logStackTrace_Fatal(Class<? extends Object> from, Exception e) {
-        logger = Logger.getLogger(from);
-        logger.fatal(stringifyException(e));
-    }
-
-    public static void logMessage_Fatal(Class<? extends Object> from, String msg) {
-        Logger logger = Logger.getLogger(from);
-        logger.fatal(msg);
-    }
-
-    public static void logMessage_Fatal(Class<? extends Object> from, String msg, Exception e) {
-        Logger logger = Logger.getLogger(from);
-        logger.fatal(msg);
-    }
-
-    public static void logMessage_Error(Class<? extends Object> from, String msg) {
-        logger = Logger.getLogger(from);
+    public static void logMessageError(Class<? extends Object> from, String msg) {
+        Logger logger = LoggerFactory.getLogger(from);
         logger.error(msg);
     }
 
-    public static void logMessage_Error(Class<? extends Object> from, String msg, Exception e) {
-        logger = Logger.getLogger(from);
+    public static void logMessageError(Class<? extends Object> from, String msg, Exception e) {
+        Logger logger = LoggerFactory.getLogger(from);
         logger.error(msg);
     }
 
-    public static void logMessage_Info(Class<? extends Object> from, String msg) {
-        logger = Logger.getLogger(from);
+    public static void logMessageInfo(Class<? extends Object> from, String msg) {
+        Logger logger = LoggerFactory.getLogger(from);
         logger.info(msg);
+    }
+    public static void logMessageDebug(Class<? extends Object> from, String msg) {
+        Logger logger = LoggerFactory.getLogger(from);
+        logger.debug(msg);
+    }
+    public static void logMessageWarn(Class<? extends Object> from, String msg) {
+        Logger logger = LoggerFactory.getLogger(from);
+        logger.warn(msg);
+    }
+    public static void logMessageWarn(Class<? extends Object> from, String msg, Exception e) {
+        Logger logger = LoggerFactory.getLogger(from);
+        logger.warn(msg, e);
     }
 }
