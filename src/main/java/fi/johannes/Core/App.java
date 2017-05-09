@@ -101,17 +101,7 @@ public class App implements CommandLineRunner {
 
         List<String> result = new ArrayList<>();
 
-        ArticleProcessor processor = new ArticleProcessor();
-        // todo parse from args
-        processor.getStates()
-                .removeNumbers()
-                .removeUrls()
-                .removeRemoveTags()
-                .removeSingleCharacters()
-                .removeStopwords()
-                .removeStopwords()
-                .useLemmatization()
-                .useLowercase();
+        ArticleProcessor processor = defaultProcessorConf();
 
         Logging.logMessageError(App.class, "error");
         Logging.logMessageWarn(App.class, "warning");
@@ -146,5 +136,18 @@ public class App implements CommandLineRunner {
             });
         }
 
+    }
+    private ArticleProcessor defaultProcessorConf(){
+        ArticleProcessor processor = new ArticleProcessor();
+        processor.getStates()
+                .removeNumbers()
+                .removeUrls()
+                .removeRemoveTags()
+                .removeSingleCharacters()
+                .removeStopwords()
+                .removeStopwords()
+                .useLemmatization()
+                .useLowercase();
+        return processor;
     }
 }
