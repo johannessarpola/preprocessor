@@ -130,6 +130,9 @@ public class App implements CommandLineRunner {
                     }
                 }
             }
+
+            // todo this need to create vector outputs
+            // todo vector output takes in Multiset<Str> so that it needs to be tokenized again
             result.forEach(r -> {
                 System.out.println("---------");
                 System.out.println(r);

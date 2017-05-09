@@ -26,7 +26,7 @@ public class OutputFactory<E extends Comparable<E>> {
     private int vectorChunks = 25_000;
     
     public OutputFactory(){}
-    // NOTE Multisets are already weighed according to preprocessing stuff before this
+
     /**
      * Creates and outputs vectors to a set folder
      * @param tokens
