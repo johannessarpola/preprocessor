@@ -8,17 +8,22 @@ package fi.johannes.VectorOutput;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -26,18 +31,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class OutputFactoryTest {
 
-    static OutputFactory of;
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
+    static OutputFactory<String> outputFactory;
 
     public OutputFactoryTest() {
     }
 
     /**
-     * Test of createUniverse method, of class OutputFactory.
+     * Test outputFactory createUniverse method, outputFactory class OutputFactory.
      */
     @Test
     public void testCreateMaster() {
 
-        of = new OutputFactory<String>();
+        outputFactory = new OutputFactory<String>();
         Multiset<String> ms = HashMultiset.create();
         ms.add("A");
         ms.add("B");
@@ -47,17 +55,18 @@ public class OutputFactoryTest {
         ms.add("C", 10);
         
         Multiset<String> ms2 = HashMultiset.create();
-        ms.add("A");
-        ms.add("D");
-        ms.add("C");
-        ms.add("A");
-        ms.add("B");
-        ms.add("D", 10);
+        ms2.add("A");
+        ms2.add("D");
+        ms2.add("C");
+        ms2.add("A");
+        ms2.add("B");
+        ms2.add("D", 10);
         
-        List<Multiset<String>> lMs = new ArrayList();
-        lMs.add(ms); lMs.add(ms2);
+        List<Multiset<String>> multisetList = new ArrayList();
+        multisetList.add(ms);
+        multisetList.add(ms2);
         
-        List<String> mstr = of.createUniverse(lMs);
+        List<String> mstr = outputFactory.createUniverse(multisetList);
         List<String> expect = new ArrayList<>();
         expect.add("A"); expect.add("B");  expect.add("C"); expect.add("D"); 
        
@@ -67,13 +76,66 @@ public class OutputFactoryTest {
 
     }
 
+    @Test
+    public void testWriteEntityVectors() throws IOException {
+
+        File file = temporaryFolder.newFolder();
+        String path = file.getAbsolutePath();
+
+        outputFactory = new OutputFactory<String>(path);
+
+        Multiset<String> ms = HashMultiset.create();
+        ms.add("A");
+        ms.add("D");
+        ms.add("C");
+        ms.add("A");
+        ms.add("B");
+        ms.add("D", 10);
+
+        Multiset<String> ms2 = HashMultiset.create();
+        ms2.add("A");
+        ms2.add("D");
+        ms2.add("C");
+        ms2.add("A");
+        ms2.add("B");
+        ms2.add("D", 10);
+
+        Multiset<String> ms3 = HashMultiset.create();
+        ms3.add("A");
+        ms3.add("D");
+        ms3.add("C");
+        ms3.add("A");
+        ms3.add("B");
+        ms3.add("D", 10);
+
+        List<Multiset<String>> multisetList = new ArrayList<>();
+        multisetList.add(ms);
+        multisetList.add(ms2);
+        multisetList.add(ms3);
+
+        outputFactory.writeEntityVectors(multisetList, 1);
+        assertThat(file.listFiles().length, is(3));
+    }
+
+    @Test
+    public void testMultisetToLine() {
+        outputFactory = new OutputFactory<String>();
+        Multiset<String> ms = HashMultiset.create();
+        ms.add("A");
+        ms.add("C", 10);
+
+        String result = outputFactory.multisetToLine(ms);
+        assertTrue(result.contains("A:1"));
+        assertTrue(result.contains("C:10"));
+    }
+
     /**
-     * Test of sortSet method, of class OutputFactory.
+     * Test outputFactory sortSet method, outputFactory class OutputFactory.
      */
     @Test
     public void testSortSet() {
 
-        of = new OutputFactory<String>();
+        outputFactory = new OutputFactory<String>();
         Multiset<String> ms = HashMultiset.create();
         ms.add("A");
         ms.add("B");
@@ -87,7 +149,7 @@ public class OutputFactoryTest {
         Set<String> orig = new HashSet<>(ms);
 
 
-        Set<String> sorted = of.sortSet(set);
+        Set<String> sorted = outputFactory.sortSet(set);
         Assert.assertEquals ("List is not sorted", sorted, orig);
 
 
