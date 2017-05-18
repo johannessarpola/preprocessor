@@ -7,7 +7,7 @@ package fi.johannes.Utilities.Hashing;
 
 import fi.johannes.Utilities.GeneralUtilities;
 import fi.johannes.Utilities.Logging.Logging;
-import fi.johannes.Utilities.S;
+import fi.johannes.Utilities.Shorthands.Str;
 
 import java.util.List;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class HashStore {
                 storeKey(stringList,index,Integer.MAX_VALUE);
             }
             else {
-                Logging.logMessageError(this.getClass(), S.fmt("Hash collision with key: %s", key));
+                Logging.logMessageError(this.getClass(), Str.fmt("Hash collision with key: %s", key));
             }
         }
         else {

@@ -101,7 +101,7 @@ public class App implements CommandLineRunner {
 
         List<String> result = new ArrayList<>();
 
-        ArticleProcessor processor = defaultProcessorConf();
+        ArticleProcessor processor = defaultProcessorConf(); // todo from cli
 
         Logging.logMessageError(App.class, "error");
         Logging.logMessageWarn(App.class, "warning");
