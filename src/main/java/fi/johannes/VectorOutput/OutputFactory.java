@@ -34,13 +34,13 @@ import static fi.johannes.Utilities.Shorthands.Str.fmt;
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class OutputFactory<E extends Comparable<E>> {
-    List<E> universe;
-    List<Multiset<Integer>> intVectors; // used in compressed
-    List<Multiset<E>> entityVectors; // used without compressed
-    String output;
-     int vectorChunks = 25_000;
-     boolean compressed = false;
-     boolean chunkedOutput = false;
+    private List<E> universe;
+    private List<Multiset<Integer>> intVectors; // used in compressed
+    private List<Multiset<E>> entityVectors; // used without compressed
+    private String output;
+    private int vectorChunks = 25_000;
+    private boolean compressed = false;
+    private boolean chunkedOutput = false;
 
 
     OutputFactory() {
@@ -59,7 +59,7 @@ public class OutputFactory<E extends Comparable<E>> {
         universe = createUniverse(tokens);
         if (compressed) {
             intVectors = new ArrayList<>();
-
+            // todo intvectors in which there's glossary of words and then vector is the word index and frequency
             //Multiset<Integer> vector = createIntegerVector(ms, universe);
             //intVectors.add(vector);
         } else {
@@ -88,7 +88,7 @@ public class OutputFactory<E extends Comparable<E>> {
     }
 
 
-     void writeEntityVectors(List<Multiset<E>> entityVectors, int chunkSize) {
+    void writeEntityVectors(List<Multiset<E>> entityVectors, int chunkSize) {
         final List<List<Multiset<E>>> partition = Lists.partition(entityVectors, chunkSize);
         AtomicInteger integer = new AtomicInteger(0);
         partition.parallelStream()
@@ -109,7 +109,7 @@ public class OutputFactory<E extends Comparable<E>> {
         info(this.getClass(), fmt("Vector output done to files in %s with %d chunks", output, integer.get()));
     }
 
-     void writeIntegerVectors() {
+    void writeIntegerVectors() {
         // todo output integer vectors to files
     }
 
