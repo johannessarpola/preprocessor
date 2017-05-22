@@ -38,16 +38,33 @@ public class OutputFactory<E extends Comparable<E>> {
     private List<Multiset<Integer>> intVectors; // used in compressed
     private List<Multiset<E>> entityVectors; // used without compressed
     private String output;
-    private int vectorChunks = 25_000;
     private boolean compressed = false;
     private boolean chunkedOutput = false;
 
+    private OutputBuffer<String> outputBuffer;
+
 
     OutputFactory() {
+        init();
     }
 
     public OutputFactory(String output) {
         this.output = output;
+        init();
+    }
+
+    private void init() {
+        outputBuffer = new OutputBuffer<>();
+        confBuffer();
+    }
+
+    private void confBuffer() {
+        outputBuffer
+                .withBufferSize(25_000)
+                .withFileExtension("txt")
+                .withFileStem("out")
+                .withOutputFolder(output)
+                .withStemDelimeter("_");
     }
 
     /**
@@ -83,30 +100,19 @@ public class OutputFactory<E extends Comparable<E>> {
             writeIntegerVectors();
         } else {
             info(this.getClass(), "Using entity vector output");
-            writeEntityVectors(entityVectors, vectorChunks);
+            writeEntityVectors(entityVectors);
         }
     }
 
-
     void writeEntityVectors(List<Multiset<E>> entityVectors, int chunkSize) {
-        final List<List<Multiset<E>>> partition = Lists.partition(entityVectors, chunkSize);
-        AtomicInteger integer = new AtomicInteger(0);
-        partition.parallelStream()
-                .map(chunk -> {
-                    Stream<String> s = chunk.stream().map(this::multisetToLine);
-                    return new ImmutablePair<>(integer.incrementAndGet(), s);
-                })
-                .forEach(pair -> {
-                    try {
-                        Path outputPath = Paths.get(output, fmt("%s_%d", "out", pair.getLeft()));
-                        List<String> content = pair.getRight().collect(Collectors.toList());
-                        Files.write(outputPath, content, Charset.defaultCharset());
-                    } catch (IOException e) {
-                        warn(this.getClass(), "Could not write vector to output");
-                        e.printStackTrace();
-                    }
-                });
-        info(this.getClass(), fmt("Vector output done to files in %s with %d chunks", output, integer.get()));
+        outputBuffer.withBufferSize(chunkSize);
+        writeEntityVectors(entityVectors);
+    }
+
+    void writeEntityVectors(List<Multiset<E>> entityVectors) {
+        entityVectors.stream().map( e -> multisetToLine(e)).forEach( s -> outputBuffer.append(s));
+        outputBuffer.end();
+        info(this.getClass(), fmt("Vector output done to files in %s folder", output));
     }
 
     void writeIntegerVectors() {
@@ -146,14 +152,6 @@ public class OutputFactory<E extends Comparable<E>> {
 
     public Set<E> sortSet(Set<E> set) {
         return set.parallelStream().sorted().collect(Collectors.toSet());
-    }
-
-    public int getVectorChunks() {
-        return vectorChunks;
-    }
-
-    public void setVectorChunks(int vectorChunks) {
-        this.vectorChunks = vectorChunks;
     }
 
     public boolean isChunkedOutput() {

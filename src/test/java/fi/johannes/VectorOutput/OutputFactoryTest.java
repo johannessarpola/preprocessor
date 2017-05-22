@@ -7,6 +7,7 @@ package fi.johannes.VectorOutput;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import com.google.common.io.Files;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,11 +15,9 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.StringCharacterIterator;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
@@ -86,6 +85,8 @@ public class OutputFactoryTest {
 
         Multiset<String> ms = HashMultiset.create();
         ms.add("A");
+        ms.add("A");
+        ms.add("A");
         ms.add("D");
         ms.add("C");
         ms.add("A");
@@ -106,7 +107,7 @@ public class OutputFactoryTest {
         ms3.add("C");
         ms3.add("A");
         ms3.add("B");
-        ms3.add("D", 10);
+        ms3.add("D", 99);
 
         List<Multiset<String>> multisetList = new ArrayList<>();
         multisetList.add(ms);
@@ -115,6 +116,19 @@ public class OutputFactoryTest {
 
         outputFactory.writeEntityVectors(multisetList, 1);
         assertThat(file.listFiles().length, is(3));
+        List<String> contents = new ArrayList<>();
+        Arrays.stream(file.listFiles()).forEach(f -> {
+            try {
+                contents.add(Files.readFirstLine(f, Charset.defaultCharset()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        assertThat(contents.size(), is(3));
+        assertTrue(contents.contains("A:4,B:1,C:1,D:11"));
+        assertTrue(contents.contains("A:2,B:1,C:1,D:11"));
+        assertTrue(contents.contains("A:2,B:1,C:1,D:100"));
+
     }
 
     @Test
