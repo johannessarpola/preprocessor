@@ -64,7 +64,7 @@ public class OutputFactoryTest {
         List<Multiset<String>> multisetList = new ArrayList();
         multisetList.add(ms);
         multisetList.add(ms2);
-        
+
         List<String> mstr = outputFactory.createUniverse(multisetList);
         List<String> expect = new ArrayList<>();
         expect.add("A"); expect.add("B");  expect.add("C"); expect.add("D"); 
