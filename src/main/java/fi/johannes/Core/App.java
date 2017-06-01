@@ -1,5 +1,6 @@
 package fi.johannes.Core;
 
+import com.google.common.collect.Multiset;
 import com.sun.istack.internal.NotNull;
 import fi.johannes.Abstractions.Cluster;
 import fi.johannes.Core.AppConf.SupportedProcessingMethods;
@@ -9,6 +10,8 @@ import fi.johannes.Utilities.Logging.CustomExceptions.ServiceNotReadyException;
 import fi.johannes.Utilities.Logging.CustomExceptions.UnhandledServiceException;
 import fi.johannes.Utilities.Logging.Logging;
 import fi.johannes.Utilities.Resources.ResourceList;
+import fi.johannes.VectorOutput.OutputFactory;
+import fi.johannes.VectorOutput.OutputUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +20,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.nio.file.NotDirectoryException;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -65,17 +66,16 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Logging.logMessageInfo(App.class, "Using configuration: "+conf.toString());
+        Logging.logMessageInfo(App.class, "Using configuration: " + conf.toString());
 
         this.cli = new AppCli(args).parse();
         Stream<String> input = null;
-        if(this.cli.getState().getInputFolder().isPresent()) {
+        if (this.cli.getState().getInputFolder().isPresent()) {
             String inputPath;
             // there's input folder
-            if(this.cli.getState().getInputFolder().isPresent()) {
+            if (this.cli.getState().getInputFolder().isPresent()) {
                 input = AppIO.streamAllFiles(this.cli.getState().getInputFolder().get());
-            }
-            else {
+            } else {
                 input = AppIO.streamFile(this.cli.getState().getInputFile().get());
             }
         }
@@ -83,15 +83,13 @@ public class App implements CommandLineRunner {
         List<ClusterConnection> cons = this.createClusters();
         // todo move to some other method this if/else
         List<String> documents = new ArrayList<>();
-        if(input != null) {
-            if(cli.getState().getLimitInputRows().isPresent()) {
+        if (input != null) {
+            if (cli.getState().getLimitInputRows().isPresent()) {
                 documents = input.parallel().limit(cli.getState().getLimitInputRows().get()).collect(Collectors.toList());
-            }
-            else {
+            } else {
                 documents = input.parallel().collect(Collectors.toList());
             }
-        }
-        else {
+        } else {
             throw new RuntimeException("Input stream was null");
         }
 
@@ -106,19 +104,29 @@ public class App implements CommandLineRunner {
         Logging.logMessageError(App.class, "error");
         Logging.logMessageWarn(App.class, "warning");
 
+
+        Map<SupportedProcessingStrategy, Collection<Multiset<String>>> multisets = new HashMap<>();
         List<String> processedDocuments = documents.stream().map(processor::processLineToString).collect(Collectors.toList());
+
         for (SupportedProcessingStrategy s : selectedStrategies) {
             for (ClusterConnection connection : cons) {
                 if (connection.getStrategies().contains(s)) {
+
                     Cluster c = connection.getCluster();
                     c.buildStrategy(s, processedDocuments);
                     c.selectStrategy(s);
                     c.setBiasingSize(5);
+
                     if (c.isClusterReady()) {
                         List<String> collect = processedDocuments.parallelStream()
                                 .map(line -> {
                                     try {
-                                        return s.toString()+"| "+c.processLine(line, SupportedProcessingMethods.Replace);
+                                        String processed = s.toString() + "| " + c.processLine(line, SupportedProcessingMethods.Append);
+                                        if (!multisets.containsKey(s)) {
+                                            multisets.put(s, new ArrayList<>());
+                                        }
+                                        multisets.get(s).add(OutputUtils.toMultiset(processed));
+                                        return processed;
                                     } catch (ServiceNotReadyException | ClusterNoteadyException | UnhandledServiceException e) {
                                         e.printStackTrace();
                                         return "";
@@ -130,17 +138,23 @@ public class App implements CommandLineRunner {
                     }
                 }
             }
-
-            // todo this need to create vector outputs
-            // todo vector output takes in Multiset<Str> so that it needs to be tokenized again
-            result.forEach(r -> {
-                System.out.println("---------");
-                System.out.println(r);
-            });
         }
 
+        // todo for some reasons output are duplicated in outputFactory
+        OutputFactory<String> outputFactory = defaultOutputFactoryConf();
+        multisets.forEach((supportedProcessingStrategy, strings) -> {
+            outputFactory.withSubfolder(supportedProcessingStrategy.name());
+            outputFactory.createVectors(strings);
+            try {
+                outputFactory.writeVectors();
+            } catch (NotDirectoryException e) {
+                e.printStackTrace();
+            }
+
+        });
     }
-    private ArticleProcessor defaultProcessorConf(){
+
+    private ArticleProcessor defaultProcessorConf() {
         ArticleProcessor processor = new ArticleProcessor();
         processor.getStates()
                 .removeNumbers()
@@ -148,9 +162,18 @@ public class App implements CommandLineRunner {
                 .removeRemoveTags()
                 .removeSingleCharacters()
                 .removeStopwords()
-                .removeStopwords()
                 .useLemmatization()
                 .useLowercase();
         return processor;
+    }
+
+    private OutputFactory<String> defaultOutputFactoryConf() {
+        String output = this.cli.getState().getOutputFolder().isPresent() ? this.cli.getState().getOutputFolder().get() : ".out";
+        return new OutputFactory<String>()
+                .withChunkSize(1000)
+                .withChunkedOutput(true)
+                .withCompression(false)
+                .withOutput(output);
+
     }
 }

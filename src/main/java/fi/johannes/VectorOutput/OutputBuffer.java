@@ -4,9 +4,7 @@ import fi.johannes.Utilities.Shorthands.Log;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,6 +22,7 @@ public class OutputBuffer<T> {
     private String stemDelimeter = "_";
     private String fileExtension = "txt";
     private String outputFolder = "output";
+    private String subfolder = "";
 
     public OutputBuffer(int bufferSize) {
         this.bufferSize = bufferSize;
@@ -58,15 +57,32 @@ public class OutputBuffer<T> {
         } catch (IOException e) {
             e.printStackTrace(); // todo logging
         }
+        this.buffer.clear();
     }
 
     private void output() throws IOException {
-        Path path = buildPath();
+        makeDirectories();
+        Path path = buildPaths();
         Files.write(path, (Iterable<String>) buffer.stream().map(Object::toString)::iterator, Charset.defaultCharset());
         Log.info(this.getClass(), "Written output to file: "+path.toString());
     }
 
-    private Path buildPath() {
+    private void makeDirectories() throws IOException {
+        Path rootFolder;
+        if(!subfolder.isEmpty()) {
+            rootFolder = Paths.get(outputFolder, subfolder);
+        }
+        else {
+            rootFolder = Paths.get(outputFolder);
+        }
+        if(!Files.exists(rootFolder)) {
+            Files.createDirectories(rootFolder);
+        }
+    }
+    private Path buildPaths() {
+        if(!subfolder.isEmpty()) {
+            return Paths.get(outputFolder, subfolder, (fileStem + stemDelimeter + this.index.incrementAndGet() + "." + fileExtension));
+        }
         return Paths.get(outputFolder, (fileStem + stemDelimeter + this.index.incrementAndGet() + "." + fileExtension));
     }
 
@@ -94,7 +110,21 @@ public class OutputBuffer<T> {
         return this;
     }
 
+    public OutputBuffer<T> withSubfolder(String subfolder) {
+        this.subfolder = subfolder;
+        return this;
+    }
+
     public Integer getBufferSize() {
         return bufferSize;
+    }
+
+
+    public void setBufferSize(Integer bufferSize) {
+        this.bufferSize = bufferSize;
+    }
+
+    public String getOutputFolder() {
+        return outputFolder;
     }
 }

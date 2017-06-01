@@ -5,51 +5,44 @@
  */
 package fi.johannes.VectorOutput;
 
-import com.google.common.collect.Lists;
 import fi.johannes.Utilities.File.CFolderOperations;
-import fi.johannes.Utilities.Logging.Logging;
-import fi.johannes.Utilities.Shorthands.Str;
 import fi.johannes.VectorOutput.Vector.TokenVector;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static fi.johannes.Utilities.Shorthands.Log.info;
-import static fi.johannes.Utilities.Shorthands.Log.warn;
 import static fi.johannes.Utilities.Shorthands.Str.fmt;
 
 /**
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
  */
 public class OutputFactory<E extends Comparable<E>> {
-    private List<E> universe;
-    private List<Multiset<Integer>> intVectors; // used in compressed
-    private List<Multiset<E>> entityVectors; // used without compressed
-    private String output;
+
+    private Collection<E> universe;
+    private Collection<Multiset<Integer>> intVectors; // used in compressed
+    private Collection<Multiset<E>> entityVectors; // used without compressed
+
     private boolean compressed = false;
     private boolean chunkedOutput = false;
+    private final String defaultOutput;
+    private final int defaultChunkSize = 25_000;
 
     private OutputBuffer<String> outputBuffer;
 
 
-    OutputFactory() {
+    public OutputFactory() {
+        this.defaultOutput = ".out";
         init();
     }
 
-    public OutputFactory(String output) {
-        this.output = output;
+    public OutputFactory(String defaultOutput) {
+        this.defaultOutput = defaultOutput;
         init();
     }
 
@@ -60,10 +53,10 @@ public class OutputFactory<E extends Comparable<E>> {
 
     private void confBuffer() {
         outputBuffer
-                .withBufferSize(25_000)
+                .withBufferSize(defaultChunkSize)
                 .withFileExtension("txt")
                 .withFileStem("out")
-                .withOutputFolder(output)
+                .withOutputFolder(defaultOutput)
                 .withStemDelimeter("_");
     }
 
@@ -72,9 +65,9 @@ public class OutputFactory<E extends Comparable<E>> {
      *
      * @param tokens
      */
-    public void createVectors(List<Multiset<E>> tokens) {
-        universe = createUniverse(tokens);
+    public void createVectors(Collection<Multiset<E>> tokens) {
         if (compressed) {
+            universe = createUniverse(tokens);
             intVectors = new ArrayList<>();
             // todo intvectors in which there's glossary of words and then vector is the word index and frequency
             //Multiset<Integer> vector = createIntegerVector(ms, universe);
@@ -89,34 +82,35 @@ public class OutputFactory<E extends Comparable<E>> {
             }
         }
 
+
     }
 
     public void writeVectors() throws NotDirectoryException {
-        List<TokenVector> chunks = new ArrayList<>();
-        File folder = CFolderOperations.createFolder(output);
-        info(this.getClass(), "Started outputting vectors to " + output);
+        Collection<TokenVector> chunks = new ArrayList<>();
+        info(this.getClass(), "Started outputting vectors to " + outputBuffer.getOutputFolder());
         if (compressed) {
-            info(this.getClass(), "Using compressed vector output");
+            info(this.getClass(), "Using compressed vector defaultOutput");
             writeIntegerVectors();
         } else {
-            info(this.getClass(), "Using entity vector output");
+            info(this.getClass(), "Using entity vector defaultOutput");
             writeEntityVectors(entityVectors);
         }
     }
 
-    void writeEntityVectors(List<Multiset<E>> entityVectors, int chunkSize) {
+    void writeEntityVectors(Collection<Multiset<E>> entityVectors, int chunkSize) {
         outputBuffer.withBufferSize(chunkSize);
         writeEntityVectors(entityVectors);
     }
 
-    void writeEntityVectors(List<Multiset<E>> entityVectors) {
-        entityVectors.stream().map( e -> multisetToLine(e)).forEach( s -> outputBuffer.append(s));
+    void writeEntityVectors(Collection<Multiset<E>> entityVectors) {
+        entityVectors.stream().map(this::multisetToLine).forEach(s -> outputBuffer.append(s));
         outputBuffer.end();
-        info(this.getClass(), fmt("Vector output done to files in %s folder", output));
+        info(this.getClass(), fmt("Vector defaultOutput done to files in %s folder", defaultOutput));
     }
 
     void writeIntegerVectors() {
-        // todo output integer vectors to files
+        // todo defaultOutput integer vectors to files
+        throw new NotImplementedException("writeIntegerVectors not done");
     }
 
     /**
@@ -134,8 +128,8 @@ public class OutputFactory<E extends Comparable<E>> {
         return multiset;
     }
 
-    // Take in a line and output a vector
-    public List<E> createUniverse(List<Multiset<E>> tokens) {
+    // Take in a line and defaultOutput a vector
+    public List<E> createUniverse(Collection<Multiset<E>> tokens) {
         Set<E> setMaster = tokens.parallelStream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
@@ -168,6 +162,46 @@ public class OutputFactory<E extends Comparable<E>> {
 
     public void setCompressed(boolean compressed) {
         this.compressed = compressed;
+    }
+
+    public OutputFactory<E> withChunkedOutput(boolean chunkedOutput) {
+        this.chunkedOutput = chunkedOutput;
+        return this;
+    }
+
+    public OutputFactory<E> withCompression(boolean compressed) {
+        this.compressed = compressed;
+        return this;
+    }
+
+    public OutputFactory<E> withOutput(String output) {
+        outputBuffer.withOutputFolder(output);
+        return this;
+    }
+
+    public OutputFactory<E> withChunkSize(int chunkSize) {
+        outputBuffer.setBufferSize(chunkSize);
+        return this;
+    }
+
+    public OutputFactory<E> withFileStem(String stem) {
+        outputBuffer.withFileStem(stem);
+        return this;
+    }
+
+    public OutputFactory<E> withExtension(String extension) {
+        outputBuffer.withFileExtension(extension);
+        return this;
+    }
+
+    public OutputFactory<E> withStemDelimeter(String delimeter) {
+        outputBuffer.withStemDelimeter(delimeter);
+        return this;
+    }
+
+    public OutputFactory<E> withSubfolder(String subfolder) {
+        outputBuffer.withSubfolder(subfolder);
+        return this;
     }
 
 }
