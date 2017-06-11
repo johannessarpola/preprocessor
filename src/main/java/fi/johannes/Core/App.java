@@ -108,6 +108,7 @@ public class App implements CommandLineRunner {
             for (ClusterConnection connection : cons) {
                 if (connection.getStrategies().contains(s)) {
 
+                    // note that keywords first needs some kind of normalization since it has way higher counts
                     Cluster c = connection.getCluster();
                     c.buildStrategy(s, processedDocuments);
                     c.selectStrategy(s);
@@ -131,6 +132,7 @@ public class App implements CommandLineRunner {
                                 .filter(str -> !str.isEmpty())
                                 .collect(Collectors.toList());
                         result.addAll(collect);
+                        c.clear();
                     }
                 }
             }
