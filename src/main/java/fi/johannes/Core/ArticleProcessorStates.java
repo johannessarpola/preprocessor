@@ -22,6 +22,16 @@ public class ArticleProcessorStates {
     private boolean useLowercaseOnly = true;
     private boolean useRemovePunctuationMarks = true;
     private boolean useRemoveSingleCharacters = true;
+
+    public boolean isUseReplacePunctuationMarksWithSpaces() {
+        return useReplacePunctuationMarksWithSpaces;
+    }
+
+    public void setUseReplacePunctuationMarksWithSpaces(boolean useReplacePunctuationMarksWithSpaces) {
+        this.useReplacePunctuationMarksWithSpaces = useReplacePunctuationMarksWithSpaces;
+    }
+
+    private boolean useReplacePunctuationMarksWithSpaces = false;
     
     public ArticleProcessorStates() {
     }
@@ -68,44 +78,20 @@ public class ArticleProcessorStates {
         usePorterstemmer = !aUseStanfordLemmatizer;
     }
 
-    public void setUseRemoveURLs(boolean aUseRemoveURLs) {
-        useRemoveURLs = aUseRemoveURLs;
-    }
-
-    public void setUseRemoveNumbers(boolean aUseRemoveNumbers) {
-        useRemoveNumbers = aUseRemoveNumbers;
-    }
-
     public boolean isUseRemoveTags() {
         return useRemoveTags;
-    }
-
-    public void setUseRemoveTags(boolean useRemoveTags) {
-        this.useRemoveTags = useRemoveTags;
     }
 
     public boolean isUseLowercaseOnly() {
         return useLowercaseOnly;
     }
 
-    public void setUseLowercaseOnly(boolean useLowercaseOnly) {
-        this.useLowercaseOnly = useLowercaseOnly;
-    }
-
     public boolean isUseRemovePunctuationMarks() {
         return useRemovePunctuationMarks;
     }
 
-    public void setUseRemovePunctuationMarks(boolean useRemovePunctuationMarks) {
-        this.useRemovePunctuationMarks = useRemovePunctuationMarks;
-    }
-
     public boolean isUseRemoveSingleCharacters() {
         return useRemoveSingleCharacters;
-    }
-
-    public void setUseRemoveSingleCharacters(boolean useRemoveSingleCharacters) {
-        this.useRemoveSingleCharacters = useRemoveSingleCharacters;
     }
 
     public ArticleProcessorStates useLowercase() {
@@ -148,6 +134,10 @@ public class ArticleProcessorStates {
     }
     public ArticleProcessorStates removeSpecialCharacters() {
         this.useRemoveSpecialCharacters = true;
+        return this;
+    }
+    public ArticleProcessorStates replacePunctuationWithSpace() {
+        this.useReplacePunctuationMarksWithSpaces = true;
         return this;
     }
 }

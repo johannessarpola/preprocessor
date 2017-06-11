@@ -151,6 +151,7 @@ public class App implements CommandLineRunner {
                 .removeUrls()
                 .removeRemoveTags()
                 .removeSingleCharacters()
+                .replacePunctuationWithSpace()
                 .removeStopwords()
                 .useLemmatization()
                 .useLowercase();

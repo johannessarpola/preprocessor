@@ -32,10 +32,10 @@ public class ArticleProcessor {
 
     private Stemmer stemmer;
     private Lemmatizer lemmatizer;
-    private Stopwords sw;
+    private Stopwords swObj;
 
     private Splitter guavaSplitter;
-    private CharMatcher guavaCharMatcher;
+    private CharMatcher puntuationCharMatcher;
     private Set<String> stopWords;
     private ArticleProcessorStates states;
 
@@ -48,8 +48,8 @@ public class ArticleProcessor {
     }
 
     private void init() {
-        this.guavaCharMatcher = CharMatcher.anyOf("-_!@#$%*()_+{}:\"'\\,./<>?|[]`~=;");
-        this.sw = new Stopwords();
+        this.puntuationCharMatcher = CharMatcher.anyOf("-_!@#$%*()_+{}:\"'\\,./<>?|[]`~=;");
+        this.swObj = new Stopwords();
         this.stemmer = new Stemmer();
         this.states = new ArticleProcessorStates();
         this.lemmatizer = new Lemmatizer();
@@ -82,20 +82,15 @@ public class ArticleProcessor {
      */
     public List<String> processLineToList(String line) {
         List<String> tokens = getSplitter().splitToList(line);
-        // MultiSet is a Set where count of occurencies are stored also
-       List<String> cleanTokens = new ArrayList<String>();
+
         // Lemmatizer need to operate on the sentence level because it uses PoS tagging
         if(states.isUseStanfordLemmatizer()) {
             tokens = lemmatizer.lemmatize(line);
         }
-        for (String token : tokens) {
-            String cleanWord = processWord(token);
-            if (cleanWord != null) {
-                cleanTokens.add(cleanWord);
-            }
-        }
-        // TODO Add concepts and weigts
-        return cleanTokens;
+        return tokens.stream()
+                .map(this::processWord)
+                .filter(s -> !(s != null && s.isEmpty()))
+                .collect(Collectors.toList());
     }
     
     public String processWord(String token) {
@@ -103,9 +98,12 @@ public class ArticleProcessor {
             token = removeTags(token, getCharMatcher()); // Removes [Word] <Word> and such
         }
         if(states.isUseRemoveURLs()) {
+            // you could also increase the weight of urls if it is concluded to be important
             token = removeUrl(token); // remove urls
         }
-        // you could also increase the weight of urls if it is concluded to be important
+        if(states.isUseReplacePunctuationMarksWithSpaces()) {
+            token = getCharMatcher().replaceFrom(token, " ");
+        }
         //String noPunctLowerCase = getCharMatcher().removeFrom(token).toLowerCase();
         if(states.isUseRemovePunctuationMarks()) {
             token = getCharMatcher().removeFrom(token);
@@ -139,11 +137,11 @@ public class ArticleProcessor {
     }
 
     public CharMatcher getCharMatcher() {
-        return guavaCharMatcher;
+        return puntuationCharMatcher;
     }
 
-    public Stopwords getSw() {
-        return sw;
+    public Stopwords getSwObj() {
+        return swObj;
     }
 
     public Stemmer getStemmer() {
