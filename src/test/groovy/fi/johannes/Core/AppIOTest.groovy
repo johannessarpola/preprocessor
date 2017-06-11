@@ -15,7 +15,7 @@ class AppIOTest extends Specification {
         String p = App.getResource("io-testing").getFile().getAbsolutePath();
 
         when:
-        Stream<String> stream = AppIO.streamAllFiles(p);
+        Stream<String> stream = AppIO.readStreamsForFiles(p);
         List<String> streamList = stream.collect(Collectors.toList())
 
         then:
@@ -31,7 +31,7 @@ class AppIOTest extends Specification {
         String p = App.getResource("io-testing/first.txt").getFile().getAbsolutePath();
 
         when:
-        Stream<String> stream = AppIO.streamAllFiles(p);
+        Stream<String> stream = AppIO.readStreamsForFiles(p);
         String join = stream.collect(Collectors.joining(""))
 
         then:

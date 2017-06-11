@@ -74,9 +74,9 @@ public class App implements CommandLineRunner {
             String inputPath;
             // there's input folder
             if (this.cli.getState().getInputFolder().isPresent()) {
-                input = AppIO.streamAllFiles(this.cli.getState().getInputFolder().get());
+                input = AppIO.readStreamsForFiles(this.cli.getState().getInputFolder().get());
             } else {
-                input = AppIO.streamFile(this.cli.getState().getInputFile().get());
+                input = AppIO.readStreamForFile(this.cli.getState().getInputFile().get());
             }
         }
 
@@ -101,10 +101,6 @@ public class App implements CommandLineRunner {
 
         ArticleProcessor processor = defaultProcessorConf(); // todo from cli
 
-        Logging.logMessageError(App.class, "error");
-        Logging.logMessageWarn(App.class, "warning");
-
-
         Map<SupportedProcessingStrategy, Collection<Multiset<String>>> multisets = new HashMap<>();
         List<String> processedDocuments = documents.stream().map(processor::processLineToString).collect(Collectors.toList());
 
@@ -121,7 +117,7 @@ public class App implements CommandLineRunner {
                         List<String> collect = processedDocuments.parallelStream()
                                 .map(line -> {
                                     try {
-                                        String processed = s.toString() + "| " + c.processLine(line, SupportedProcessingMethods.Append);
+                                        String processed = c.processLine(line, SupportedProcessingMethods.Append);
                                         if (!multisets.containsKey(s)) {
                                             multisets.put(s, new ArrayList<>());
                                         }
@@ -145,12 +141,6 @@ public class App implements CommandLineRunner {
         multisets.forEach((supportedProcessingStrategy, strings) -> {
             outputFactory.withSubfolder(supportedProcessingStrategy.name());
             outputFactory.createVectors(strings);
-            try {
-                outputFactory.writeVectors();
-            } catch (NotDirectoryException e) {
-                e.printStackTrace();
-            }
-
         });
     }
 

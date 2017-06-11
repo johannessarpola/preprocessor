@@ -18,7 +18,7 @@ public class AppIO {
      * @return
      * @throws IOException
      */
-    public static Stream<String> streamAllFiles(String inputFolder) throws IOException {
+    public static Stream<String> readStreamsForFiles(String inputFolder) throws IOException {
         return Files.walk(Paths.get(inputFolder))
                 .filter(Files::isRegularFile)
                 .flatMap(f -> {
@@ -37,7 +37,7 @@ public class AppIO {
      * @return
      * @throws IOException
      */
-    public static Stream<String> streamFile(String file) throws IOException {
+    public static Stream<String> readStreamForFile(String file) throws IOException {
         return Files.lines(Paths.get(file));
     }
 }

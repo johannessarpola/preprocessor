@@ -46,7 +46,6 @@ public class OutputBuffer<T> {
             } catch (IOException e) {
                 e.printStackTrace(); // todo logging
             }
-            this.buffer.clear();
         }
         this.buffer.push(element);
     }
@@ -57,14 +56,19 @@ public class OutputBuffer<T> {
         } catch (IOException e) {
             e.printStackTrace(); // todo logging
         }
-        this.buffer.clear();
     }
 
     private void output() throws IOException {
-        makeDirectories();
-        Path path = buildPaths();
-        Files.write(path, (Iterable<String>) buffer.stream().map(Object::toString)::iterator, Charset.defaultCharset());
-        Log.info(this.getClass(), "Written output to file: "+path.toString());
+        if(buffer.size() >= 0) {
+            makeDirectories();
+            Path path = buildPaths();
+            Files.write(path, (Iterable<String>) buffer.stream().map(Object::toString)::iterator, Charset.defaultCharset());
+            Log.info(this.getClass(), "Written output to file: "+path.toString());
+            this.buffer.clear();
+        }
+        else {
+            Log.info(this.getClass(), "No buffer to write");
+        }
     }
 
     private void makeDirectories() throws IOException {
