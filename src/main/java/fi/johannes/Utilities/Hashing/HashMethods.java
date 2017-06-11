@@ -36,7 +36,7 @@ public class HashMethods {
      */
     static String createHashKey(List<String> line, int sizeToDigest) {
         String digestation = "";
-        if (line.size() < sizeToDigest) {
+        if (line.size() <= sizeToDigest) {
             sizeToDigest = line.size() - 1;
         }
         for (int i = 0; i <= sizeToDigest; i++) {

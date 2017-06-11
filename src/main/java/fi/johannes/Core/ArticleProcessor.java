@@ -87,10 +87,11 @@ public class ArticleProcessor {
         if(states.isUseStanfordLemmatizer()) {
             tokens = lemmatizer.lemmatize(line);
         }
-        return tokens.stream()
+        List<String> collect = tokens.stream()
                 .map(this::processWord)
-                .filter(s -> !(s != null && s.isEmpty()))
+                .filter(s -> (s != null && !s.isEmpty()))
                 .collect(Collectors.toList());
+        return collect;
     }
     
     public String processWord(String token) {

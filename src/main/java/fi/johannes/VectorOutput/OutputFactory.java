@@ -5,15 +5,17 @@
  */
 package fi.johannes.VectorOutput;
 
-import fi.johannes.Utilities.File.CFolderOperations;
-import fi.johannes.VectorOutput.Vector.TokenVector;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.Multisets;
+import fi.johannes.VectorOutput.Vector.TokenVector;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.io.File;
 import java.nio.file.NotDirectoryException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static fi.johannes.Utilities.Shorthands.Log.info;
@@ -30,6 +32,7 @@ public class OutputFactory<E extends Comparable<E>> {
 
     private boolean compressed = false;
     private boolean chunkedOutput = false;
+    private boolean sortedOutput = true;
     private final String defaultOutput;
     private final int defaultChunkSize = 25_000;
 
@@ -73,7 +76,13 @@ public class OutputFactory<E extends Comparable<E>> {
             //Multiset<Integer> vector = createIntegerVector(ms, universe);
             //intVectors.add(vector);
         } else {
-            entityVectors = tokens;
+            if(sortedOutput) {
+                // sort multiset
+                entityVectors = tokens.stream().map(Multisets::copyHighestCountFirst).collect(Collectors.toList());
+            }
+            else {
+                entityVectors = tokens;
+            }
             try {
                 writeVectors();
             } catch (NotDirectoryException e) {
@@ -204,4 +213,8 @@ public class OutputFactory<E extends Comparable<E>> {
         return this;
     }
 
+    public OutputFactory<E> withSortedOutput(boolean sortedOutput) {
+        this.sortedOutput = sortedOutput;
+        return this;
+    }
 }
