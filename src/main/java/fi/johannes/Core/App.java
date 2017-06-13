@@ -20,13 +20,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.nio.file.NotDirectoryException;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static fi.johannes.Core.AppConf.SupportedProcessingStrategy.*;
 
 @SpringBootApplication
 public class App implements CommandLineRunner {
@@ -95,7 +92,7 @@ public class App implements CommandLineRunner {
 
         // todo from cli as well
         List<AppConf.SupportedProcessingStrategy> selectedStrategies
-                = Arrays.asList(TFIDF_Keywords, TFIDF_WordNgram, TFIDF_KeywordsFirst, WikipediaTitles);
+                = Arrays.asList(SupportedProcessingStrategy.values());
 
         List<String> result = new ArrayList<>();
 
@@ -140,10 +137,27 @@ public class App implements CommandLineRunner {
 
         // todo for some reasons output are duplicated in outputFactory
         OutputFactory<String> outputFactory = defaultOutputFactoryConf();
+        writeDefaultVectors(documents, outputFactory, "unprocessed");
+        writeDefaultVectors(processedDocuments, outputFactory, "processed");
+        writeEntityVectors(multisets, outputFactory);
+    }
+
+    private static void writeEntityVectors(Map<SupportedProcessingStrategy, Collection<Multiset<String>>> multisets
+            , OutputFactory<String> outputFactory) {
         multisets.forEach((supportedProcessingStrategy, strings) -> {
             outputFactory.withSubfolder(supportedProcessingStrategy.name());
             outputFactory.createVectors(strings);
         });
+    }
+
+    private static void writeDefaultVectors(Collection<String> documents, OutputFactory<String> outputFactory, String folder) {
+        Collection<Multiset<String>> documentsMultisets = new ArrayList<>();
+
+        documents.forEach(s -> {
+            documentsMultisets.add(OutputUtils.toMultiset(s));
+        });
+        outputFactory.withSubfolder(folder);
+        outputFactory.createVectors(documentsMultisets);
     }
 
     private ArticleProcessor defaultProcessorConf() {
