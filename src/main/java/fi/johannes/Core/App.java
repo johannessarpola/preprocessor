@@ -78,7 +78,7 @@ public class App implements CommandLineRunner {
         }
 
         List<ClusterConnection> cons = this.createClusters();
-        // todo move to some other method this if/else
+
         List<String> documents = new ArrayList<>();
         if (input != null) {
             if (cli.getState().getLimitInputRows().isPresent()) {
@@ -90,7 +90,6 @@ public class App implements CommandLineRunner {
             throw new RuntimeException("Input stream was null");
         }
 
-        // todo from cli as well
         List<AppConf.SupportedProcessingStrategy> selectedStrategies
                 = Arrays.asList(SupportedProcessingStrategy.values());
 
@@ -132,7 +131,6 @@ public class App implements CommandLineRunner {
             }
         }
 
-        // todo for some reasons output are duplicated in outputFactory
         OutputFactory<String> outputFactory = defaultOutputFactoryConf();
         writeDefaultVectors(documents, outputFactory, "unprocessed");
         writeDefaultVectors(processedDocuments, outputFactory, "processed");
