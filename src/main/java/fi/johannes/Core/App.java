@@ -94,8 +94,6 @@ public class App implements CommandLineRunner {
         List<AppConf.SupportedProcessingStrategy> selectedStrategies
                 = Arrays.asList(SupportedProcessingStrategy.values());
 
-        List<String> result = new ArrayList<>();
-
         ArticleProcessor processor = defaultProcessorConf(); // todo from cli
 
         Map<SupportedProcessingStrategy, Collection<Multiset<String>>> multisets = new HashMap<>();
@@ -128,7 +126,6 @@ public class App implements CommandLineRunner {
                                 })
                                 .filter(str -> !str.isEmpty())
                                 .collect(Collectors.toList());
-                        result.addAll(collect);
                         c.clear();
                     }
                 }
