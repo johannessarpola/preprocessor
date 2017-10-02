@@ -11,6 +11,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static junit.framework.Assert.*;
+
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
@@ -38,13 +40,13 @@ public class URLRemoverTest {
         for (String s : urls) {
             System.out.print(s + " ");
             boolean result = URLRemover.testForUrl(s);
-            Assert.assertTrue(result);
+            assertTrue(result);
 
         }
         for (String s : noturls) {
             System.out.print(s + " ");        
             boolean result = URLRemover.testForUrl(s);
-            Assert.assertFalse(result);
+            assertFalse(result);
 
         }
 

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.Assert.*;
+
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
@@ -73,7 +75,7 @@ public class KeywordExtractorTest {
         ls.add("Giraffe Cat Dog");
         String[] expect = {"Bird", "Horse", "Giraffe"};
         instance.build(ls);
-        Assert.assertTrue(instance.isServiceReady());
+        assertTrue(instance.isServiceReady());
         List<String> results = new ArrayList<>();
         if (instance.isServiceReady()) {
             int i = 0;
@@ -81,17 +83,17 @@ public class KeywordExtractorTest {
             for (String st : ls) {
                 String s = instance.processLine(st, SupportedProcessingMethods.Append, 1);
                 System.out.println(i + " : " + s);
-                Assert.assertEquals(st + " " + expect[i] + " ", s);
+                assertEquals(st + " " + expect[i] + " ", s);
                 i++;
                 results.add(s);
             }
-            Assert.assertTrue(results.size() == ls.size());
+            assertTrue(results.size() == ls.size());
         } else {
             System.out.println("Services wasn't ready");
         }
 
         instance.clear();
-        Assert.assertFalse(instance.isServiceReady());
+        assertFalse(instance.isServiceReady());
     }
 
     @Test
@@ -109,12 +111,12 @@ public class KeywordExtractorTest {
         // Stems and removes stopwords
         for (String s : ls) {
             String pr = apr.processLineToString(s);
-            Assert.assertTrue(pr.length() < s.length());
+            assertTrue(pr.length() < s.length());
             lspr.add(i, pr);
             i++;
         }
         instance.build(lspr);
-        Assert.assertTrue(instance.isServiceReady());
+        assertTrue(instance.isServiceReady());
         int sizeofbiasing = 15;
         //pw.setBiasingSize(sizeofbiasing);
         ls = null;
@@ -124,7 +126,7 @@ public class KeywordExtractorTest {
             result.add(ll);
             System.out.println(ll);
             String[] la = ll.split(" ");
-            Assert.assertEquals(sizeofbiasing, la.length);
+            assertEquals(sizeofbiasing, la.length);
         }
         // Test for only singular words
         for (String r : result) {
@@ -147,14 +149,14 @@ public class KeywordExtractorTest {
                         words.remove(indx);
                     }
                     counter++;
-                    Assert.assertTrue(counter < 2);
+                    assertTrue(counter < 2);
                 }
 
             }
         }
 
         instance.clear();
-        Assert.assertFalse(instance.isServiceReady());
+        assertFalse(instance.isServiceReady());
     }
 
     /**

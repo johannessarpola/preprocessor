@@ -17,6 +17,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.*;
+
 /**
  *
  * @author Johannes Sarpola <johannes.sarpola@gmail.com>
@@ -54,7 +56,7 @@ public class CombinedExtractorTest {
         ls.add("Dog Cat Cat Horse Giraffe Cat Elephant");
         String[] expect = {"Dog Cat Bird", "Dog Cat Horse", "Giraffe Cat Dog", "Cat", "Cat"};
         instance.build(ls);
-        Assert.assertTrue(instance.isServiceReady());
+        assertTrue(instance.isServiceReady());
         List<String> results = new ArrayList<>();
         if (instance.isServiceReady()) {
             int i = 0;
@@ -63,17 +65,17 @@ public class CombinedExtractorTest {
                 String s = instance.processLine(st,SupportedProcessingMethods.Append, 1);
                 s = s.substring(st.length()+1, s.length());
                 System.out.println(i + " : " + s);
-                Assert.assertEquals(expect[i], s);
+                assertEquals(expect[i], s);
                 i++;
                 results.add(s);
             }
-            Assert.assertTrue(results.size() == ls.size());
+            assertTrue(results.size() == ls.size());
         } else {
             System.out.println("Services wasn't ready");
         }
 
         instance.clear();
-        Assert.assertFalse(instance.isServiceReady());
+        assertFalse(instance.isServiceReady());
     }
 
 
