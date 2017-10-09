@@ -27,9 +27,9 @@ public class AppCli {
         state = new AppState();
         options.addOption("h", "help", false, "show help.");
         options.addOption("v", "var", true, "Here you can set parameter .");
-        options.addOption("i", "input", true, "Input documents folder");
-        options.addOption("if", "input-file", true, "Input file folder");
-        options.addOption("o", "output", true, "Output vectors folder");
+        options.addOption("i", "input", true, "Input folder"); // todo can just use i and check if it's folder or file
+        options.addOption("if", "input", true, "Input file");
+        options.addOption("o", "output", true, "Output vectors folder"); // todo same as above
         options.addOption("of", "output-file", true, "Output vectors file");
         options.addOption("li", "limit-input", true, "Limit input rows");
     }
